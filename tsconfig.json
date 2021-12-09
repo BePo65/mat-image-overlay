@@ -11,15 +11,25 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
-    "experimentalDecorators": true,
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2017",
     "module": "es2020",
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "angular-material-image-overlay": [
+        "dist/angular-material-image-overlay/angular-material-image-overlay",
+        "dist/angular-material-image-overlay"
+      ],
+      "angular-material-image-overlay/*": [
+        "dist/angular-material-image-overlay/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
