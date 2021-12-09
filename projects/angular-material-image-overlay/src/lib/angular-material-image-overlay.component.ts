@@ -32,8 +32,8 @@ export class AngularMaterialImageOverlayComponent {
     return 0;
   }
 
-  // TODO: Can we make this private?
-  @HostListener('document:keydown', ['$event']) handleKeydown(event: KeyboardEvent) {
+  @HostListener('document:keydown', ['$event'])
+  private handleKeydown(event: KeyboardEvent) {
     this.onKeydown.next(event.key);
   }
 
