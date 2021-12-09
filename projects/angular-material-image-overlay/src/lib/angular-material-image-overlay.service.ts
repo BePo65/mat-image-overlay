@@ -9,14 +9,14 @@ import { AngularMaterialImageOverlayModule } from './angular-material-image-over
   providedIn: AngularMaterialImageOverlayModule
 })
 export class AngularMaterialImageOverlayService {
-  imageOverlayComponentRef: ComponentRef<AngularMaterialImageOverlayComponent>;
-  overlayRef: OverlayRef;
+  imageOverlayComponentRef!: ComponentRef<AngularMaterialImageOverlayComponent>;
+  overlayRef!: OverlayRef;
   constructor(
       private injector: Injector,
       private overlay: Overlay) {
   }
 
-  private buildInjector(images: string[], currentImage): PortalInjector {
+  private buildInjector(images: string[], currentImage?: string): PortalInjector {
     const injectionTokens = new WeakMap();
     const imageOverlayData: ImageOverlayData = {images: images, currentImage: currentImage};
     injectionTokens.set(IMAGE_OVERLAY_DATA_TOKEN, imageOverlayData);

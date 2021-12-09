@@ -21,7 +21,7 @@ export class AngularMaterialImageOverlayComponent {
 
   constructor(@Inject(IMAGE_OVERLAY_DATA_TOKEN) public imageOverlayData: ImageOverlayData) {
     this.images = imageOverlayData.images;
-    this.currentImageIndex = this.obtainCurrentImageIndex(imageOverlayData.currentImage);
+    this.currentImageIndex = this.obtainCurrentImageIndex(imageOverlayData.currentImage as string);
     this.currentImage = this.images[this.currentImageIndex]
   }
 
