@@ -108,6 +108,15 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -241,6 +250,15 @@
             "main": "projects/angular-material-image-overlay/src/test.ts",
             "tsConfig": "projects/angular-material-image-overlay/tsconfig.spec.json",
             "karmaConfig": "projects/angular-material-image-overlay/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/angular-material-image-overlay/**/*.ts",
+              "projects/angular-material-image-overlay/**/*.html"
+            ]
           }
         }
       }
