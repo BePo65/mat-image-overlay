@@ -7,7 +7,9 @@
     "build": "ng build",
     "build-dev": "rm -rf dist && ng build angular-material-image-overlay && rm -rf node_modules/angular-material-image-overlay && cp README.md projects/angular-material-image-overlay/README.md",
     "demo": "ng build --prod --delete-output-path --output-path docs --base-href /angular-material-image-overlay/",
-    "test": "ng test",
+    "test": "npm run test:lib -- --watch=false && npm run test:demo -- --watch=false",
+    "test:lib": "ng test angular-material-image-overlay",
+    "test:demo": "ng test angular-material-image-overlay-demo",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
