@@ -24,14 +24,14 @@ export class AngularMaterialImageOverlayService {
     });
   }
 
-  private buildOverlayConfig(): any {
+  private buildOverlayConfig(): OverlayConfig {
     const result = new OverlayConfig();
     result.hasBackdrop = true;
     result.positionStrategy = this.overlay.position().global().centerVertically().centerHorizontally();
     return result;
   }
 
-  open(images: string[], currentImage?: string) {
+  open(images: string[], currentImage?: string): void {
     const imagesInjector = this.buildInjector(images, currentImage);
     const imagePortal = new ComponentPortal(AngularMaterialImageOverlayComponent, null, imagesInjector);
 
