@@ -1,0 +1,9 @@
+{
+  "integrationFolder": "projects/angular-material-image-overlay/cypress/integration",
+  "supportFile": "projects/angular-material-image-overlay/cypress/support/index.ts",
+  "videosFolder": "projects/angular-material-image-overlay/cypress/videos",
+  "screenshotsFolder": "projects/angular-material-image-overlay/cypress/screenshots",
+  "pluginsFile": "projects/angular-material-image-overlay/cypress/plugins/index.ts",
+  "fixturesFolder": "projects/angular-material-image-overlay/cypress/fixtures",
+  "baseUrl": "http://localhost:4200"
+}
