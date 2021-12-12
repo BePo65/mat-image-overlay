@@ -13,7 +13,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "concurrently --kill-others --success first \"cypress run\" \"ng serve\""
   },
   "private": true,
   "dependencies": {
@@ -49,6 +49,7 @@
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.28.2",
     "cls": "^0.1.5",
+    "concurrently": "^6.4.0",
     "cypress": "^9.1.1",
     "eslint": "^7.26.0",
     "jasmine-core": "~3.8.0",
