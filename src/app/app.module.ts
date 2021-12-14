@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AngularMaterialImageOverlayModule } from 'angular-material-image-overlay';
+import { AngularMaterialImageOverlayModule } from 'mat-image-overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({

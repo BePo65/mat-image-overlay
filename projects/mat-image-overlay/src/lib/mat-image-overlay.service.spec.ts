@@ -1,7 +1,7 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { inject, TestBed } from '@angular/core/testing';
 
-import { AngularMaterialImageOverlayService } from './angular-material-image-overlay.service';
+import { AngularMaterialImageOverlayService } from './mat-image-overlay.service';
 
 describe('AngularMaterialImageOverlayService', () => {
   let service: AngularMaterialImageOverlayService;

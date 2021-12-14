@@ -1,9 +1,9 @@
 {
-  "name": "angular-material-image-overlay",
+  "name": "mat-image-overlay",
   "version": "0.0.7",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rafasantos/angular-material-image-overlay"
+    "url": "git+https://github.com/rafasantos/mat-image-overlay"
   },
   "peerDependencies": {
     "@angular/common": "^12.2.0",

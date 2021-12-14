@@ -2,8 +2,8 @@ import { Injectable, Injector, ComponentRef } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
-import { AngularMaterialImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN, ImageOverlayData } from './angular-material-image-overlay.component';
-import { AngularMaterialImageOverlayModule } from './angular-material-image-overlay.module';
+import { AngularMaterialImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN, ImageOverlayData } from './mat-image-overlay.component';
+import { AngularMaterialImageOverlayModule } from './mat-image-overlay.module';
 
 @Injectable({
   providedIn: AngularMaterialImageOverlayModule

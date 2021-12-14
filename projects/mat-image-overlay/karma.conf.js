@@ -26,7 +26,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, '../../coverage/angular-material-image-overlay'),
+      dir: require('path').join(__dirname, '../../coverage/mat-image-overlay'),
       subdir: '.',
       reporters: [
         { type: 'html' },
@@ -34,7 +34,7 @@ module.exports = function (config) {
       ]
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../../coverage/angular-material-image-overlay'),
+      dir: require('path').join(__dirname, '../../coverage/mat-image-overlay'),
       reports: ['html', 'lcovonly'],
       fixWebpackSourcePaths: true
     },

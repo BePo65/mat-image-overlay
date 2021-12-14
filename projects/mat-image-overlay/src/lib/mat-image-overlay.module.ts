@@ -2,7 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { AngularMaterialImageOverlayComponent } from './angular-material-image-overlay.component';
+import { AngularMaterialImageOverlayComponent } from './mat-image-overlay.component';
 
 @NgModule({
   declarations: [

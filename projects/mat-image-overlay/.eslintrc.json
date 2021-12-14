@@ -10,8 +10,8 @@
       ],
       "parserOptions": {
         "project": [
-          "projects/angular-material-image-overlay/tsconfig.lib.json",
-          "projects/angular-material-image-overlay/tsconfig.spec.json"
+          "projects/mat-image-overlay/tsconfig.lib.json",
+          "projects/mat-image-overlay/tsconfig.spec.json"
         ],
         "createDefaultProgram": true
       },

@@ -9,8 +9,8 @@ export interface ImageOverlayData {
 export const IMAGE_OVERLAY_DATA_TOKEN = new InjectionToken<ImageOverlayData>('IMAGE_OVERLAY_DATA');
 
 @Component({
-  templateUrl: './angular-material-image-overlay.component.html',
-  styleUrls: ['./angular-material-image-overlay.component.scss']
+  templateUrl: './mat-image-overlay.component.html',
+  styleUrls: ['./mat-image-overlay.component.scss']
 })
 export class AngularMaterialImageOverlayComponent {
   private currentImageIndex = 0;

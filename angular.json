@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-material-image-overlay-demo": {
+    "mat-image-overlay-demo": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-material-image-overlay-demo",
+            "outputPath": "dist/mat-image-overlay-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -72,14 +72,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-material-image-overlay-demo:build"
+            "browserTarget": "mat-image-overlay-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-material-image-overlay-demo:build:production"
+              "browserTarget": "mat-image-overlay-demo:build:production"
             },
             "development": {
-              "browserTarget": "angular-material-image-overlay-demo:build:development"
+              "browserTarget": "mat-image-overlay-demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-material-image-overlay-demo:build"
+            "browserTarget": "mat-image-overlay-demo:build"
           }
         },
         "test": {
@@ -121,11 +121,11 @@
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "angular-material-image-overlay-demo:serve"
+            "devServerTarget": "mat-image-overlay-demo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-material-image-overlay-demo:serve:production"
+              "devServerTarget": "mat-image-overlay-demo:serve:production"
             }
           }
         },
@@ -139,35 +139,35 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "angular-material-image-overlay-demo:serve",
+            "devServerTarget": "mat-image-overlay-demo:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-material-image-overlay-demo:serve:production"
+              "devServerTarget": "mat-image-overlay-demo:serve:production"
             }
           }
         }
       }
     },
-    "angular-material-image-overlay": {
+    "mat-image-overlay": {
       "projectType": "library",
-      "root": "projects/angular-material-image-overlay",
-      "sourceRoot": "projects/angular-material-image-overlay/src",
+      "root": "projects/mat-image-overlay",
+      "sourceRoot": "projects/mat-image-overlay/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/angular-material-image-overlay/ng-package.json"
+            "project": "projects/mat-image-overlay/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/angular-material-image-overlay/tsconfig.lib.prod.json"
+              "tsConfig": "projects/mat-image-overlay/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/angular-material-image-overlay/tsconfig.lib.json"
+              "tsConfig": "projects/mat-image-overlay/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -175,22 +175,22 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/angular-material-image-overlay/src/test.ts",
-            "tsConfig": "projects/angular-material-image-overlay/tsconfig.spec.json",
-            "karmaConfig": "projects/angular-material-image-overlay/karma.conf.js"
+            "main": "projects/mat-image-overlay/src/test.ts",
+            "tsConfig": "projects/mat-image-overlay/tsconfig.spec.json",
+            "karmaConfig": "projects/mat-image-overlay/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/angular-material-image-overlay/**/*.ts",
-              "projects/angular-material-image-overlay/**/*.html"
+              "projects/mat-image-overlay/**/*.ts",
+              "projects/mat-image-overlay/**/*.html"
             ]
           }
         }
       }
     }
   },
-  "defaultProject": "angular-material-image-overlay-demo"
+  "defaultProject": "mat-image-overlay-demo"
 }

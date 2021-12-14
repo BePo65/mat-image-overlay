@@ -22,12 +22,12 @@
       "dom"
     ],
     "paths": {
-      "angular-material-image-overlay": [
-        "dist/angular-material-image-overlay/angular-material-image-overlay",
-        "dist/angular-material-image-overlay"
+      "mat-image-overlay": [
+        "dist/mat-image-overlay/mat-image-overlay",
+        "dist/mat-image-overlay"
       ],
-      "angular-material-image-overlay/*": [
-        "dist/angular-material-image-overlay/*"
+      "mat-image-overlay/*": [
+        "dist/mat-image-overlay/*"
       ]
     }
   },

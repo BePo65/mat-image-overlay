@@ -23,7 +23,7 @@ describe('Demo page', () => {
     // Show first image as overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
-    cy.get('img.angular-material-image-overlay-image')
+    cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg');
   });
@@ -34,7 +34,7 @@ describe('Demo page', () => {
     // Show first image as overlay
     cy.get('[data-cy=open-overlay]').click();
     cy.get('.cdk-overlay-container').should('be.visible');
-    cy.get('img.angular-material-image-overlay-image')
+    cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg');
   });
@@ -48,7 +48,7 @@ describe('Demo page', () => {
 
     // show next 2 images
     cy.get('body').type('{rightarrow}{rightarrow}');
-    cy.get('img.angular-material-image-overlay-image')
+    cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg');
   });
@@ -62,12 +62,12 @@ describe('Demo page', () => {
 
     // show next image
     cy.get('body').type('{rightarrow}');
-    cy.get('img.angular-material-image-overlay-image')
+    cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg');
 
     // Click close button
-    cy.get('.angular-material-image-overlay-close').click();
+    cy.get('.mat-image-overlay-close').click();
     cy.get('.cdk-overlay-container').should('not.be.visible');
   });
 
@@ -80,7 +80,7 @@ describe('Demo page', () => {
 
     // show next image
     cy.get('body').type('{rightarrow}');
-    cy.get('img.angular-material-image-overlay-image')
+    cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg');
 

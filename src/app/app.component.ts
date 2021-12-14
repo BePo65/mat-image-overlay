@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularMaterialImageOverlayService } from 'angular-material-image-overlay';
+import { AngularMaterialImageOverlayService } from 'mat-image-overlay';
 
 @Component({
   selector: 'app-root',
