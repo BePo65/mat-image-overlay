@@ -21,6 +21,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/mat-image-overlay-demo",
+            "deleteOutputPath": true,
             "index": "projects/mat-image-overlay-demo/src/index.html",
             "main": "projects/mat-image-overlay-demo/src/main.ts",
             "polyfills": "projects/mat-image-overlay-demo/src/polyfills.ts",

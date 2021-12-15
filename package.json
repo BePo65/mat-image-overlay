@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "build": "ng build",
-    "build:lib": "rm -rf dist && ng build mat-image-overlay && cp README.md projects/mat-image-overlay/README.md",
-    "demo": "ng build --prod --delete-output-path --output-path docs --base-href /mat-image-overlay/",
+    "build": "npm run build:lib && npm run build:demo",
+    "build:lib": "ng build mat-image-overlay && cpy README.md dist/mat-image-overlay/",
+    "build:demo": "ng build --delete-output-path --configuration production mat-image-overlay-demo",
     "test": "npm run test:lib -- --watch=false && npm run test:demo -- --watch=false",
     "test:lib": "ng test mat-image-overlay",
     "test:demo": "ng test mat-image-overlay-demo",
@@ -15,7 +15,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "concurrently --kill-others --success first \"cypress run\" \"ng serve\""
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^12.2.13",
     "@angular/cdk": "^12.2.13",
@@ -50,6 +50,7 @@
     "@typescript-eslint/parser": "^5.6.0",
     "cls": "^0.1.5",
     "concurrently": "^6.4.0",
+    "cpy-cli": "^3.1.1",
     "cypress": "^9.1.1",
     "eslint": "^7.32.0",
     "jasmine-core": "^3.10.1",
