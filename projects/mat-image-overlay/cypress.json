@@ -1,9 +1,0 @@
-{
-  "integrationFolder": "projects/mat-image-overlay/cypress/integration",
-  "supportFile": "projects/mat-image-overlay/cypress/support/index.ts",
-  "videosFolder": "projects/mat-image-overlay/cypress/videos",
-  "screenshotsFolder": "projects/mat-image-overlay/cypress/screenshots",
-  "pluginsFile": "projects/mat-image-overlay/cypress/plugins/index.ts",
-  "fixturesFolder": "projects/mat-image-overlay/cypress/fixtures",
-  "baseUrl": "http://localhost:4200"
-}
