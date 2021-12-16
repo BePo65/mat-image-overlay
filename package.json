@@ -11,7 +11,8 @@
     "test:lib": "ng test mat-image-overlay",
     "test:demo": "ng test mat-image-overlay-demo",
     "lint": "ng lint",
-    "lint-commits": "commitlint --from 81ad0b8fb70526 --to HEAD --verbose",
+    "lint:scss": "npx stylelint \"**/*.scss\"",
+    "lint:commits": "commitlint --from 81ad0b8fb70526 --to HEAD --verbose",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
     "cypress:run": "concurrently --kill-others --success first \"cypress run\" \"ng serve\"",
@@ -68,6 +69,9 @@
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^12.1.1",
     "standard-version": "^9.3.2",
+    "stylelint": "^14.1.0",
+    "stylelint-config-recommended-scss": "^5.0.2",
+    "stylelint-config-standard": "^24.0.0",
     "typescript": "~4.3.5"
   },
   "standard-version": {
