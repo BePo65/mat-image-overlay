@@ -1,11 +1,12 @@
-mat-image-overlay
-==============================
+# Mat-Image-Overlay
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kefranabg/readme-md-generator/blob/master/LICENSE)
+
 An image overlay based on [Angular Material](https://material.angular.io/). Try out the [demo page](https://rafasantos.github.io/mat-image-overlay/)
 
 ![Screenshot](https://raw.githubusercontent.com/rafasantos/mat-image-overlay/master/src/assets/screenshot.jpg "Screenshot from demo page")
 
-Quick Start
------------
+## Quick Start
 Install the package:
 
 ```
@@ -44,8 +45,7 @@ openImageOverlay(): void {
 }
 ```
 
-AngularMaterialImageOverlayDemo
-===============================
+## Mat-Image-Overlay Demo
 Demo project to show case how `mat-image-overlay` works.
 
 ```
@@ -56,8 +56,7 @@ npm start
 
 Navigate to http://localhost:4200
 
-Development
------------
+## Development
 `${APP_ROOT_FOLDER}` references the root folder of the application typically the git repository root folder.
 
 This command builds the project and override the local `mat-image-overlay` installation.
@@ -91,6 +90,5 @@ cd dist/mat-image-overlay
 npm publish
 ```
 
-License
-=======
+## License
 Code released under the [MIT license](LICENSE)

@@ -1,6 +1,6 @@
 {
   "name": "mat-image-overlay-demo",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
@@ -11,9 +11,12 @@
     "test:lib": "ng test mat-image-overlay",
     "test:demo": "ng test mat-image-overlay-demo",
     "lint": "ng lint",
+    "lint-commits": "commitlint --from 81ad0b8fb70526 --to HEAD --verbose",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "concurrently --kill-others --success first \"cypress run\" \"ng serve\""
+    "cypress:run": "concurrently --kill-others --success first \"cypress run\" \"ng serve\"",
+    "init-changelog": "standard-version -i CHANGELOG.md --same-file --prerelease pre --first-release",
+    "release": "standard-version -i CHANGELOG.md --same-file"
   },
   "private": false,
   "dependencies": {
@@ -42,6 +45,8 @@
     "@angular-eslint/template-parser": "12.7.0",
     "@angular/cli": "^12.2.13",
     "@angular/compiler-cli": "^12.2.13",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-angular": "^15.0.0",
     "@cypress/schematic": "^1.6.0",
     "@types/jasmine": "^3.10.2",
     "@types/jasminewd2": "^2.0.10",
@@ -53,6 +58,7 @@
     "cpy-cli": "^3.1.1",
     "cypress": "^9.1.1",
     "eslint": "^7.32.0",
+    "husky": "^7.0.4",
     "jasmine-core": "^3.10.1",
     "karma": "^6.3.9",
     "karma-chrome-launcher": "~3.1.0",
@@ -61,6 +67,33 @@
     "karma-jasmine": "^4.0.1",
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^12.1.1",
+    "standard-version": "^9.3.2",
     "typescript": "~4.3.5"
+  },
+  "standard-version": {
+    "packageFiles": [
+      {
+        "filename": "package.json",
+        "type": "json"
+      }
+    ],
+    "bumpFiles": [
+      {
+        "filename": "package.json",
+        "type": "json"
+      },
+      {
+        "filename": "projects/mat-image-overlay/package.json",
+        "type": "json"
+      },
+      {
+        "filename": "README.md",
+        "updater": "tools/npm-scripts/readme-updater.js"
+      },
+      {
+        "filename": "projects/mat-image-overlay/README.md",
+        "updater": "tools/npm-scripts/readme-updater.js"
+      }
+    ]
   }
 }
