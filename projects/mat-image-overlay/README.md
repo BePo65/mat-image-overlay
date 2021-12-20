@@ -16,19 +16,19 @@ npm install mat-image-overlay
 Configure your angular application module (e.g: `app.module.ts`):
 ```
 ...
-import { AngularMaterialImageOverlayModule, AngularMaterialImageOverlayComponent } from 'mat-image-overlay';
+import { MatImageOverlayModule, MatImageOverlayComponent } from 'mat-image-overlay';
 
 @NgModule({
   ...
   imports: [
     ...
-    AngularMaterialImageOverlayModule
+    MatImageOverlayModule
   ]
 })
 export class AppModule { }
 ```
 
-Open the images via `AngularMaterialImageOverlayService.open(images: string[])`
+Open the images via `MatImageOverlayService.open(images: string[])`
 ```
 images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
@@ -37,7 +37,7 @@ images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
 ];
 
-constructor(private imageOverlayService: AngularMaterialImageOverlayService) {
+constructor(private imageOverlayService: MatImageOverlayService) {
 }
 
 openImageOverlay(): void {
