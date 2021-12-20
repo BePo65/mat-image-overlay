@@ -54,6 +54,12 @@ export class MatImageOverlayService {
       case('ArrowUp'):
         this.imageOverlayComponentRef.instance.gotoPreviousImage();
         break;
+      case('Home'):
+        this.imageOverlayComponentRef.instance.gotoFirstImage();
+        break;
+      case('End'):
+        this.imageOverlayComponentRef.instance.gotoLastImage();
+        break;
       case('Escape'):
         this.overlayRef.dispose();
     }

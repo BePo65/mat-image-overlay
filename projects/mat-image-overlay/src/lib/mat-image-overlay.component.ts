@@ -49,6 +49,18 @@ export class MatImageOverlayComponent {
     this.updateImageState();
   }
 
+  public gotoFirstImage(): void {
+    this.currentImageIndex = 0;
+    this.currentImage = this.images[this.currentImageIndex];
+    this.updateImageState();
+  }
+
+  public gotoLastImage(): void {
+    this.currentImageIndex = this.images.length - 1;
+    this.currentImage = this.images[this.currentImageIndex];
+    this.updateImageState();
+  }
+
   private obtainCurrentImageIndex(dataCurrentImage: string): number {
     if (dataCurrentImage) {
       return this.images.indexOf(dataCurrentImage);
