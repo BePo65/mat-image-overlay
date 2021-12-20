@@ -37,7 +37,7 @@ export class MatImageOverlayComponent {
     this.onKeydown.next(event.key);
   }
 
-  close(): void {
+  closeOverlay(): void {
     this.onClose.next();
   }
 

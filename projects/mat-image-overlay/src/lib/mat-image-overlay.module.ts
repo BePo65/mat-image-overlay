@@ -1,6 +1,7 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 import { MatImageOverlayComponent } from './mat-image-overlay.component';
 
@@ -10,7 +11,8 @@ import { MatImageOverlayComponent } from './mat-image-overlay.component';
   ],
   imports: [
     CommonModule,
-    OverlayModule
+    OverlayModule,
+    MatIconModule
   ],
   exports: [
     MatImageOverlayComponent
