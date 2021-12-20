@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularMaterialImageOverlayService } from 'mat-image-overlay';
+import { MatImageOverlayService } from 'mat-image-overlay';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ export class AppComponent {
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
   ];
 
-  constructor(private imageOverlayService: AngularMaterialImageOverlayService) {
+  constructor(private imageOverlayService: MatImageOverlayService) {
   }
 
   openImageOverlay(image?: string): void {

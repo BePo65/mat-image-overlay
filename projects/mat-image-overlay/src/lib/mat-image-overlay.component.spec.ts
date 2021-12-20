@@ -3,32 +3,32 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
-import { AngularMaterialImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN } from './mat-image-overlay.component';
-import { AngularMaterialImageOverlayComponentMockData } from './mat-image-overlay.mockup-data';
+import { MatImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN } from './mat-image-overlay.component';
+import { MatImageOverlayComponentMockData } from './mat-image-overlay.mockup-data';
 
-describe('AngularMaterialImageOverlayService', () => {
-  let component: AngularMaterialImageOverlayComponent;
-  let fixture: ComponentFixture<AngularMaterialImageOverlayComponent>;
+describe('MatImageOverlayService', () => {
+  let component: MatImageOverlayComponent;
+  let fixture: ComponentFixture<MatImageOverlayComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AngularMaterialImageOverlayComponent
+        MatImageOverlayComponent
       ],
       imports: [
         CommonModule,
         OverlayModule
       ],
       providers: [
-        {provide: IMAGE_OVERLAY_DATA_TOKEN, useValue: AngularMaterialImageOverlayComponentMockData}
+        {provide: IMAGE_OVERLAY_DATA_TOKEN, useValue: MatImageOverlayComponentMockData}
       ]
     })
     .overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [AngularMaterialImageOverlayComponent]
+        entryComponents: [MatImageOverlayComponent]
       }
     });
-    fixture = TestBed.createComponent(AngularMaterialImageOverlayComponent);
+    fixture = TestBed.createComponent(MatImageOverlayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

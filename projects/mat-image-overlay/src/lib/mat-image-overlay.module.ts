@@ -2,18 +2,18 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { AngularMaterialImageOverlayComponent } from './mat-image-overlay.component';
+import { MatImageOverlayComponent } from './mat-image-overlay.component';
 
 @NgModule({
   declarations: [
-    AngularMaterialImageOverlayComponent
+    MatImageOverlayComponent
   ],
   imports: [
     CommonModule,
     OverlayModule
   ],
   exports: [
-    AngularMaterialImageOverlayComponent
+    MatImageOverlayComponent
   ]
 })
-export class AngularMaterialImageOverlayModule { }
+export class MatImageOverlayModule { }

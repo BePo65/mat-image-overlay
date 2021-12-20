@@ -2,14 +2,14 @@ import { Injectable, Injector, ComponentRef } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
-import { AngularMaterialImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN, ImageOverlayData } from './mat-image-overlay.component';
-import { AngularMaterialImageOverlayModule } from './mat-image-overlay.module';
+import { MatImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN, ImageOverlayData } from './mat-image-overlay.component';
+import { MatImageOverlayModule } from './mat-image-overlay.module';
 
 @Injectable({
-  providedIn: AngularMaterialImageOverlayModule
+  providedIn: MatImageOverlayModule
 })
-export class AngularMaterialImageOverlayService {
-  imageOverlayComponentRef!: ComponentRef<AngularMaterialImageOverlayComponent>;
+export class MatImageOverlayService {
+  imageOverlayComponentRef!: ComponentRef<MatImageOverlayComponent>;
   overlayRef!: OverlayRef;
   constructor(
       private injector: Injector,
@@ -33,7 +33,7 @@ export class AngularMaterialImageOverlayService {
 
   open(images: string[], currentImage?: string): void {
     const imagesInjector = this.buildInjector(images, currentImage);
-    const imagePortal = new ComponentPortal(AngularMaterialImageOverlayComponent, null, imagesInjector);
+    const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
 
     this.overlayRef = this.overlay.create(this.buildOverlayConfig());
 

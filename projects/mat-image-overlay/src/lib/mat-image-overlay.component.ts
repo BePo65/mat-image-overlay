@@ -12,7 +12,7 @@ export const IMAGE_OVERLAY_DATA_TOKEN = new InjectionToken<ImageOverlayData>('IM
   templateUrl: './mat-image-overlay.component.html',
   styleUrls: ['./mat-image-overlay.component.scss']
 })
-export class AngularMaterialImageOverlayComponent {
+export class MatImageOverlayComponent {
   private currentImageIndex = 0;
   private images: string[];
   currentImage: string;

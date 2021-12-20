@@ -1,10 +1,10 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { inject, TestBed } from '@angular/core/testing';
 
-import { AngularMaterialImageOverlayService } from './mat-image-overlay.service';
+import { MatImageOverlayService } from './mat-image-overlay.service';
 
-describe('AngularMaterialImageOverlayService', () => {
-  let service: AngularMaterialImageOverlayService;
+describe('MatImageOverlayService', () => {
+  let service: MatImageOverlayService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,12 +12,12 @@ describe('AngularMaterialImageOverlayService', () => {
         OverlayModule
       ],
       providers: [
-        AngularMaterialImageOverlayService
+        MatImageOverlayService
       ]
     });
   });
 
-  beforeEach(inject([AngularMaterialImageOverlayService], (s: AngularMaterialImageOverlayService) => {
+  beforeEach(inject([MatImageOverlayService], (s: MatImageOverlayService) => {
     service = s;
   }));
 

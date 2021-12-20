@@ -1,7 +1,7 @@
 /**
- * Mockup data for testing AngularMaterialImageOverlayComponent
+ * Mockup data for testing MatImageOverlayComponent
  */
-export const AngularMaterialImageOverlayComponentMockData = {
+export const MatImageOverlayComponentMockData = {
   images: [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg',
