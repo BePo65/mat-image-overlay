@@ -13,31 +13,20 @@ export const IMAGE_OVERLAY_DATA_TOKEN = new InjectionToken<ImageOverlayData>('IM
   styleUrls: ['./mat-image-overlay.component.scss']
 })
 export class MatImageOverlayComponent {
+  public currentImage: string;
+  public onKeydown = new Subject<string>();
+  public onClose = new Subject<void>();
+
   private currentImageIndex = 0;
   private images: string[];
-  currentImage: string;
-  onKeydown = new Subject<string>();
-  onClose = new Subject<void>();
 
   constructor(@Inject(IMAGE_OVERLAY_DATA_TOKEN) public imageOverlayData: ImageOverlayData) {
     this.images = imageOverlayData.images;
     this.currentImageIndex = this.obtainCurrentImageIndex(imageOverlayData.currentImage as string);
-    this.currentImage = this.images[this.currentImageIndex]
+    this.currentImage = this.images[this.currentImageIndex];
   }
 
-  private obtainCurrentImageIndex(dataCurrentImage: string): number {
-    if (dataCurrentImage) {
-      return this.images.indexOf(dataCurrentImage);
-    }
-    return 0;
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  private handleKeydown(event: KeyboardEvent) {
-    this.onKeydown.next(event.key);
-  }
-
-  closeOverlay(): void {
+  public closeOverlay(): void {
     this.onClose.next();
   }
 
