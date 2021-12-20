@@ -48,11 +48,11 @@ export class MatImageOverlayService {
     switch (keycode) {
       case('ArrowRight'):
       case('ArrowDown'):
-        this.imageOverlayComponentRef.instance.nextImage();
+        this.imageOverlayComponentRef.instance.gotoNextImage();
         break;
       case('ArrowLeft'):
       case('ArrowUp'):
-        this.imageOverlayComponentRef.instance.previousImage();
+        this.imageOverlayComponentRef.instance.gotoPreviousImage();
         break;
       case('Escape'):
         this.overlayRef.dispose();

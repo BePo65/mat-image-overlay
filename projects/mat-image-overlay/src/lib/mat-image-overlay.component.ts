@@ -41,14 +41,15 @@ export class MatImageOverlayComponent {
     this.onClose.next();
   }
 
-  nextImage(): void {
+  public gotoNextImage(): void {
     if (this.currentImageIndex < this.images.length - 1) {
       this.currentImageIndex++;
       this.currentImage = this.images[this.currentImageIndex];
     }
+    this.updateImageState();
   }
 
-  previousImage(): void {
+  public gotoPreviousImage(): void {
     if (this.currentImageIndex > 0) {
       this.currentImageIndex--;
       this.currentImage = this.images[this.currentImageIndex];
