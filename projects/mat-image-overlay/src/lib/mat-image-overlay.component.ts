@@ -14,6 +14,8 @@ export const IMAGE_OVERLAY_DATA_TOKEN = new InjectionToken<ImageOverlayData>('IM
 })
 export class MatImageOverlayComponent {
   public currentImage: string;
+  public firstImage = false;
+  public lastImage = false;
   public onKeydown = new Subject<string>();
   public onClose = new Subject<void>();
 
@@ -24,6 +26,7 @@ export class MatImageOverlayComponent {
     this.images = imageOverlayData.images;
     this.currentImageIndex = this.obtainCurrentImageIndex(imageOverlayData.currentImage as string);
     this.currentImage = this.images[this.currentImageIndex];
+    this.updateImageState();
   }
 
   public closeOverlay(): void {
@@ -43,5 +46,27 @@ export class MatImageOverlayComponent {
       this.currentImageIndex--;
       this.currentImage = this.images[this.currentImageIndex];
     }
+    this.updateImageState();
+  }
+
+  private obtainCurrentImageIndex(dataCurrentImage: string): number {
+    if (dataCurrentImage) {
+      return this.images.indexOf(dataCurrentImage);
+    }
+    return 0;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  private handleKeydown(event: KeyboardEvent) {
+    this.onKeydown.next(event.key);
+  }
+
+  /**
+   * Update state of flags that show, if current image is first or last
+   * in list of images.
+   */
+  private updateImageState() {
+    this.firstImage = (this.currentImageIndex <= 0);
+    this.lastImage = (this.currentImageIndex >= (this.images.length - 1));
   }
 }

@@ -3,10 +3,10 @@
   <button class="mat-image-overlay mat-image-overlay-close" (click)="closeOverlay()" aria-hidden="false" aria-label="close overlay">
     <mat-icon>close</mat-icon>
   </button>
-  <button class="mat-image-overlay mat-image-overlay-left" (click)="gotoPreviousImage()" aria-hidden="false" aria-label="previous image">
+  <button *ngIf="!firstImage" class="mat-image-overlay mat-image-overlay-left" (click)="gotoPreviousImage()" aria-hidden="false" aria-label="previous image">
     <mat-icon>arrow_back_ios</mat-icon>
   </button>
-  <button class="mat-image-overlay mat-image-overlay-right" (click)="gotoNextImage()" aria-hidden="false" aria-label="next image">
+  <button *ngIf="!lastImage" class="mat-image-overlay mat-image-overlay-right" (click)="gotoNextImage()" aria-hidden="false" aria-label="next image">
     <mat-icon>arrow_forward_ios</mat-icon>
   </button>
 </figure>
