@@ -1,5 +1,9 @@
 import { Component, Inject, InjectionToken, HostListener } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
+
+import { CLOSE_ICON, ARROW_FORWARD_ICON, ARROW_BACKWARD_ICON } from './mat-image-overlay.svg';
 
 export interface ImageOverlayData {
   images: string[];
@@ -22,11 +26,20 @@ export class MatImageOverlayComponent {
   private currentImageIndex = 0;
   private images: string[];
 
-  constructor(@Inject(IMAGE_OVERLAY_DATA_TOKEN) public imageOverlayData: ImageOverlayData) {
+  constructor(
+    @Inject(IMAGE_OVERLAY_DATA_TOKEN) public imageOverlayData: ImageOverlayData,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
     this.images = imageOverlayData.images;
     this.currentImageIndex = this.obtainCurrentImageIndex(imageOverlayData.currentImage as string);
     this.currentImage = this.images[this.currentImageIndex];
     this.updateImageState();
+
+    // Get material icons as svg icons
+    this.matIconRegistry.addSvgIconLiteral('close', this.domSanitizer.bypassSecurityTrustHtml(CLOSE_ICON));
+    this.matIconRegistry.addSvgIconLiteral('arrow_back_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_BACKWARD_ICON));
+    this.matIconRegistry.addSvgIconLiteral('arrow_forward_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_FORWARD_ICON));
   }
 
   public closeOverlay(): void {
