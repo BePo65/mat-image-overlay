@@ -1,5 +1,7 @@
 /**
  * SVG icons used in mat-image-overlay component
+ * Source: Google Fonts (See https://fonts.google.com/icons?selected=Material+Icons)
+ * License: Apache License Version 2.0 (see http://www.apache.org/licenses/LICENSE-2.0.txt)
 */
 
 export const CLOSE_ICON =
