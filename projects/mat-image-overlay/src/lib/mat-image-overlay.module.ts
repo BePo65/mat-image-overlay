@@ -1,11 +1,12 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatImageOverlayComponent } from './mat-image-overlay.component';
+import { MatImageOverlayService } from './services/mat-image-overlay.service';
 
 @NgModule({
   declarations: [
@@ -13,10 +14,13 @@ import { MatImageOverlayComponent } from './mat-image-overlay.component';
   ],
   imports: [
     BrowserModule,
-    CommonModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    OverlayModule,
-    MatIconModule
+    MatIconModule,
+    OverlayModule
+  ],
+  providers: [
+    MatImageOverlayService
   ],
   exports: [
     MatImageOverlayComponent

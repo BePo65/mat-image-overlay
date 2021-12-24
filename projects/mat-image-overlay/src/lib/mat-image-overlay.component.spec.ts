@@ -1,6 +1,6 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 import { MatImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN } from './mat-image-overlay.component';
@@ -16,7 +16,7 @@ describe('MatImageOverlayService', () => {
         MatImageOverlayComponent
       ],
       imports: [
-        CommonModule,
+        MatIconModule,
         OverlayModule
       ],
       providers: [

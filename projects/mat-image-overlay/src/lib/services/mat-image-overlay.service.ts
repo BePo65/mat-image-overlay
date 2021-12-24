@@ -3,11 +3,8 @@ import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
 import { MatImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN, ImageOverlayData } from '../mat-image-overlay.component';
-import { MatImageOverlayModule } from '../mat-image-overlay.module';
 
-@Injectable({
-  providedIn: MatImageOverlayModule
-})
+@Injectable()
 export class MatImageOverlayService {
   imageOverlayComponentRef!: ComponentRef<MatImageOverlayComponent>;
   overlayRef!: OverlayRef;
