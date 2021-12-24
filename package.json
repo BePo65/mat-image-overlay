@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
+    "start:dev": "ng build mat-image-overlay --watch",
     "build": "npm run build:lib && npm run build:demo",
-    "build:lib": "ng build mat-image-overlay && cpy README.md dist/mat-image-overlay/",
-    "build:demo": "ng build --delete-output-path --configuration production mat-image-overlay-demo",
+    "build:lib": "ng build mat-image-overlay",
+    "build:demo": "ng build mat-image-overlay-demo --delete-output-path --configuration production",
     "test": "npm run test:lib -- --watch=false && npm run test:demo -- --watch=false",
     "test:lib": "ng test mat-image-overlay",
     "test:demo": "ng test mat-image-overlay-demo",
