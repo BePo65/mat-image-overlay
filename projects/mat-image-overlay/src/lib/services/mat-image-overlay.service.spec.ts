@@ -1,5 +1,5 @@
 import { OverlayModule } from '@angular/cdk/overlay';
-import { inject, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,11 +21,6 @@ describe('MatImageOverlayService', () => {
     });
     service = TestBed.inject(MatImageOverlayService);
   });
-
-  // HACK Original
-  // beforeEach(inject([MatImageOverlayService], (s: MatImageOverlayService) => {
-  //   service = s;
-  // }));
 
   it('should be created', () => {
     expect(service).toBeTruthy();
