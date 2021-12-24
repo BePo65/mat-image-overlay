@@ -30,6 +30,9 @@
       ]
     }
   },
+  "exclude": [
+    "cypress/**/*.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
