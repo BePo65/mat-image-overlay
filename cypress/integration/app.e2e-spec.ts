@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+import "cypress-real-events/support";
 
 describe('Demo page', () => {
   it('contains all relevant elements', () => {
@@ -60,14 +60,17 @@ describe('Demo page', () => {
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
 
-    // show next image
+    // Show next image
     cy.get('body').type('{rightarrow}');
     cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg');
 
-    // Click close button
-    cy.get('.mat-image-overlay-close').click();
+    // Hover to image to show buttons and click close button
+    cy.get('.mat-image-overlay-close')
+      .realHover()
+      .should('be.visible')
+      .click();
     cy.get('.cdk-overlay-container').should('not.be.visible');
   });
 
