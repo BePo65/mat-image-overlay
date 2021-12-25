@@ -56,6 +56,26 @@ describe('Demo page', () => {
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg');
   });
 
+  it('switches to 3rd image in overlay with buttons', () => {
+    // Open overlay
+    cy.get('img').first().click();
+    cy.get('.cdk-overlay-container').should('be.visible');
+
+    // Hover to image to show buttons
+    cy.get('img.mat-image-overlay-image')
+      .realHover();
+    cy.get('.mat-image-overlay-right').should('be.visible');
+
+    // Click 'next' button twice
+    cy.get('.mat-image-overlay-right').click();
+    cy.get('.mat-image-overlay-right').click();
+
+    // Correct image should be visible
+    cy.get('img.mat-image-overlay-image')
+      .should('have.attr', 'src')
+      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg');
+  });
+
   it('closes overlay with close button', () => {
     // Open overlay
     cy.get('img').first().click();
