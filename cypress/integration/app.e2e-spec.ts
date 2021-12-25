@@ -1,8 +1,13 @@
 import "cypress-real-events/support";
+import { forEach } from "cypress/types/lodash";
 
 describe('Demo page', () => {
-  it('contains all relevant elements', () => {
+  beforeEach(() => {
+    // Open page under inspection
     cy.visit('/');
+  });
+
+  it('contains all relevant elements', () => {
     cy.get('img').should('have.length', 4);
 
     cy.get('.actions').contains(/Click on one of the images above or open the overlay here/);
@@ -10,7 +15,6 @@ describe('Demo page', () => {
   })
 
   it('shows image with specific source as first image', () => {
-    cy.visit('/');
     cy.get('img')
       .first()
       .should('have.attr', 'src')
@@ -18,8 +22,6 @@ describe('Demo page', () => {
   })
 
   it('shows overlay clicking on first image', () => {
-    cy.visit('/');
-
     // Show first image as overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
@@ -29,8 +31,6 @@ describe('Demo page', () => {
   });
 
   it('shows overlay clicking on link', () => {
-    cy.visit('/');
-
     // Show first image as overlay
     cy.get('[data-cy=open-overlay]').click();
     cy.get('.cdk-overlay-container').should('be.visible');
@@ -40,8 +40,6 @@ describe('Demo page', () => {
   });
 
   it('switches to 3rd image in overlay', () => {
-    cy.visit('/');
-
     // Open overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
@@ -54,8 +52,6 @@ describe('Demo page', () => {
   });
 
   it('closes overlay with button', () => {
-    cy.visit('/');
-
     // Open overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
@@ -75,8 +71,6 @@ describe('Demo page', () => {
   });
 
   it('closes overlay with esc character', () => {
-    cy.visit('/');
-
     // Open overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
