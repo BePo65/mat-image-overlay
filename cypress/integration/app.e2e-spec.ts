@@ -39,19 +39,24 @@ describe('Demo page', () => {
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg');
   });
 
-  it('switches to 3rd image in overlay', () => {
+  it('switches to 3rd image in overlay with arrow keys', () => {
     // Open overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
 
     // show next 2 images
-    cy.get('body').type('{rightarrow}{rightarrow}');
+    cy.get('body').type('{rightarrow}');
+    cy.get('img.mat-image-overlay-image')
+      .should('have.attr', 'src')
+      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg');
+
+    cy.get('body').type('{rightarrow}');
     cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
       .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg');
   });
 
-  it('closes overlay with button', () => {
+  it('closes overlay with close button', () => {
     // Open overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
@@ -70,7 +75,7 @@ describe('Demo page', () => {
     cy.get('.cdk-overlay-container').should('not.be.visible');
   });
 
-  it('closes overlay with esc character', () => {
+  it('closes overlay with esc key', () => {
     // Open overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
