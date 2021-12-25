@@ -61,15 +61,12 @@ describe('Demo page', () => {
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
 
-    // Show next image
-    cy.get('body').type('{rightarrow}');
+    // Hover to image to show buttons
     cy.get('img.mat-image-overlay-image')
-      .should('have.attr', 'src')
-      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg');
+      .realHover();
 
-    // Hover to image to show buttons and click close button
+    // click 'close' button to hide overlay
     cy.get('.mat-image-overlay-close')
-      .realHover()
       .should('be.visible')
       .click();
     cy.get('.cdk-overlay-container').should('not.be.visible');
