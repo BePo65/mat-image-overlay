@@ -33,9 +33,11 @@ export class MatImageOverlayService {
     const imagesInjector = this.buildInjector(images, currentImage);
     const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
 
+    // Connect overlay to this service
     this.overlayRef = this.overlay.create(this.buildOverlayConfig());
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.dispose());
 
+    // Connect component to this service
     this.imageOverlayComponentRef = this.overlayRef.attach(imagePortal);
     this.imageOverlayComponentRef.instance.onClose.subscribe(() => this.overlayRef.dispose());
   }
