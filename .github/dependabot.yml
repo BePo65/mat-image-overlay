@@ -6,6 +6,16 @@ updates:
     interval: weekly
   open-pull-requests-limit: 10
   ignore:
+  # ignore packages that cannot yet be updated
+  - dependency-name: "ng-packagr"
+    versions:
+    - ^13.0.0
+  - dependency-name: "@angular/*"
+    versions:
+    - ^13.0.0
+  - dependency-name: "@angular-eslint/*"
+    versions:
+    - ^13.0.0
   - dependency-name: "@types/node"
     versions:
-    - 15.0.0
+    - ^17.0.0
