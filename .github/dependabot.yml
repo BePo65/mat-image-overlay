@@ -1,0 +1,35 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10
+  ignore:
+  # ignore packages that cannot yet be updated
+  - dependency-name: "ng-packagr"
+    versions:
+    - ^13.0.0
+  - dependency-name: "@angular/*"
+    versions:
+    - ^13.0.0
+  - dependency-name: "@angular-devkit/build-angular"
+    versions:
+    - ^13.0.0
+  - dependency-name: "@angular-eslint/*"
+    versions:
+    - ^13.0.0
+  - dependency-name: "@types/node"
+    versions:
+    - ^17.0.0
+  - dependency-name: "eslint"
+    versions:
+    - ^8.0.0
+  - dependency-name: "rxjs"
+    versions:
+    - ^7.0.0
+  - dependency-name: "typescript"
+    versions:
+    - ~4.4.0
+    - ~4.5.0
+    - ~4.6.0
