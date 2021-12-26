@@ -53,7 +53,7 @@ openImageOverlay(): void {
 Demo project to show case how `mat-image-overlay` works.
 
 ```
-git clone https://github.com/bepo65/mat-image-overlay.git
+git clone git@github.com:BePo65/mat-image-overlay.git
 cd mat-image-overlay
 npm start
 ```
