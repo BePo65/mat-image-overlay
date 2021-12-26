@@ -2,10 +2,13 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kefranabg/readme-md-generator/blob/master/LICENSE)
 
-An image overlay based on Rafasantos [angular-material-image-overlay
-](https://github.com/rafasantos/angular-material-image-overlay) using [Angular Material](https://material.angular.io/). Try out the [demo page](https://rafasantos.github.io/mat-image-overlay/)
+An [Angular Material](https://material.angular.io/) based component that shows images in an overlay.
+The component is based on Rafasantos [angular-material-image-overlay](https://github.com/rafasantos/angular-material-image-overlay).
 
-![Screenshot](projects/mat-image-overlay-demo/src/assets/screenshot.jpg "Screenshot from demo page")
+## Demo
+ Try out the [demo page](https://bepo65.github.io/mat-image-overlay/)
+
+![Screenshot](assets/screenshot.jpg "Screenshot from demo page")
 
 ## Quick Start
 Install the package:
@@ -17,7 +20,7 @@ npm install mat-image-overlay
 Configure your angular application module (e.g: `app.module.ts`):
 ```
 ...
-import { MatImageOverlayModule, MatImageOverlayComponent } from 'mat-image-overlay';
+import { MatImageOverlayModule } from 'mat-image-overlay';
 
 @NgModule({
   ...
@@ -29,7 +32,7 @@ import { MatImageOverlayModule, MatImageOverlayComponent } from 'mat-image-overl
 export class AppModule { }
 ```
 
-Open the images via `MatImageOverlayService.open(images: string[])`
+Open the images via `MatImageOverlayService.open`
 ```
 images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
@@ -58,38 +61,63 @@ npm start
 Navigate to http://localhost:4200
 
 ## Development
-`${APP_ROOT_FOLDER}` references the root folder of the application typically the git repository root folder.
-
-This command builds the project and override the local `mat-image-overlay` installation.
-The built package is located at `${APP_ROOT_FOLDER} dist/mat-image-overlay`
+Build the library and the demo project:
 ```
-npm run build-dev
+npm run build
 ```
 
-Use these commands if you wish to install a development version manually into a different project without `npm install`. This is only recommended for prototyping.
+Lint the library,  the demo project with eslint and the scss files with stylelint:
 ```
-cd ${APP_ROOT_FOLDER}
-cp -r dist/mat-image-overlay/ ${YOUR_APP}/node_modules/
-```
-
-Use these commands if you wish to deploy the demo application to git hub pages:
-```
-npm run demo
-git commit -a -m "Deploying to github pages"
+npm run lint
+npm run lint:scss
 ```
 
-Follow this steps when publishing:
+Test the library and the demo project:
 ```
-cd ${APP_ROOT_FOLDER}
-cd projects/mat-image-overlay/
-npm version patch
-cd ../../
-npm run build-dev
-npm version patch --no-git-tag-version
-git commit -a -m "Version up to xxxx
-cd dist/mat-image-overlay
-npm publish
+npm run test
 ```
+
+Run end to end tests for the demo project with cypress:
+```
+npm run cypress:run
+```
+
+## Used assets
+The component uses [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
+The icons are stored in the code as strings representing the icons as svg graphics.
+
+## Changelog
+The project uses 'standard-version' to create the changelog. To enable this system, commit messages are linted before commits are executed by git.
+
+### The structure of commit messages is:
+```
+  <header>
+  <BLANK LINE>
+  <body>
+  <BLANK LINE>
+  <footer>
+```
+
+**header**
+```
+  <type>(<scope>): <short summary>
+```
+  
+type and scope
+  - build: Changes that affect the build system or external dependencies (example scope: npm)
+  - docs: Documentation only changes
+  - feat: A new feature
+  - fix: A bug fix
+  - perf: A code change that improves performance
+  - refactor: A code change that neither fixes a bug nor adds a feature
+  - test: Adding missing tests or correcting existing tests (example scopes: demo, lib, e2e)
+
+**footer**
+```
+  BREAKING CHANGE: ... (requires MAJOR in Semantic Versioning)
+```
+
+For details of the commit messages format see [Contributing to Angular](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit).
 
 ## License
-Code released under the [MIT license](LICENSE)
+The code is released under the [MIT license](LICENSE)
