@@ -11,7 +11,7 @@
     "test": "npm run test:lib -- --watch=false && npm run test:demo -- --watch=false",
     "test:lib": "ng test mat-image-overlay",
     "test:demo": "ng test mat-image-overlay-demo",
-    "lint": "ng lint",
+    "lint": "ng lint mat-image-overlay-demo && ng lint mat-image-overlay",
     "lint:scss": "npx stylelint \"**/*.scss\"",
     "lint:commits": "commitlint --from 81ad0b8fb70526 --to HEAD --verbose",
     "e2e": "ng e2e",
