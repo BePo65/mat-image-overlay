@@ -1,0 +1,53 @@
+name: publish-demo-to-github-pages
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: npm ci and npm run build
+        run: |
+          npm ci
+          npm run build:demo
+
+
+      - name: Publish current workdir (which contains generated content) to GitHub Pages
+        uses: rayluo/github-pages-overwriter@v1.2
+
+        with:
+
+          # Optional. Default value "." means the root directory of your project will be published.
+          # You can use whatever directory your project uses, for example "wwwroot".
+          # Such a directory does *not* have to already exist in your repo,
+          # it could be an output directory created dynamically by your static website builder.
+          source-directory: .
+
+          # Optional. Default value "gh_pages".
+          # It specifies the temporary branch which hosts the static website.
+          # Each build will OVERWRITE this branch.
+          target-branch: gh_pages
