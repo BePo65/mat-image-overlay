@@ -20,7 +20,6 @@ export class MatImageOverlayComponent {
   public currentImage: string;
   public firstImage = false;
   public lastImage = false;
-  public onKeydown = new Subject<string>();
   public onClose = new Subject<void>();
 
   private currentImageIndex = 0;
@@ -83,7 +82,24 @@ export class MatImageOverlayComponent {
 
   @HostListener('document:keydown', ['$event'])
   private handleKeydown(event: KeyboardEvent) {
-    this.onKeydown.next(event.key);
+    switch (event.key) {
+      case('ArrowRight'):
+      case('ArrowDown'):
+        this.gotoNextImage();
+        break;
+      case('ArrowLeft'):
+      case('ArrowUp'):
+        this.gotoPreviousImage();
+        break;
+      case('Home'):
+        this.gotoFirstImage();
+        break;
+      case('End'):
+        this.gotoLastImage();
+        break;
+      case('Escape'):
+        this.closeOverlay();
+    }
   }
 
   /**

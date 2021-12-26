@@ -34,32 +34,9 @@ export class MatImageOverlayService {
     const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
 
     this.overlayRef = this.overlay.create(this.buildOverlayConfig());
-
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.dispose());
 
     this.imageOverlayComponentRef = this.overlayRef.attach(imagePortal);
-    this.imageOverlayComponentRef.instance.onKeydown.subscribe(keycode => this.onKeydown(keycode));
     this.imageOverlayComponentRef.instance.onClose.subscribe(() => this.overlayRef.dispose());
-  }
-
-  private onKeydown(keycode: string): void {
-    switch (keycode) {
-      case('ArrowRight'):
-      case('ArrowDown'):
-        this.imageOverlayComponentRef.instance.gotoNextImage();
-        break;
-      case('ArrowLeft'):
-      case('ArrowUp'):
-        this.imageOverlayComponentRef.instance.gotoPreviousImage();
-        break;
-      case('Home'):
-        this.imageOverlayComponentRef.instance.gotoFirstImage();
-        break;
-      case('End'):
-        this.imageOverlayComponentRef.instance.gotoLastImage();
-        break;
-      case('Escape'):
-        this.overlayRef.dispose();
-    }
   }
 }
