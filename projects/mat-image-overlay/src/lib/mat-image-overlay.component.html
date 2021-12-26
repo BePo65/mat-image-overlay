@@ -1,0 +1,12 @@
+<figure class="mat-image-overlay-wrapper">
+  <img class="mat-image-overlay-image" [src]="currentImage">
+  <button class="mat-image-overlay mat-image-overlay-close" (click)="closeOverlay()" aria-hidden="false" aria-label="close overlay">
+    <mat-icon svgIcon="close"></mat-icon>
+  </button>
+  <button *ngIf="!firstImage" class="mat-image-overlay mat-image-overlay-left" (click)="gotoPreviousImage()" aria-hidden="false" aria-label="previous image">
+    <mat-icon svgIcon="arrow_back_ios"></mat-icon>
+  </button>
+  <button *ngIf="!lastImage" class="mat-image-overlay mat-image-overlay-right" (click)="gotoNextImage()" aria-hidden="false" aria-label="next image">
+    <mat-icon svgIcon="arrow_forward_ios"></mat-icon>
+  </button>
+</figure>
