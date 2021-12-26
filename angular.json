@@ -29,7 +29,21 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/mat-image-overlay-demo/src/favicon.ico",
-              "projects/mat-image-overlay-demo/src/assets"
+              {
+                "glob": "screenshot.jpg",
+                "input": "assets",
+                "output": "assets"
+              },
+              {
+                "glob": "README.md",
+                "input": ".",
+                "output": "."
+              },
+              {
+                "glob": "LICENSE",
+                "input": ".",
+                "output": "."
+              }
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
