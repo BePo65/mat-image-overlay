@@ -1,6 +1,13 @@
 {
   "name": "mat-image-overlay-demo",
   "version": "1.0.0",
+  "description": "Component for Angular with Angular Material showing images as overlays. The project contains a library component and a demo project",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BePo65/mat-image-overlay.git"
+  },
+  "author": "Bernhard Pottler",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
