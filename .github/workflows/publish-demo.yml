@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - 'main'
+  workflow_dispatch:
+      inputs:
+        debug_enabled:
+          description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+          required: false
+          default: 'false'
 
 jobs:
   publish:
@@ -34,7 +40,11 @@ jobs:
         run: |
           npm ci
           npm run build
+          npm run build:ghpages
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
 
       - name: Publish current workdir (which contains generated content) to GitHub Pages
         uses: rayluo/github-pages-overwriter@v1.2
@@ -45,7 +55,7 @@ jobs:
           # You can use whatever directory your project uses, for example "wwwroot".
           # Such a directory does *not* have to already exist in your repo,
           # it could be an output directory created dynamically by your static website builder.
-          source-directory: .
+          source-directory: ghpages
 
           # Optional. Default value "gh_pages".
           # It specifies the temporary branch which hosts the static website.
