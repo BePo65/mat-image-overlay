@@ -77,9 +77,14 @@ Test the library and the demo project:
 npm run test
 ```
 
-Run end to end tests for the demo project with cypress:
+Run end to end tests for the demo project with cypress once (e.g. for CI scenarios):
 ```
 npm run cypress:run
+```
+
+Start end tests for the demo project with cypress and keep cypress open to rerun tests:
+```
+npm run e2e
 ```
 
 ### Open issues
