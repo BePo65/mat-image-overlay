@@ -1,6 +1,13 @@
 {
   "name": "mat-image-overlay-demo",
   "version": "1.0.0",
+  "description": "Component for Angular with Angular Material showing images as overlays. The project contains a library component and a demo project",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BePo65/mat-image-overlay.git"
+  },
+  "author": "Bernhard Pottler",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
@@ -8,6 +15,7 @@
     "build": "npm run build:lib && npm run build:demo",
     "build:lib": "ng build mat-image-overlay",
     "build:demo": "ng build mat-image-overlay-demo --delete-output-path --configuration production",
+    "build:ghpages": "del-cli ghpages && cpy \"dist/mat-image-overlay-demo/*\" ghpages && cpy \"dist/mat-image-overlay-demo/assets/*\" ghpages/assets",
     "test": "npm run test:lib -- --watch=false && npm run test:demo -- --watch=false",
     "test:lib": "ng test mat-image-overlay",
     "test:demo": "ng test mat-image-overlay-demo",
@@ -57,6 +65,7 @@
     "cpy-cli": "^3.1.1",
     "cypress": "^9.2.0",
     "cypress-real-events": "^1.6.0",
+    "del-cli": "^4.0.1",
     "eslint": "^7.32.0",
     "husky": "^7.0.4",
     "jasmine-core": "^3.10.1",
