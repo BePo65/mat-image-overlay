@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatImageOverlayComponent } from './mat-image-overlay.component';
-import { MatImageOverlayService } from './services/mat-image-overlay.service';
+import { MatImageOverlay } from './services/mat-image-overlay';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { MatImageOverlayService } from './services/mat-image-overlay.service';
     OverlayModule
   ],
   providers: [
-    MatImageOverlayService
+    MatImageOverlay
   ],
   exports: [
     MatImageOverlayComponent

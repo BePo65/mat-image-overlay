@@ -1,37 +1,41 @@
-import { Component, Inject, InjectionToken, HostListener } from '@angular/core';
+import { Component, Inject, InjectionToken, HostListener, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
+import { MatImageOverlayConfig } from './mat-image-overlay-config';
 import { CLOSE_ICON, ARROW_FORWARD_ICON, ARROW_BACKWARD_ICON } from './mat-image-overlay.svg';
 
-export interface ImageOverlayData {
-  images: string[];
-  currentImage?: string;
+/** Event that captures the state of the component. */
+interface ImageOverlayStateEvent {
+  state: 'opened' | 'closed';
 }
 
-export const IMAGE_OVERLAY_DATA_TOKEN = new InjectionToken<ImageOverlayData>('IMAGE_OVERLAY_DATA');
+export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
 
 @Component({
   templateUrl: './mat-image-overlay.component.html',
   styleUrls: ['./mat-image-overlay.component.scss']
 })
-export class MatImageOverlayComponent {
+export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
+  // TODO die Eigenschaften müssen "readonly" werden!
   public currentImageUrl: string;
   public firstImage = false;
   public lastImage = false;
+
+  public _stateChanged = new EventEmitter<ImageOverlayStateEvent>();
   public onClose = new Subject<void>();
 
   private currentImageIndex = 0;
   private images: string[];
 
   constructor(
-    @Inject(IMAGE_OVERLAY_DATA_TOKEN) public imageOverlayData: ImageOverlayData,
+    @Inject(IMAGE_OVERLAY_CONFIG_TOKEN) public _config: MatImageOverlayConfig,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.images = imageOverlayData.images;
-    this.currentImageIndex = this.obtainCurrentImageIndex(imageOverlayData.currentImage as string);
+    this.images = _config.images ?? [];
+    this.currentImageIndex = _config.startImageIndex ?? 0;
     this.currentImageUrl = this.images[this.currentImageIndex];
     this.updateImageState();
 
@@ -39,6 +43,14 @@ export class MatImageOverlayComponent {
     this.matIconRegistry.addSvgIconLiteral('close', this.domSanitizer.bypassSecurityTrustHtml(CLOSE_ICON));
     this.matIconRegistry.addSvgIconLiteral('arrow_back_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_BACKWARD_ICON));
     this.matIconRegistry.addSvgIconLiteral('arrow_forward_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_FORWARD_ICON));
+  }
+
+  ngAfterViewInit(): void {
+    this._stateChanged.emit({ state: 'opened' });
+  }
+
+  ngOnDestroy(): void {
+    this._stateChanged.emit({ state: 'closed' });
   }
 
   public closeOverlay(): void {
@@ -71,13 +83,6 @@ export class MatImageOverlayComponent {
     this.currentImageIndex = this.images.length - 1;
     this.currentImageUrl = this.images[this.currentImageIndex];
     this.updateImageState();
-  }
-
-  private obtainCurrentImageIndex(dataCurrentImage: string): number {
-    if (dataCurrentImage) {
-      return this.images.indexOf(dataCurrentImage);
-    }
-    return 0;
   }
 
   @HostListener('document:keydown', ['$event'])

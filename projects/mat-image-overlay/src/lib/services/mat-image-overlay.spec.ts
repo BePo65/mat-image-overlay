@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatImageOverlayService } from './mat-image-overlay.service';
+import { MatImageOverlay } from './mat-image-overlay';
 
 describe('MatImageOverlayService', () => {
-  let service: MatImageOverlayService;
+  let service: MatImageOverlay;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,10 +16,10 @@ describe('MatImageOverlayService', () => {
         OverlayModule
       ],
       providers: [
-        MatImageOverlayService
+        MatImageOverlay
       ]
     });
-    service = TestBed.inject(MatImageOverlayService);
+    service = TestBed.inject(MatImageOverlay);
   });
 
   it('should be created', () => {
