@@ -17,7 +17,7 @@ export const IMAGE_OVERLAY_DATA_TOKEN = new InjectionToken<ImageOverlayData>('IM
   styleUrls: ['./mat-image-overlay.component.scss']
 })
 export class MatImageOverlayComponent {
-  public currentImage: string;
+  public currentImageUrl: string;
   public firstImage = false;
   public lastImage = false;
   public onClose = new Subject<void>();
@@ -32,7 +32,7 @@ export class MatImageOverlayComponent {
   ) {
     this.images = imageOverlayData.images;
     this.currentImageIndex = this.obtainCurrentImageIndex(imageOverlayData.currentImage as string);
-    this.currentImage = this.images[this.currentImageIndex];
+    this.currentImageUrl = this.images[this.currentImageIndex];
     this.updateImageState();
 
     // Get material icons as svg icons
@@ -48,7 +48,7 @@ export class MatImageOverlayComponent {
   public gotoNextImage(): void {
     if (this.currentImageIndex < this.images.length - 1) {
       this.currentImageIndex++;
-      this.currentImage = this.images[this.currentImageIndex];
+      this.currentImageUrl = this.images[this.currentImageIndex];
     }
     this.updateImageState();
   }
@@ -56,20 +56,20 @@ export class MatImageOverlayComponent {
   public gotoPreviousImage(): void {
     if (this.currentImageIndex > 0) {
       this.currentImageIndex--;
-      this.currentImage = this.images[this.currentImageIndex];
+      this.currentImageUrl = this.images[this.currentImageIndex];
     }
     this.updateImageState();
   }
 
   public gotoFirstImage(): void {
     this.currentImageIndex = 0;
-    this.currentImage = this.images[this.currentImageIndex];
+    this.currentImageUrl = this.images[this.currentImageIndex];
     this.updateImageState();
   }
 
   public gotoLastImage(): void {
     this.currentImageIndex = this.images.length - 1;
-    this.currentImage = this.images[this.currentImageIndex];
+    this.currentImageUrl = this.images[this.currentImageIndex];
     this.updateImageState();
   }
 
