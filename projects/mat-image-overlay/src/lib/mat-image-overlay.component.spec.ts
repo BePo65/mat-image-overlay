@@ -1,10 +1,15 @@
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
-import { MatImageOverlayComponent, IMAGE_OVERLAY_DATA_TOKEN } from './mat-image-overlay.component';
-import { MatImageOverlayComponentMockData } from './mat-image-overlay.mockup-data';
+import { MatImageOverlayComponent, IMAGE_OVERLAY_CONFIG_TOKEN } from './mat-image-overlay.component';
+
+const IMAGES = [
+  'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
+  'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg',
+  'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg',
+  'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
+];
 
 describe('MatImageOverlayService', () => {
   let component: MatImageOverlayComponent;
@@ -20,13 +25,8 @@ describe('MatImageOverlayService', () => {
         OverlayModule
       ],
       providers: [
-        {provide: IMAGE_OVERLAY_DATA_TOKEN, useValue: MatImageOverlayComponentMockData}
+        {provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: {images: IMAGES, startImageIndex: 0}}
       ]
-    })
-    .overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [MatImageOverlayComponent]
-      }
     });
     fixture = TestBed.createComponent(MatImageOverlayComponent);
     component = fixture.componentInstance;
