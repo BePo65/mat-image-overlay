@@ -1,14 +1,29 @@
 import { Component, Inject, InjectionToken, HostListener, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
 
 import { MatImageOverlayConfig } from './mat-image-overlay-config';
 import { CLOSE_ICON, ARROW_FORWARD_ICON, ARROW_BACKWARD_ICON } from './mat-image-overlay.svg';
 
-/** Event that captures the state of the component. */
-interface ImageOverlayStateEvent {
-  state: 'opened' | 'closed';
+/**
+ * States of the component.
+ */
+export enum ImageOverlayState {
+  opened,
+  closingRequested,
+  closed
+}
+
+/**
+ * Event that captures the state of the component.
+ */
+export interface ImageOverlayStateEvent {
+  state: ImageOverlayState;
+  data?: unknown;
+}
+
+export interface ImageChangedEvent {
+  imageIndex: number;
 }
 
 export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
@@ -18,15 +33,15 @@ export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConf
   styleUrls: ['./mat-image-overlay.component.scss']
 })
 export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
-  // TODO die Eigenschaften müssen "readonly" werden!
+  public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
+  public imageChanged = new EventEmitter<ImageChangedEvent>();
+
+  // These properties are internal only (for use in the template)
   public currentImageUrl: string;
   public firstImage = false;
   public lastImage = false;
+  public currentImageIndex = 0;
 
-  public _stateChanged = new EventEmitter<ImageOverlayStateEvent>();
-  public onClose = new Subject<void>();
-
-  private currentImageIndex = 0;
   private images: string[];
 
   constructor(
@@ -45,48 +60,20 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.matIconRegistry.addSvgIconLiteral('arrow_forward_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_FORWARD_ICON));
   }
 
-  ngAfterViewInit(): void {
-    this._stateChanged.emit({ state: 'opened' });
+  public ngAfterViewInit(): void {
+    this.stateChanged.emit({ state: ImageOverlayState.opened });
   }
 
-  ngOnDestroy(): void {
-    this._stateChanged.emit({ state: 'closed' });
+  public ngOnDestroy(): void {
+    this.stateChanged.emit({ state: ImageOverlayState.closed });
   }
 
-  public closeOverlay(): void {
-    this.onClose.next();
-  }
-
-  public gotoNextImage(): void {
-    if (this.currentImageIndex < this.images.length - 1) {
-      this.currentImageIndex++;
-      this.currentImageUrl = this.images[this.currentImageIndex];
-    }
-    this.updateImageState();
-  }
-
-  public gotoPreviousImage(): void {
-    if (this.currentImageIndex > 0) {
-      this.currentImageIndex--;
-      this.currentImageUrl = this.images[this.currentImageIndex];
-    }
-    this.updateImageState();
-  }
-
-  public gotoFirstImage(): void {
-    this.currentImageIndex = 0;
-    this.currentImageUrl = this.images[this.currentImageIndex];
-    this.updateImageState();
-  }
-
-  public gotoLastImage(): void {
-    this.currentImageIndex = this.images.length - 1;
-    this.currentImageUrl = this.images[this.currentImageIndex];
-    this.updateImageState();
+  public onClose(): void {
+    this.stateChanged.emit({ state: ImageOverlayState.closingRequested, data: this.currentImageIndex });
   }
 
   @HostListener('document:keydown', ['$event'])
-  private handleKeydown(event: KeyboardEvent) {
+  public onKeydown(event: KeyboardEvent) {
     switch (event.key) {
       case('ArrowRight'):
       case('ArrowDown'):
@@ -103,7 +90,42 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
         this.gotoLastImage();
         break;
       case('Escape'):
-        this.closeOverlay();
+        this.onClose();
+    }
+  }
+
+  public gotoNextImage(): void {
+    if (this.currentImageIndex < this.images.length - 1) {
+      this.currentImageIndex++;
+      this.currentImageUrl = this.images[this.currentImageIndex];
+      this.updateImageState();
+    }
+  }
+
+  public gotoPreviousImage(): void {
+    if (this.currentImageIndex > 0) {
+      this.currentImageIndex--;
+      this.currentImageUrl = this.images[this.currentImageIndex];
+      this.updateImageState();
+    }
+  }
+
+  public gotoFirstImage(): void {
+    this.currentImageIndex = 0;
+    this.currentImageUrl = this.images[this.currentImageIndex];
+    this.updateImageState();
+  }
+
+  public gotoLastImage(): void {
+    this.currentImageIndex = this.images.length - 1;
+    this.currentImageUrl = this.images[this.currentImageIndex];
+    this.updateImageState();
+  }
+
+  public gotoImage(imageIndex: number): void {
+    if ((this.currentImageIndex > 0) && (imageIndex < this.images.length - 1)) {
+      this.currentImageUrl = this.images[this.currentImageIndex];
+      this.updateImageState();
     }
   }
 
@@ -114,5 +136,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   private updateImageState() {
     this.firstImage = (this.currentImageIndex <= 0);
     this.lastImage = (this.currentImageIndex >= (this.images.length - 1));
+    this.imageChanged.emit({ imageIndex: this.currentImageIndex });
   }
 }

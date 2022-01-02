@@ -12,13 +12,13 @@ export class MatImageOverlay {
   public imageOverlayComponentRef!: ComponentRef<MatImageOverlayComponent>;
   public overlayRef!: OverlayRef;
 
-  /** Stream that emits when fhe image overlay has been opened. */
+  /** Stream that emits when the image overlay has been opened. */
   private readonly _afterOpened = new Subject<MatImageOverlayRef>();
   get afterOpened(): Subject<MatImageOverlayRef> {
     return this._afterOpened;
   }
 
-  /** Stream that emits when fhe image overlay has been closed. */
+  /** Stream that emits when the image overlay has been closed. */
   private readonly _afterClosed = new Subject<number>();
   get afterClosed(): Subject<number> {
     return this._afterClosed;
@@ -33,7 +33,9 @@ export class MatImageOverlay {
     const conf = {images, startImageIndex: this.urlToImageIndex(images, currentImage)};
     const activeConfig = this._applyConfigDefaults(conf, new MatImageOverlayConfig());
     return Injector.create({
-      providers: [{provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: activeConfig}],
+      providers: [
+        {provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: activeConfig}
+      ],
       parent: this.injector
     });
   }
@@ -51,13 +53,13 @@ export class MatImageOverlay {
 
     // Connect overlay to this service
     this.overlayRef = this.overlay.create(this.buildOverlayConfig());
-    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.dispose());
 
     // Connect component to this service
     this.imageOverlayComponentRef = this.overlayRef.attach(imagePortal);
-    this.imageOverlayComponentRef.instance.onClose.subscribe(() => this.overlayRef.dispose());
 
     const imageOverlayRef = new MatImageOverlayRef(this.overlayRef, this.imageOverlayComponentRef.instance);
+    imageOverlayRef.afterClosed().subscribe(lastImageIndex => this.afterClosed.next(lastImageIndex))
+    this.afterOpened.next(imageOverlayRef);
 
     return imageOverlayRef;
   }

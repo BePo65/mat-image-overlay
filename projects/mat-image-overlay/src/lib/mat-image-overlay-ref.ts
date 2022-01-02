@@ -1,14 +1,13 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
-import { MatImageOverlayComponent } from './mat-image-overlay.component';
+import { ImageOverlayState, MatImageOverlayComponent } from './mat-image-overlay.component';
 
 /** Possible states of the lifecycle of an image overlay. */
 export const enum MatImageOverlayState {
   OPEN,
-  CLOSING,
-  CLOSED,
+  CLOSED
 }
 
 /**
@@ -25,10 +24,10 @@ export class MatImageOverlayRef {
   private readonly _afterOpened = new Subject<void>();
 
   /** Subject for notifying the user that the dialog has finished closing. */
-  private readonly _afterClosed = new Subject<number>();
+  private readonly _afterClosed = new Subject<number | undefined>();
 
-  /** Subject for notifying the user that the dialog has started closing. */
-  private readonly _beforeClosed = new Subject<number>();
+  //  Subject for notifying the user that new image has been selected
+  private readonly _imageChanged = new BehaviorSubject<number | undefined>(undefined);
 
   /** Result to be passed to afterClosed. */
   private _result: number | undefined;
@@ -42,10 +41,10 @@ export class MatImageOverlayRef {
   ) {
     this.componentInstance = this._matImageOverlayInstance;
 
-    // Emit when opening animation completes
-    _matImageOverlayInstance._stateChanged
+    // Emit when opening is complete
+    _matImageOverlayInstance.stateChanged
       .pipe(
-        filter(event => event.state === 'opened'),
+        filter(event => event.state === ImageOverlayState.opened),
         take(1),
       )
       .subscribe(() => {
@@ -53,61 +52,77 @@ export class MatImageOverlayRef {
         this._afterOpened.complete();
       });
 
-    // Dispose overlay when closing animation is complete
-    _matImageOverlayInstance._stateChanged
+    // Emit when closing is requested
+    _matImageOverlayInstance.stateChanged
       .pipe(
-        filter(event => event.state === 'closed'),
+        filter(event => event.state === ImageOverlayState.closingRequested),
         take(1),
       )
-      .subscribe(() => {
-        this._finishDialogClose();
+      .subscribe(event => {
+        this.close(event?.data as number);
       });
 
+    // Emit when overlay is closed and return index of last image
+    _matImageOverlayInstance.stateChanged
+    .pipe(
+      filter(event => event.state === ImageOverlayState.closed),
+      take(1),
+      )
+      .subscribe(() => {
+        this._afterClosed.next(this._result);
+        this._afterClosed.complete();
+      });
+
+    // Dispose overlay when closing is complete
     _overlayRef.detachments().subscribe(() => {
-      this._beforeClosed.next(this._result);
-      this._beforeClosed.complete();
-      this._afterClosed.next(this._result);
-      this._afterClosed.complete();
       this.componentInstance = undefined;
       this._overlayRef.dispose();
     });
+
+    _overlayRef.backdropClick().subscribe(() => {
+      this.close(this.componentInstance?.currentImageIndex);
+    });
+
+    // Emit when new image has been selected
+    _matImageOverlayInstance.imageChanged.subscribe(event => {
+      this._imageChanged.next(event.imageIndex);
+    });
+
+    /** As MatImageOverlayComponent emits start index before MatImageOverlayRef
+     * is initialized, we have to emit this value here again.
+     */
+    this._imageChanged.next(this._matImageOverlayInstance.currentImageIndex);
   }
 
-  // TODO Close the dialog
   /**
-   * Close the dialog.
-   * @param dialogResult Optional result to return to the dialog opener.
+   * Close the image overlay.
+   * @param dialogResult Optional result to return to the image overlay opener.
    */
   close(dialogResult?: number): void {
     this._result = dialogResult;
+    this._state = MatImageOverlayState.CLOSED;
+    this._overlayRef.dispose();
   }
 
   /**
-   * Gets an observable that is notified when the dialog is finished opening.
+   * Gets an observable that is notified when the image overlay is finished opening.
    */
   afterOpened(): Observable<void> {
     return this._afterOpened;
   }
 
   /**
-   * Gets an observable that is notified when the dialog is finished closing.
+   * Gets an observable that is notified when a new image has been selected.
+   */
+   imageChanged(): Observable<number | undefined> {
+    return this._imageChanged;
+  }
+
+  /**
+   * Gets an observable that is notified when the image overlay is finished closing.
    */
   afterClosed(): Observable<number | undefined> {
     return this._afterClosed;
-  }
-
-  /**
-   * Gets an observable that is notified when the dialog has started closing.
-   */
-  beforeClosed(): Observable<number | undefined> {
-    return this._beforeClosed;
-  }
-
-  /**
-   * Gets an observable that emits when the overlay's backdrop has been clicked.
-   */
-  backdropClick(): Observable<MouseEvent> {
-    return this._overlayRef.backdropClick();
   }
 
   /**
@@ -138,14 +153,5 @@ export class MatImageOverlayRef {
   */
   getState(): MatImageOverlayState {
     return this._state;
-  }
-
-  /**
-   * Finishes the dialog close by updating the state of the dialog
-   * and disposing the overlay.
-   */
-  private _finishDialogClose() {
-    this._state = MatImageOverlayState.CLOSED;
-    this._overlayRef.dispose();
   }
 }

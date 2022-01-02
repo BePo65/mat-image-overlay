@@ -15,9 +15,17 @@ export class AppComponent {
   ];
 
   constructor(private imageOverlay: MatImageOverlay) {
+    this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
+    this.imageOverlay.afterClosed.subscribe(lastImageIndex => console.log(`MatImageOverlay closed; last index=${lastImageIndex}`));
   }
 
   openImageOverlay(image?: string): void {
-    this.imageOverlay.open(this.images, image);
+    const imageOverlayRef = this.imageOverlay.open(this.images, image);
+
+    // Demo to show usage of published events
+    imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
+    imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${lastImageIndex}`));
+    imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${currentImageIndex}`));
+    imageOverlayRef.keydownEvents().subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
   }
 }
