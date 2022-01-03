@@ -130,22 +130,6 @@ export class MatImageOverlayRef {
   }
 
   /**
-   * Add a CSS class or an array of classes to the overlay pane.
-  */
-  addPanelClass(classes: string | string[]): this {
-    this._overlayRef.addPanelClass(classes);
-    return this;
-  }
-
-  /**
-   * Remove a CSS class or an array of classes from the overlay pane.
-  */
-  removePanelClass(classes: string | string[]): this {
-    this._overlayRef.removePanelClass(classes);
-    return this;
-  }
-
-  /**
    * Gets the current state of the dialog's lifecycle.
   */
   getState(): MatImageOverlayState {
