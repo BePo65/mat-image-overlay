@@ -49,8 +49,10 @@ export class MatImageOverlay {
     return result;
   }
 
-  public open(images: string[], currentImage?: string, backdropClass?: string): MatImageOverlayRef {
-    const activeConfig = this.currentConfig(images, currentImage, backdropClass);
+  public open(images: string[], firstImageIndex = 0, backdropClass?: string): MatImageOverlayRef {
+    // TODO make sure that always only 1 overlay is open
+
+    const activeConfig = this.currentConfig(images, firstImageIndex, backdropClass);
 
     const imagesInjector = this.buildInjector(activeConfig);
     const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
@@ -68,12 +70,11 @@ export class MatImageOverlay {
     return imageOverlayRef;
   }
 
-  private currentConfig(images: string[], currentImage?: string, backdropClass?: string): MatImageOverlayConfig {
+  private currentConfig(images: string[], firstImageIndex?: number, backdropClass?: string): MatImageOverlayConfig {
     const activeConfig = new MatImageOverlayConfig();
     activeConfig.images = images;
-    if (currentImage) {
-      const currentImageIndex = this.urlToImageIndex(images, currentImage);
-      activeConfig.startImageIndex = currentImageIndex;
+    if (firstImageIndex) {
+      activeConfig.startImageIndex = firstImageIndex;
     }
 
     if (backdropClass) {
@@ -82,13 +83,4 @@ export class MatImageOverlay {
 
     return activeConfig;
   }
-
-  // HACK url in Index umrechen (solange wir die url als parameter bekommen)
-    private urlToImageIndex(images: string[], urlToCurrentImage?: string): number {
-    if (urlToCurrentImage) {
-      return images.indexOf(urlToCurrentImage);
-    }
-    return 0;
-  }
-
 }

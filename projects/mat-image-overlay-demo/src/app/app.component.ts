@@ -20,12 +20,20 @@ export class AppComponent {
   }
 
   openImageOverlay(image?: string): void {
-    const imageOverlayRef = this.imageOverlay.open(this.images, image, 'demo-backdrop-class');
+    const imageIndex = this.urlToImageIndex(this.images, image);
+    const imageOverlayRef = this.imageOverlay.open(this.images, imageIndex, 'demo-backdrop-class');
 
     // Demo to show usage of published events
     imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
     imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${lastImageIndex}`));
     imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${currentImageIndex}`));
     imageOverlayRef.keydownEvents().subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
+  }
+
+  private urlToImageIndex(images: string[], urlToCurrentImage?: string): number {
+    if (urlToCurrentImage) {
+      return images.indexOf(urlToCurrentImage);
+    }
+    return 0;
   }
 }
