@@ -29,30 +29,34 @@ export class MatImageOverlay {
     private overlay: Overlay
   ) { }
 
-  private buildInjector(images: string[], currentImage?: string): Injector {
-    const conf = {images, startImageIndex: this.urlToImageIndex(images, currentImage)};
-    const activeConfig = this._applyConfigDefaults(conf, new MatImageOverlayConfig());
+  private buildInjector(config: MatImageOverlayConfig): Injector {
     return Injector.create({
       providers: [
-        {provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: activeConfig}
+        {provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: config}
       ],
       parent: this.injector
     });
   }
 
-  private buildOverlayConfig(): OverlayConfig {
+  private buildOverlayConfig(config: MatImageOverlayConfig): OverlayConfig {
     const result = new OverlayConfig();
-    result.hasBackdrop = true;
     result.positionStrategy = this.overlay.position().global().centerVertically().centerHorizontally();
+    result.hasBackdrop = true;
+    if (config.backdropClass) {
+      result.backdropClass = config.backdropClass;
+    }
+
     return result;
   }
 
-  public open(images: string[], currentImage?: string): MatImageOverlayRef {
-    const imagesInjector = this.buildInjector(images, currentImage);
+  public open(images: string[], currentImage?: string, backdropClass?: string): MatImageOverlayRef {
+    const activeConfig = this.currentConfig(images, currentImage, backdropClass);
+
+    const imagesInjector = this.buildInjector(activeConfig);
     const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
 
     // Connect overlay to this service
-    this.overlayRef = this.overlay.create(this.buildOverlayConfig());
+    this.overlayRef = this.overlay.create(this.buildOverlayConfig(activeConfig));
 
     // Connect component to this service
     this.imageOverlayComponentRef = this.overlayRef.attach(imagePortal);
@@ -64,14 +68,19 @@ export class MatImageOverlay {
     return imageOverlayRef;
   }
 
-  /**
-   * Applies default options to the image overlay config.
-   * @param config - Config to be modified.
-   * @param defaultOptions - Default options provided.
-   * @returns The new configuration object.
-   */
-  private _applyConfigDefaults(config?: MatImageOverlayConfig, defaultOptions?: MatImageOverlayConfig): MatImageOverlayConfig {
-    return {...defaultOptions, ...config};
+  private currentConfig(images: string[], currentImage?: string, backdropClass?: string): MatImageOverlayConfig {
+    const activeConfig = new MatImageOverlayConfig();
+    activeConfig.images = images;
+    if (currentImage) {
+      const currentImageIndex = this.urlToImageIndex(images, currentImage);
+      activeConfig.startImageIndex = currentImageIndex;
+    }
+
+    if (backdropClass) {
+      activeConfig.backdropClass = backdropClass;
+    }
+
+    return activeConfig;
   }
 
   // HACK url in Index umrechen (solange wir die url als parameter bekommen)

@@ -20,7 +20,7 @@ export class AppComponent {
   }
 
   openImageOverlay(image?: string): void {
-    const imageOverlayRef = this.imageOverlay.open(this.images, image);
+    const imageOverlayRef = this.imageOverlay.open(this.images, image, 'demo-backdrop-class');
 
     // Demo to show usage of published events
     imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
