@@ -17,9 +17,6 @@ export class MatImageOverlayRef {
   /** The instance of component opened into the dialog. */
   componentInstance: MatImageOverlayComponent | undefined;
 
-  /** Whether the user is allowed to close the dialog. */
-  disableClose: boolean | undefined = this._matImageOverlayInstance._config.disableClose;
-
   /** Subject for notifying the user that the dialog has finished opening. */
   private readonly _afterOpened = new Subject<void>();
 
@@ -29,8 +26,8 @@ export class MatImageOverlayRef {
   //  Subject for notifying the user that new image has been selected
   private readonly _imageChanged = new BehaviorSubject<number | undefined>(undefined);
 
-  /** Result to be passed to afterClosed. */
-  private _result: number | undefined;
+  /** Index of last image shown to be passed to afterClosed. */
+  private _lastImageIndex: number | undefined;
 
   /** Current state of the dialog. */
   private _state = MatImageOverlayState.OPEN;
@@ -69,7 +66,7 @@ export class MatImageOverlayRef {
       take(1),
       )
       .subscribe(() => {
-        this._afterClosed.next(this._result);
+        this._afterClosed.next(this._lastImageIndex);
         this._afterClosed.complete();
       });
 
@@ -96,10 +93,10 @@ export class MatImageOverlayRef {
 
   /**
    * Close the image overlay.
-   * @param dialogResult Optional result to return to the image overlay opener.
+   * @param lastImageIndex Optional result to return to the image overlay opener.
    */
-  close(dialogResult?: number): void {
-    this._result = dialogResult;
+  close(lastImageIndex?: number): void {
+    this._lastImageIndex = lastImageIndex;
     this._state = MatImageOverlayState.CLOSED;
     this._overlayRef.dispose();
   }
