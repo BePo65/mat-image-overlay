@@ -5,8 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatImageOverlayComponent } from './mat-image-overlay.component';
-import { MatImageOverlay } from './services/mat-image-overlay';
+import { MatImageOverlayComponent } from './component/mat-image-overlay.component';
+import { MatImageOverlay } from './mat-image-overlay';
 
 @NgModule({
   declarations: [

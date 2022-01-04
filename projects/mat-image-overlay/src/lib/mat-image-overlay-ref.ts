@@ -2,7 +2,7 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
-import { ImageOverlayState, MatImageOverlayComponent } from './mat-image-overlay.component';
+import { ImageOverlayState, MatImageOverlayComponent } from './component/mat-image-overlay.component';
 
 /** Possible states of the lifecycle of an image overlay. */
 export const enum MatImageOverlayState {

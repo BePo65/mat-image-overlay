@@ -2,8 +2,8 @@ import { Component, Inject, InjectionToken, HostListener, EventEmitter, OnDestro
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatImageOverlayConfig } from './mat-image-overlay-config';
-import { CLOSE_ICON, ARROW_FORWARD_ICON, ARROW_BACKWARD_ICON } from './mat-image-overlay.svg';
+import { MatImageOverlayConfig } from '../mat-image-overlay-config';
+import { CLOSE_ICON, ARROW_FORWARD_ICON, ARROW_BACKWARD_ICON } from '../mat-image-overlay.svg';
 
 /**
  * States of the component.

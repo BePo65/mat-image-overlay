@@ -5,8 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatImageOverlayComponent } from './mat-image-overlay.component';
-import { SimpleChildComponent } from './simple.child.component';
-import { MatImageOverlay } from './services/mat-image-overlay';
+import { SimpleChildComponent } from '../test.assets/simple.child.component';
+import { MatImageOverlay } from '../mat-image-overlay';
 
 describe('MatImageOverlayComponent', () => {
   let imageOverlay: MatImageOverlay;

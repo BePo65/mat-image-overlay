@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/component-selector */
+
 import { Component, ViewContainerRef } from '@angular/core';
 
 // Simple child component

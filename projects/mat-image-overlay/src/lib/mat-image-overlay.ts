@@ -3,9 +3,9 @@ import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
-import { MatImageOverlayComponent, IMAGE_OVERLAY_CONFIG_TOKEN } from '../mat-image-overlay.component';
-import { MatImageOverlayRef } from '../mat-image-overlay-ref';
-import { MatImageOverlayConfig } from '../mat-image-overlay-config';
+import { MatImageOverlayComponent, IMAGE_OVERLAY_CONFIG_TOKEN } from './component/mat-image-overlay.component';
+import { MatImageOverlayRef } from './mat-image-overlay-ref';
+import { MatImageOverlayConfig } from './mat-image-overlay-config';
 
 @Injectable()
 export class MatImageOverlay {
