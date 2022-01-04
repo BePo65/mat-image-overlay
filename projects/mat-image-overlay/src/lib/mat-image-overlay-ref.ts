@@ -95,7 +95,7 @@ export class MatImageOverlayRef {
    * Close the image overlay.
    * @param lastImageIndex Optional result to return to the image overlay opener.
    */
-  close(lastImageIndex?: number): void {
+  public close(lastImageIndex?: number): void {
     this._lastImageIndex = lastImageIndex;
     this._state = MatImageOverlayState.CLOSED;
     this._overlayRef.dispose();
@@ -104,35 +104,28 @@ export class MatImageOverlayRef {
   /**
    * Gets an observable that is notified when the image overlay is finished opening.
    */
-  afterOpened(): Observable<void> {
+  public afterOpened(): Observable<void> {
     return this._afterOpened;
   }
 
   /**
    * Gets an observable that is notified when a new image has been selected.
    */
-   imageChanged(): Observable<number | undefined> {
+  public imageChanged(): Observable<number | undefined> {
     return this._imageChanged;
   }
 
   /**
    * Gets an observable that is notified when the image overlay is finished closing.
    */
-  afterClosed(): Observable<number | undefined> {
+  public afterClosed(): Observable<number | undefined> {
     return this._afterClosed;
   }
 
   /**
    * Gets an observable that emits when keydown events are targeted on the overlay.
    */
-  keydownEvents(): Observable<KeyboardEvent> {
+  public keydownEvents(): Observable<KeyboardEvent> {
     return this._overlayRef.keydownEvents();
-  }
-
-  /**
-   * Gets the current state of the dialog's lifecycle.
-  */
-  getState(): MatImageOverlayState {
-    return this._state;
   }
 }
