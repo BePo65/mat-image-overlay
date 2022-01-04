@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatImageOverlay } from './mat-image-overlay';
 
-describe('MatImageOverlayService', () => {
+describe('MatImageOverlay', () => {
   let service: MatImageOverlay;
 
   beforeEach(() => {
