@@ -1,5 +1,5 @@
-import { Injectable, Injector, ComponentRef } from '@angular/core';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { Injectable, Injector } from '@angular/core';
+import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
@@ -9,8 +9,7 @@ import { MatImageOverlayConfig } from '../mat-image-overlay-config';
 
 @Injectable()
 export class MatImageOverlay {
-  public imageOverlayComponentRef!: ComponentRef<MatImageOverlayComponent>;
-  public overlayRef!: OverlayRef;
+  public imageOverlayRef: MatImageOverlayRef | undefined;
 
   /** Stream that emits when the image overlay has been opened. */
   private readonly _afterOpened = new Subject<MatImageOverlayRef>();
@@ -50,24 +49,34 @@ export class MatImageOverlay {
   }
 
   public open(images: string[], firstImageIndex = 0, backdropClass?: string): MatImageOverlayRef {
-    // TODO make sure that always only 1 overlay is open
+    // Make sure that always only 1 overlay is open at a time
+    if (!this.imageOverlayExists()) {
+      const activeConfig = this.currentConfig(images, firstImageIndex, backdropClass);
 
-    const activeConfig = this.currentConfig(images, firstImageIndex, backdropClass);
+      const imagesInjector = this.buildInjector(activeConfig);
+      const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
 
-    const imagesInjector = this.buildInjector(activeConfig);
-    const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
+      // Connect overlay to this service
+      const overlayRef = this.overlay.create(this.buildOverlayConfig(activeConfig));
 
-    // Connect overlay to this service
-    this.overlayRef = this.overlay.create(this.buildOverlayConfig(activeConfig));
+      // Connect component to this service
+      const imageOverlayComponentRef = overlayRef.attach(imagePortal);
 
-    // Connect component to this service
-    this.imageOverlayComponentRef = this.overlayRef.attach(imagePortal);
+      this.imageOverlayRef = new MatImageOverlayRef(overlayRef, imageOverlayComponentRef.instance);
+      this.imageOverlayRef.afterClosed().subscribe(lastImageIndex => {
+        this.imageOverlayRef = undefined;
+        this.afterClosed.next(lastImageIndex);
+      })
+      this.afterOpened.next(this.imageOverlayRef);
 
-    const imageOverlayRef = new MatImageOverlayRef(this.overlayRef, this.imageOverlayComponentRef.instance);
-    imageOverlayRef.afterClosed().subscribe(lastImageIndex => this.afterClosed.next(lastImageIndex))
-    this.afterOpened.next(imageOverlayRef);
+      return this.imageOverlayRef;
+    } else {
+      throw new Error('There is already an image overlay open; only 1 is allowed at a time.');
+    }
+  }
 
-    return imageOverlayRef;
+  public imageOverlayExists(): boolean {
+    return (this.imageOverlayRef !== undefined);
   }
 
   private currentConfig(images: string[], firstImageIndex?: number, backdropClass?: string): MatImageOverlayConfig {
