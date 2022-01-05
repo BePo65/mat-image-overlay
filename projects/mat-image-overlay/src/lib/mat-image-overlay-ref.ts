@@ -29,9 +29,6 @@ export class MatImageOverlayRef {
   /** Index of last image shown to be passed to afterClosed. */
   private _lastImageIndex: number | undefined;
 
-  /** Current state of the dialog. */
-  private _state = MatImageOverlayState.OPEN;
-
   constructor(
     private _overlayRef: OverlayRef,
     public _matImageOverlayInstance: MatImageOverlayComponent
@@ -97,7 +94,6 @@ export class MatImageOverlayRef {
    */
   public close(lastImageIndex?: number): void {
     this._lastImageIndex = lastImageIndex;
-    this._state = MatImageOverlayState.CLOSED;
     this._overlayRef.dispose();
   }
 
