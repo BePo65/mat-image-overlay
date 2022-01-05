@@ -1,6 +1,6 @@
 <figure class="mat-image-overlay-wrapper">
-  <img class="mat-image-overlay-image" [src]="currentImage">
-  <button class="mat-image-overlay mat-image-overlay-close" (click)="closeOverlay()" aria-hidden="false" aria-label="close overlay">
+  <img class="mat-image-overlay-image" [src]="currentImageUrl">
+  <button class="mat-image-overlay mat-image-overlay-close" (click)="onClose()" aria-hidden="false" aria-label="close overlay">
     <mat-icon svgIcon="close"></mat-icon>
   </button>
   <button *ngIf="!firstImage" class="mat-image-overlay mat-image-overlay-left" (click)="gotoPreviousImage()" aria-hidden="false" aria-label="previous image">

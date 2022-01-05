@@ -1,5 +1,21 @@
+.title {
+  color: gray;
+  margin: 0 0 1.5rem;
+  padding-top: 1.5rem;
+  text-align: center;
+}
+
+.description {
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.source-link {
+  margin: 0 0 3rem;
+  text-align: center;
+}
+
 .actions {
-  margin: 3em;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   text-align: center;
 }
@@ -9,6 +25,7 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  margin: 0 0 3em;
 }
 
 img {

@@ -9,6 +9,7 @@
   height: auto;
   max-height: min(calc(100vh - 2rem), 95vh);
   max-width: min(calc(100vw - 2rem), 95vw);
+  object-fit: contain;
   position: relative;
   width: 100%;
 }

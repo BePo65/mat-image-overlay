@@ -10,3 +10,9 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+/* Styles for MatImageOverlay must be placed in global
+   styles.scss because of angular view encapsulation */
+.demo-backdrop-class {
+  background: rgba(0 0 0 / 32%);
+}
