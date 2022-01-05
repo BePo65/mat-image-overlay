@@ -82,7 +82,7 @@ export class MatImageOverlayRef {
       this._imageChanged.next(event.imageIndex);
     });
 
-    /** As MatImageOverlayComponent emits start index before MatImageOverlayRef
+    /** As MatImageOverlayComponent emits the start index before MatImageOverlayRef
      * is initialized, we have to emit this value here again.
      */
     this._imageChanged.next(this._matImageOverlayInstance.currentImageIndex);
@@ -105,6 +105,14 @@ export class MatImageOverlayRef {
   }
 
   /**
+   * Gets an observable that is notified when the image overlay is finished closing.
+   * Observable returns the index of the last image displayed.
+   */
+   public afterClosed(): Observable<number | undefined> {
+    return this._afterClosed;
+  }
+
+  /**
    * Gets an observable that is notified when a new image has been selected.
    */
   public imageChanged(): Observable<number | undefined> {
@@ -112,14 +120,7 @@ export class MatImageOverlayRef {
   }
 
   /**
-   * Gets an observable that is notified when the image overlay is finished closing.
-   */
-  public afterClosed(): Observable<number | undefined> {
-    return this._afterClosed;
-  }
-
-  /**
-   * Gets an observable that emits when keydown events are targeted on the overlay.
+   * Gets an observable that is notified when keydown events are targeted on the overlay.
    */
   public keydownEvents(): Observable<KeyboardEvent> {
     return this._overlayRef.keydownEvents();
