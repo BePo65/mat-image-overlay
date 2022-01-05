@@ -60,6 +60,101 @@ npm start
 
 Navigate to http://localhost:4200
 
+## API
+### MatImageOverlay
+**Properties**
+| Name  | Description |
+|---|---|
+| imageOverlayRef: MatImageOverlayRef &#124; undefined | Reference of the opened image overlay. |
+| afterOpened: Subject&lt;MatImaeOverlayRef&gt; | Stream that gets notified when the image overlay has been opened. |
+| afterClosed: Subject&lt;number&gt; | Stream that gets notified when the image overlay has been closed. |
+
+**Methods**
+| open | |
+|---|--|
+| Opens the image overlay. | |
+| *Parameters* | |
+| images<br>string[] | List of the images to be displayed. |
+| firstImageIndex<br>number<br>default value: 0 | Index of the image to be displayed when the overlay is opened. |
+| backdropClass<br>string &#124; undefined | CSS class to add to the backdrop, replacing the default backdrop css.|
+| *Returns* | |
+| MatImageOverlayRef | Reference to opened image overlay.
+
+| imageOverlayExists | |
+|---|--|
+| Checks Whether the image overlay already exists. | |
+| *Returns* | |
+| boolean | |
+
+### MatImageOverlayConfig
+**Properties**
+| Name  | Description |
+|---|---|
+| images<br>string[] | List of the images to display. |
+| startImageIndex<br>number | Index of the image to be displayed when initializing the image overlay. |
+| backdropClass<br>string &#124; undefined | CSS class to add to the backdrop, replacing the default backdrop css. |
+
+### MatImageOverlayRef
+**Properties**
+| Name  | Description |
+|---|---|
+| componentInstance: MatImageOverlayComponent &#124; undefined | Reference of the component displayed in the opened image overlay |
+
+**Methods**
+| close | |
+|---|--|
+| Closes the image overlay. | |
+| *Parameters* | |
+| lastImageIndex<br>number | Index of the last image displayed in the overlay. |
+
+| afterOpened | |
+|---|--|
+| Gets an observable that is notified when the image overlay is finished opening. | |
+| *Returns* | |
+| Observable&lt;void&gt; | |
+
+| afterClosed | |
+|---|--|
+| Gets an observable that is notified when the image overlay is finished closing. | |
+| *Returns* | |
+| Observable&lt;number&gt; | Observable returns index of the last image displayed. |
+
+| imageChanged | |
+|---|--|
+| Gets an observable that is notified when a new image has been selected. | |
+| *Returns* | |
+| Observable&lt;number&gt; | Observable returns index of the image displayed. |
+
+| keydownEvents | |
+|---|--|
+| Gets an observable that is notified when keydown events are targeted on the overlay. | |
+| *Returns* | |
+| Observable&lt;number&gt; | Observable returns index of the image displayed. |
+
+### MatImageOverlayComponent
+**Methods**
+| gotoNextImage | |
+|---|--|
+| Display the next image in the datasource. | |
+
+| gotoPreviousImage | |
+|---|--|
+| Display the previous image in the datasource. | |
+
+| gotoFirstImage | |
+|---|--|
+| Display the first image in the datasource. | |
+
+| gotoLastImage | |
+|---|--|
+| Display the last image in the datasource. | |
+
+| gotoImage | |
+|---|--|
+| Display the image in the datasource selected by the imageIndex. | |
+| *Parameters* | |
+| imageIndex<br>number | Index of the image to be displayed. |
+
 ## Development
 Build the library and the demo project:
 ```
@@ -94,10 +189,11 @@ npm run e2e
 The component uses [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
 The icons are stored in the code as strings representing the icons as svg graphics.
 
-## Changelog
+## Contributing
+### Changelog
 The project uses 'standard-version' to create the changelog. To enable this system, commit messages are linted before commits are executed by git.
 
-### The structure of commit messages is:
+**The structure of commit messages is**:
 ```
   <header>
   <BLANK LINE>
