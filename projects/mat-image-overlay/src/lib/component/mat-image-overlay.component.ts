@@ -3,7 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { MatImageOverlayConfig } from '../mat-image-overlay-config';
-import { CLOSE_ICON, ARROW_FORWARD_ICON, ARROW_BACKWARD_ICON } from '../mat-image-overlay.svg';
+import { ARROW_BACKWARD_ICON, ARROW_FORWARD_ICON, CLOSE_ICON } from '../mat-image-overlay.svg';
 
 /**
  * States of the component.
