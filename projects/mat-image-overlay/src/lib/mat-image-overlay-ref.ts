@@ -15,7 +15,7 @@ export const enum MatImageOverlayState {
  */
 export class MatImageOverlayRef {
   /** The instance of component opened into the dialog. */
-  componentInstance: MatImageOverlayComponent | undefined;
+  public componentInstance: MatImageOverlayComponent | undefined;
 
   /** Subject for notifying the user that the dialog has finished opening. */
   private readonly _afterOpened = new Subject<void>();
