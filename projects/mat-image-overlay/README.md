@@ -72,9 +72,7 @@ Navigate to http://localhost:4200
 |---|--|
 | Opens the image overlay. | |
 | *Parameters* | |
-| images<br>string[] | List of the images to be displayed. |
-| firstImageIndex<br>number<br>default value: 0 | Index of the image to be displayed when the overlay is opened. |
-| backdropClass<br>string &#124; undefined | CSS class to add to the backdrop, replacing the default backdrop css.|
+| config<br>MatImageOverlayConfig | Extra configuration options. |
 | *Returns* | |
 | MatImageOverlayRef | Reference to opened image overlay.
 

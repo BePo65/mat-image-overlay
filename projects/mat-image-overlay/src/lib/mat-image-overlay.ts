@@ -4,7 +4,6 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
 import { IMAGE_OVERLAY_CONFIG_TOKEN, MatImageOverlayComponent } from './component/mat-image-overlay.component';
-import { MatImageOverlayComponent } from './component/mat-image-overlay.component';
 import { MatImageOverlayRef } from './mat-image-overlay-ref';
 import { MatImageOverlayConfig } from './mat-image-overlay-config';
 
@@ -49,10 +48,10 @@ export class MatImageOverlay {
     return result;
   }
 
-  public open(images: string[], firstImageIndex = 0, backdropClass?: string): MatImageOverlayRef {
+  public open(config: MatImageOverlayConfig): MatImageOverlayRef {
     // Make sure that always only 1 overlay is open at a time
     if (!this.imageOverlayExists()) {
-      const activeConfig = this.currentConfig(images, firstImageIndex, backdropClass);
+      const activeConfig = this.currentConfig(config);
 
       const imagesInjector = this.buildInjector(activeConfig);
       const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
@@ -80,15 +79,19 @@ export class MatImageOverlay {
     return (this.imageOverlayRef !== undefined);
   }
 
-  private currentConfig(images: string[], firstImageIndex?: number, backdropClass?: string): MatImageOverlayConfig {
+  private currentConfig(config: MatImageOverlayConfig): MatImageOverlayConfig {
     const activeConfig = new MatImageOverlayConfig();
-    activeConfig.images = images;
-    if (firstImageIndex) {
-      activeConfig.startImageIndex = firstImageIndex;
+    if(config.images) {
+      activeConfig.images = config.images;
     }
 
-    if (backdropClass) {
-      activeConfig.backdropClass = backdropClass;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    if ((config.startImageIndex) && (config.startImageIndex >= 0)) {
+      activeConfig.startImageIndex = config.startImageIndex;
+    }
+
+    if (config.backdropClass) {
+      activeConfig.backdropClass = config.backdropClass;
     }
 
     return activeConfig;

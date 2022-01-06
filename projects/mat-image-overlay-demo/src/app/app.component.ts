@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatImageOverlay, MatImageOverlayRef } from 'mat-image-overlay';
+import { MatImageOverlayConfig } from 'mat-image-overlay/lib/mat-image-overlay-config';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,12 @@ export class AppComponent {
   openImageOverlay(image?: string): void {
     const imageIndex = this.urlToImageIndex(this.images, image);
     // Demo to show usage of all 'open' parameters
-    const imageOverlayRef = this.imageOverlay.open(this.images, imageIndex, 'demo-backdrop-class');
+    const config = {
+      images: this.images,
+      startImageIndex: imageIndex,
+      backdropClass: 'demo-backdrop-class'
+    } as MatImageOverlayConfig;
+    const imageOverlayRef = this.imageOverlay.open(config);
 
     // Demo to show usage of published events
     imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
@@ -34,7 +40,11 @@ export class AppComponent {
   // Demo to show external switching of images
   startImageShow(): void {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
-    const imageOverlayRef = this.imageOverlay.open(this.images, 2);
+    const config = {
+      images: this.images,
+      startImageIndex: 2
+    } as MatImageOverlayConfig;
+    const imageOverlayRef = this.imageOverlay.open(config);
     let loopIndex = 1;
     // For typecast of timer see https://stackoverflow.com/questions/45802988/typescript-use-correct-version-of-settimeout-node-vs-window
     const timerId = setInterval(() => {
