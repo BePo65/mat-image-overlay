@@ -1,13 +1,12 @@
-import { Injectable, InjectionToken, Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
+import { IMAGE_OVERLAY_CONFIG_TOKEN, MatImageOverlayComponent } from './component/mat-image-overlay.component';
 import { MatImageOverlayComponent } from './component/mat-image-overlay.component';
 import { MatImageOverlayRef } from './mat-image-overlay-ref';
 import { MatImageOverlayConfig } from './mat-image-overlay-config';
-
-export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
 
 @Injectable()
 export class MatImageOverlay {

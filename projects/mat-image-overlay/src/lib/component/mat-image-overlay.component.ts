@@ -1,8 +1,7 @@
-import { Component, Inject, HostListener, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Inject, InjectionToken, OnDestroy } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { IMAGE_OVERLAY_CONFIG_TOKEN } from '../mat-image-overlay';
 import { MatImageOverlayConfig } from '../mat-image-overlay-config';
 import { CLOSE_ICON, ARROW_FORWARD_ICON, ARROW_BACKWARD_ICON } from '../mat-image-overlay.svg';
 
@@ -26,6 +25,8 @@ export interface ImageOverlayStateEvent {
 export interface ImageChangedEvent {
   imageIndex: number;
 }
+
+export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
 
 @Component({
   templateUrl: './mat-image-overlay.component.html',
