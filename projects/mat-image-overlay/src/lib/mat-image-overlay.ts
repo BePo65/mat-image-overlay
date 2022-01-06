@@ -28,26 +28,11 @@ export class MatImageOverlay {
     private overlay: Overlay
   ) { }
 
-  private buildInjector(config: MatImageOverlayConfig): Injector {
-    return Injector.create({
-      providers: [
-        {provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: config}
-      ],
-      parent: this.injector
-    });
-  }
-
-  private buildOverlayConfig(config: MatImageOverlayConfig): OverlayConfig {
-    const result = new OverlayConfig();
-    result.positionStrategy = this.overlay.position().global().centerVertically().centerHorizontally();
-    result.hasBackdrop = true;
-    if (config.backdropClass) {
-      result.backdropClass = config.backdropClass;
-    }
-
-    return result;
-  }
-
+  /**
+   * Open the image overlay and display the first image.
+   * @param config - Object containing all configuration parameters
+   * @returns An object as an interface to the created image overlay
+   */
   public open(config: MatImageOverlayConfig): MatImageOverlayRef {
     // Make sure that always only 1 overlay is open at a time
     if (!this.imageOverlayExists()) {
@@ -75,10 +60,51 @@ export class MatImageOverlay {
     }
   }
 
+  /**
+   * Has overlay been created and is visible?
+   * @returns A flag indicating if image overlay is visible
+   */
   public imageOverlayExists(): boolean {
     return (this.imageOverlayRef !== undefined);
   }
 
+  /**
+   * Create injector for image overlay configuration object.
+   * @param config - Object containing all configuration parameters
+   * @returns The new injector instance
+   */
+  private buildInjector(config: MatImageOverlayConfig): Injector {
+    return Injector.create({
+      providers: [
+        {provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: config}
+      ],
+      parent: this.injector
+    });
+  }
+
+  /**
+   * Build the configuration for the image overlay.
+   * The configuration includes common elements and elements from the given config object.
+   * @param config - Object containing all configuration parameters (only 'backdropClass' is used)
+   * @returns An object with all configuratio parameters for the image overlay
+   */
+  private buildOverlayConfig(config: MatImageOverlayConfig): OverlayConfig {
+    const result = new OverlayConfig();
+    result.positionStrategy = this.overlay.position().global().centerVertically().centerHorizontally();
+    result.hasBackdrop = true;
+    if (config.backdropClass) {
+      result.backdropClass = config.backdropClass;
+    }
+
+    return result;
+  }
+
+  /**
+   * Create the configuration object for the image overlay.
+   * The method validates the properties of the given config parameter.
+   * @param config - Object containing all configuration parameters
+   * @returns An object containing all configuration parameters for the image overlay
+   */
   private currentConfig(config: MatImageOverlayConfig): MatImageOverlayConfig {
     const activeConfig = new MatImageOverlayConfig();
     if(config.images) {
