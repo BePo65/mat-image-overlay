@@ -32,7 +32,7 @@ import { MatImageOverlayModule } from 'mat-image-overlay';
 export class AppModule { }
 ```
 
-Open the images via `MatImageOverlayService.open`
+Open the images via `MatImageOverlay.open`
 ```
 images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
@@ -41,11 +41,16 @@ images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
 ];
 
-constructor(private imageOverlayService: MatImageOverlayService) {
+constructor(private imageOverlay: MatImageOverlay) {
 }
 
 openImageOverlay(): void {
-  this.imageOverlayService.open(this.images);
+  const config = {
+    images: this.images,
+    startImageIndex: imageIndex,
+    backdropClass: 'demo-backdrop-class'
+  } as MatImageOverlayConfig;
+  const imageOverlayRef = this.imageOverlay.open(config);
 }
 ```
 
@@ -74,9 +79,7 @@ Navigate to http://localhost:4200
 |---|--|
 | Opens the image overlay. | |
 | *Parameters* | |
-| images<br>string[] | List of the images to be displayed. |
-| firstImageIndex<br>number<br>default value: 0 | Index of the image to be displayed when the overlay is opened. |
-| backdropClass<br>string &#124; undefined | CSS class to add to the backdrop, replacing the default backdrop css.|
+| config<br>MatImageOverlayConfig | Extra configuration options. |
 | *Returns* | |
 | MatImageOverlayRef | Reference to opened image overlay.
 

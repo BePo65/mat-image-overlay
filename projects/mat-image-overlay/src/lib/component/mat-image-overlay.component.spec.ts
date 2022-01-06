@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatImageOverlayComponent } from './mat-image-overlay.component';
 import { SimpleChildComponent } from '../test.assets/simple.child.component';
 import { MatImageOverlay } from '../mat-image-overlay';
+import { MatImageOverlayConfig } from '../mat-image-overlay-config';
 
 describe('MatImageOverlayComponent', () => {
   let imageOverlay: MatImageOverlay;
@@ -56,7 +57,10 @@ describe('MatImageOverlayComponent', () => {
   });
 
   it('should open an overlay with images', () => {
-    const imageOverlayRef = imageOverlay.open(images);
+    const config = {
+      images: images
+    } as MatImageOverlayConfig;
+    const imageOverlayRef = imageOverlay.open(config);
     dummyContainerFixture.detectChanges();
 
     expect(imageOverlayRef.componentInstance instanceof MatImageOverlayComponent).toBe(true);

@@ -1,13 +1,11 @@
-import { Injectable, InjectionToken, Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
-import { MatImageOverlayComponent } from './component/mat-image-overlay.component';
+import { IMAGE_OVERLAY_CONFIG_TOKEN, MatImageOverlayComponent } from './component/mat-image-overlay.component';
 import { MatImageOverlayRef } from './mat-image-overlay-ref';
 import { MatImageOverlayConfig } from './mat-image-overlay-config';
-
-export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
 
 @Injectable()
 export class MatImageOverlay {
@@ -30,30 +28,15 @@ export class MatImageOverlay {
     private overlay: Overlay
   ) { }
 
-  private buildInjector(config: MatImageOverlayConfig): Injector {
-    return Injector.create({
-      providers: [
-        {provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: config}
-      ],
-      parent: this.injector
-    });
-  }
-
-  private buildOverlayConfig(config: MatImageOverlayConfig): OverlayConfig {
-    const result = new OverlayConfig();
-    result.positionStrategy = this.overlay.position().global().centerVertically().centerHorizontally();
-    result.hasBackdrop = true;
-    if (config.backdropClass) {
-      result.backdropClass = config.backdropClass;
-    }
-
-    return result;
-  }
-
-  public open(images: string[], firstImageIndex = 0, backdropClass?: string): MatImageOverlayRef {
+  /**
+   * Open the image overlay and display the first image.
+   * @param config - Object containing all configuration parameters
+   * @returns An object as an interface to the created image overlay
+   */
+  public open(config: MatImageOverlayConfig): MatImageOverlayRef {
     // Make sure that always only 1 overlay is open at a time
     if (!this.imageOverlayExists()) {
-      const activeConfig = this.currentConfig(images, firstImageIndex, backdropClass);
+      const activeConfig = this.currentConfig(config);
 
       const imagesInjector = this.buildInjector(activeConfig);
       const imagePortal = new ComponentPortal(MatImageOverlayComponent, null, imagesInjector);
@@ -77,19 +60,64 @@ export class MatImageOverlay {
     }
   }
 
+  /**
+   * Has overlay been created and is visible?
+   * @returns A flag indicating if image overlay is visible
+   */
   public imageOverlayExists(): boolean {
     return (this.imageOverlayRef !== undefined);
   }
 
-  private currentConfig(images: string[], firstImageIndex?: number, backdropClass?: string): MatImageOverlayConfig {
-    const activeConfig = new MatImageOverlayConfig();
-    activeConfig.images = images;
-    if (firstImageIndex) {
-      activeConfig.startImageIndex = firstImageIndex;
+  /**
+   * Create injector for image overlay configuration object.
+   * @param config - Object containing all configuration parameters
+   * @returns The new injector instance
+   */
+  private buildInjector(config: MatImageOverlayConfig): Injector {
+    return Injector.create({
+      providers: [
+        {provide: IMAGE_OVERLAY_CONFIG_TOKEN, useValue: config}
+      ],
+      parent: this.injector
+    });
+  }
+
+  /**
+   * Build the configuration for the image overlay.
+   * The configuration includes common elements and elements from the given config object.
+   * @param config - Object containing all configuration parameters (only 'backdropClass' is used)
+   * @returns An object with all configuratio parameters for the image overlay
+   */
+  private buildOverlayConfig(config: MatImageOverlayConfig): OverlayConfig {
+    const result = new OverlayConfig();
+    result.positionStrategy = this.overlay.position().global().centerVertically().centerHorizontally();
+    result.hasBackdrop = true;
+    if (config.backdropClass) {
+      result.backdropClass = config.backdropClass;
     }
 
-    if (backdropClass) {
-      activeConfig.backdropClass = backdropClass;
+    return result;
+  }
+
+  /**
+   * Create the configuration object for the image overlay.
+   * The method validates the properties of the given config parameter.
+   * @param config - Object containing all configuration parameters
+   * @returns An object containing all configuration parameters for the image overlay
+   */
+  private currentConfig(config: MatImageOverlayConfig): MatImageOverlayConfig {
+    const activeConfig = new MatImageOverlayConfig();
+    if(config.images) {
+      activeConfig.images = config.images;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    if ((config.startImageIndex) && (config.startImageIndex >= 0)) {
+      activeConfig.startImageIndex = config.startImageIndex;
+    }
+
+    if (config.backdropClass) {
+      activeConfig.backdropClass = config.backdropClass;
     }
 
     return activeConfig;
