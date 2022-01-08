@@ -111,7 +111,6 @@ export class MatImageOverlay {
       activeConfig.images = config.images;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     if ((config.startImageIndex) && (config.startImageIndex >= 0)) {
       activeConfig.startImageIndex = config.startImageIndex;
     }

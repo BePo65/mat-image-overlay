@@ -86,9 +86,9 @@ Navigate to http://localhost:4200
 **Properties**
 | Name  | Description |
 |---|---|
-| images<br>string[] | List of the images to display. |
-| startImageIndex<br>number | Index of the image to be displayed when initializing the image overlay. |
-| backdropClass<br>string &#124; undefined | CSS class to add to the backdrop, replacing the default backdrop css. |
+| images<br>string[] | List of the images to display (default: empty list). |
+| startImageIndex?<br>number | Index of the image to be displayed when initializing the image overlay. |
+| backdropClass?<br>string &#124; undefined | CSS class to add to the backdrop, replacing the default backdrop css. |
 
 ### MatImageOverlayRef
 **Properties**
