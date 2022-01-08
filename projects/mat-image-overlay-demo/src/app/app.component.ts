@@ -56,19 +56,19 @@ export class AppComponent {
       switch (loopIndex) {
         case 1:
           console.log(`${(new Date()).toLocaleTimeString()} - goto first image`);
-          imageOverlayRef.componentInstance?.gotoFirstImage();
+          imageOverlayRef.gotoFirstImage();
           break;
         case 2:
           console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
-          imageOverlayRef.componentInstance?.gotoNextImage();
+          imageOverlayRef.gotoNextImage();
           break;
         case 3:
           console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
-          imageOverlayRef.componentInstance?.gotoNextImage();
+          imageOverlayRef.gotoNextImage();
           break;
         case 4:
           console.log(`${(new Date()).toLocaleTimeString()} - goto previous image`);
-          imageOverlayRef.componentInstance?.gotoPreviousImage();
+          imageOverlayRef.gotoPreviousImage();
           break;
         case 5:
           console.log(`${(new Date()).toLocaleTimeString()} - close overlay`);

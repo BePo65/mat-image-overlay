@@ -63,7 +63,7 @@ describe('MatImageOverlayComponent', () => {
     const imageOverlayRef = imageOverlay.open(config);
     dummyContainerFixture.detectChanges();
 
-    expect(imageOverlayRef.componentInstance instanceof MatImageOverlayComponent).toBe(true);
+    expect(imageOverlayRef._componentInstance instanceof MatImageOverlayComponent).toBe(true);
     expect(imageOverlay.imageOverlayExists()).toBe(true);
 
     const closeButton = overlayContainerElement.querySelector('.cdk-overlay-container .mat-image-overlay.mat-image-overlay-close mat-icon');
