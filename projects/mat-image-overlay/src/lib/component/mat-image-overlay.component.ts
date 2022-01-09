@@ -57,7 +57,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.currentImageUrl = this.images[this.currentImageIndex];
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
-    console.log(`overlayButtonsStyle=${this.overlayButtonsStyle}`);
 
     // Get material icons as svg icons
     this.matIconRegistry.addSvgIconLiteral('close', this.domSanitizer.bypassSecurityTrustHtml(CLOSE_ICON));
