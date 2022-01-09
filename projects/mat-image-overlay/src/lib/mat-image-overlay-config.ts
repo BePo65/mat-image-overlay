@@ -1,3 +1,9 @@
+export enum ElementDisplayStyle {
+  never,
+  onHover,
+  always
+}
+
 export class MatImageOverlayConfig {
   /** List of images to be displayed. */
   images: string[] = [];
@@ -9,5 +15,8 @@ export class MatImageOverlayConfig {
    * class definition must be placed in global styles.scss
    * because of angular view encapsulation
    */
-   backdropClass?: string | undefined;
-  }
+   backdropClass?: string;
+
+  /** How to show the navigational buttons in image overlay. */
+  overlayButtonsStyle?: ElementDisplayStyle;
+}

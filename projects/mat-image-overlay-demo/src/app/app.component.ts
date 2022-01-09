@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MatImageOverlay, MatImageOverlayRef } from 'mat-image-overlay';
-import { MatImageOverlayConfig } from 'mat-image-overlay/lib/mat-image-overlay-config';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOverlayRef } from 'mat-image-overlay';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +8,8 @@ import { MatImageOverlayConfig } from 'mat-image-overlay/lib/mat-image-overlay-c
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  elementDisplayStyle = ElementDisplayStyle;
+
   images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg',
@@ -15,18 +17,26 @@ export class AppComponent {
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
   ];
 
-  constructor(private imageOverlay: MatImageOverlay) {
+  optionsForm = this.formBuilder.group({
+    buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]]
+  });
+
+  constructor(private imageOverlay: MatImageOverlay, private formBuilder: FormBuilder) {
     this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
     this.imageOverlay.afterClosed.subscribe(lastImageIndex => console.log(`MatImageOverlay closed; last index=${lastImageIndex}`));
   }
 
+  /**
+   * Demo to show basic functions of overlay images.
+   */
   openImageOverlay(image?: string): void {
     const imageIndex = this.urlToImageIndex(this.images, image);
     // Demo to show usage of all 'open' parameters
     const config = {
       images: this.images,
       startImageIndex: imageIndex,
-      backdropClass: 'demo-backdrop-class'
+      backdropClass: 'demo-backdrop-class',
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value
     } as MatImageOverlayConfig;
     const imageOverlayRef = this.imageOverlay.open(config);
 
@@ -37,12 +47,15 @@ export class AppComponent {
     imageOverlayRef.keydownEvents().subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
   }
 
-  // Demo to show external switching of images
+  /**
+   * Demo to show external switching of images.
+   */
   startImageShow(): void {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
     const config = {
       images: this.images,
-      startImageIndex: 2
+      startImageIndex: 2,
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value
     } as MatImageOverlayConfig;
     const imageOverlayRef = this.imageOverlay.open(config);
     let loopIndex = 1;

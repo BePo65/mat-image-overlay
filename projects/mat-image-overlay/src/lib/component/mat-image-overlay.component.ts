@@ -2,7 +2,7 @@ import { AfterViewInit, Component, EventEmitter, HostListener, Inject, Injection
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { MatImageOverlayConfig } from '../mat-image-overlay-config';
+import { ElementDisplayStyle, MatImageOverlayConfig } from '../mat-image-overlay-config';
 import { ARROW_BACKWARD_ICON, ARROW_FORWARD_ICON, CLOSE_ICON } from '../mat-image-overlay.svg';
 
 /**
@@ -42,6 +42,9 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   public lastImage = false;
   public currentImageIndex = 0;
 
+  elementDisplayStyle = ElementDisplayStyle;
+  public overlayButtonsStyle: ElementDisplayStyle;
+
   private images: string[];
 
   constructor(
@@ -53,6 +56,8 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.currentImageIndex = _config.startImageIndex ?? 0;
     this.currentImageUrl = this.images[this.currentImageIndex];
     this.updateImageState();
+    this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
+    console.log(`overlayButtonsStyle=${this.overlayButtonsStyle}`);
 
     // Get material icons as svg icons
     this.matIconRegistry.addSvgIconLiteral('close', this.domSanitizer.bypassSecurityTrustHtml(CLOSE_ICON));
@@ -124,6 +129,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   public gotoImage(imageIndex: number): void {
     if ((this.currentImageIndex > 0) && (imageIndex < this.images.length - 1)) {
+      this.currentImageIndex = imageIndex;
       this.currentImageUrl = this.images[this.currentImageIndex];
       this.updateImageState();
     }

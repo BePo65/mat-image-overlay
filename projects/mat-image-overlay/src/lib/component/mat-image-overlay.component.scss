@@ -14,7 +14,7 @@
   width: 100%;
 }
 
-.mat-image-overlay {
+.mat-image-overlay-button {
   background-color: rgba(255 255 255 / 0%);
   border: none;
   color: rgb(96 96 96);
@@ -45,20 +45,14 @@
   right: 0;
 }
 
-/* Show buttons only on 'hover' on devices that do suppport 'hover' */
-@media (any-hover: hover) {
-  .mat-image-overlay-wrapper:hover .mat-image-overlay {
-    background-color: rgba(255 255 255 / 50%);
-    color: rgb(64 64 64);
-    visibility: initial;
-  }
+.mat-image-overlay-wrapper:hover .mat-image-overlay-button.show-on-hover {
+  background-color: rgba(255 255 255 / 50%);
+  color: rgb(64 64 64);
+  visibility: initial;
 }
 
-/* Always show buttons on devices that do not suppport 'hover' */
-@media (any-hover: none) {
-  .mat-image-overlay {
-    background-color: rgba(255 255 255 / 50%);
-    color: rgb(64 64 64);
-    visibility: initial;
-  }
+.mat-image-overlay-button.show-always {
+  background-color: rgba(255 255 255 / 50%);
+  color: rgb(64 64 64);
+  visibility: initial;
 }

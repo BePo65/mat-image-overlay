@@ -94,15 +94,11 @@ Navigate to http://localhost:4200
 | Name  | Description |
 |---|---|
 | images<br>string[] | List of the images to display. |
-| startImageIndex<br>number | Index of the image to be displayed when initializing the image overlay. |
-| backdropClass<br>string &#124; undefined | CSS class to add to the backdrop, replacing the default backdrop css. |
+| startImageIndex?<br>number | Index of the image to be displayed when initializing the image overlay. |
+| backdropClass?<br>string | CSS class to add to the backdrop, replacing the default backdrop css. |
+| overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). |
 
 ### MatImageOverlayRef
-**Properties**
-| Name  | Description |
-|---|---|
-| componentInstance: MatImageOverlayComponent &#124; undefined | Reference of the component displayed in the opened image overlay |
-
 **Methods**
 | close | |
 |---|--|
