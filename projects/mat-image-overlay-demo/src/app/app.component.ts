@@ -52,32 +52,48 @@ export class AppComponent {
     }, 2000) as unknown as number;
   }
 
+  /**
+   * Definition of the sequence of commands to be executed
+   * in the 'image show'.
+   * @param loopIndex - index of the step to be executed
+   * @param imageOverlayRef - overlay to be used
+   * @param timerId - id of the timer used to trigger the commands (used to stop it)
+   * @returns loopIndex to be used next time
+   */
   private switchImages(loopIndex: number, imageOverlayRef: MatImageOverlayRef, timerId: number): number {
-      switch (loopIndex) {
-        case 1:
-          console.log(`${(new Date()).toLocaleTimeString()} - goto first image`);
-          imageOverlayRef.gotoFirstImage();
-          break;
-        case 2:
-          console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
-          imageOverlayRef.gotoNextImage();
-          break;
-        case 3:
-          console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
-          imageOverlayRef.gotoNextImage();
-          break;
-        case 4:
-          console.log(`${(new Date()).toLocaleTimeString()} - goto previous image`);
-          imageOverlayRef.gotoPreviousImage();
-          break;
-        case 5:
-          console.log(`${(new Date()).toLocaleTimeString()} - close overlay`);
-          imageOverlayRef.close();
-          clearInterval(timerId);
-          break;
-      }
+    switch (loopIndex) {
+      case 1:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto first image`);
+        imageOverlayRef.gotoFirstImage();
+        break;
+      case 2:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
+        imageOverlayRef.gotoNextImage();
+        break;
+      case 3:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
+        imageOverlayRef.gotoNextImage();
+        break;
+      case 4:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto previous image`);
+        imageOverlayRef.gotoPreviousImage();
+        break;
+      case 5:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto last image`);
+        imageOverlayRef.gotoLastImage();
+        break;
+      case 6:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto 2nd image`);
+        imageOverlayRef.gotoImage(1);
+        break;
+      case 7:
+        console.log(`${(new Date()).toLocaleTimeString()} - close overlay`);
+        imageOverlayRef.close();
+        clearInterval(timerId);
+        break;
+    }
 
-      return ++loopIndex;
+    return ++loopIndex;
   }
 
   private urlToImageIndex(images: string[], urlToCurrentImage?: string): number {
