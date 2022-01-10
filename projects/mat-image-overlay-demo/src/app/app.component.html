@@ -4,17 +4,26 @@
   <span>Source on github: </span>
   <a href="https://github.com/BePo65/mat-image-overlay">BePo65/mat-image-overlay</a>
 </p>
-<div class="image-selection">
-  <div *ngFor="let image of images">
-    <img width="128" [src]="image" (click)="openImageOverlay(image)">
+<div class="image-preview-container">
+  <div class="image-selection">
+    <div *ngFor="let imageUrl of stringImages; let imageIndex = index">
+      <img class="image-link" width="128" [src]="imageUrl" (click)="openImageOverlay(imageIndex)">
+    </div>
   </div>
+  <p class="actions">
+    Click on one of the images above or <a href="#" (click)="openImageOverlay()" data-cy="open-overlay">open the overlay here</a>
+  </p>
 </div>
-<p class="actions">
-  Click on one of the images above or <a href="#" (click)="openImageOverlay()" data-cy="open-overlay">open the overlay here</a>
-</p>
-<p class="actions">
-  <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">Show external navigation</a>
-</p>
+<div class="image-preview-container">
+  <div class="image-selection">
+    <div *ngFor="let imageData of objectImages; let imageIndex = index">
+      <img height="100" [src]="urlForObjectImageFromIndex(imageIndex)">
+    </div>
+  </div>
+  <p class="actions">
+    <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">Show external navigation</a>
+  </p>
+</div>
 <div class="options-container">
   <h3>Options</h3>
   <form [formGroup]="optionsForm">
