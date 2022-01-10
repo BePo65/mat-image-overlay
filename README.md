@@ -44,7 +44,7 @@ images = [
 constructor(private imageOverlay: MatImageOverlay) {
 }
 
-openImageOverlay(): void {
+openImageOverlay(imageIndex?: number): void {
   const config = {
     images: this.images,
     startImageIndex: imageIndex,
