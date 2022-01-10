@@ -111,6 +111,14 @@ export class MatImageOverlay {
       activeConfig.images = config.images;
     }
 
+    if (config.urlForImage) {
+      activeConfig.urlForImage = config.urlForImage;
+    }
+
+    if (config.baseUrl) {
+      activeConfig.baseUrl = config.baseUrl;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     if (!this.isNullOrUndefined(config.startImageIndex) && (config.startImageIndex! >= 0)) {
       activeConfig.startImageIndex = config.startImageIndex;

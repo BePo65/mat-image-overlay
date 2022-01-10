@@ -83,10 +83,21 @@ Navigate to http://localhost:4200
 | boolean | |
 
 ### MatImageOverlayConfig
+**Methods**
+| urlForImage | |
+|---|--|
+| Gets the url for an image for one entry of images array. | The default implementation expects 'images' to be an array of strings. |
+| *Parameters* | |
+| imageData<br>unknown | Data for the image. |
+| baseUrl?<br>string | Url fragment to be used for building the image url. |
+| *Returns* | |
+| string | Url for the image to be displayed. |
+
 **Properties**
 | Name  | Description |
 |---|---|
 | images<br>string[] | List of the images to display (default: empty list). |
+| baseUrl?<br>string | Base url to be used by method 'urlForImage'. |
 | startImageIndex?<br>number | Index of the image to be displayed when initializing the image overlay. |
 | backdropClass?<br>string | CSS class to add to the backdrop, replacing the default backdrop css. |
 | overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). |
