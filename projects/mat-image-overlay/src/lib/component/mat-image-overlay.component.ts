@@ -2,7 +2,7 @@ import { AfterViewInit, Component, EventEmitter, HostListener, Inject, Injection
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { ElementDisplayStyle, MatImageOverlayConfig } from '../mat-image-overlay-config';
+import { ElementDisplayStyle, MatImageOverlayConfig } from '../interfaces/mat-image-overlay-config';
 import { ARROW_BACKWARD_ICON, ARROW_FORWARD_ICON, CLOSE_ICON } from '../mat-image-overlay.svg';
 
 /**

@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 
 import { IMAGE_OVERLAY_CONFIG_TOKEN, MatImageOverlayComponent } from './component/mat-image-overlay.component';
 import { MatImageOverlayRef } from './mat-image-overlay-ref';
-import { MatImageOverlayConfig } from './mat-image-overlay-config';
+import { MatImageOverlayConfig } from './interfaces/mat-image-overlay-config';
 
 @Injectable()
 export class MatImageOverlay {
@@ -22,6 +22,25 @@ export class MatImageOverlay {
   get afterClosed(): Subject<number> {
     return this._afterClosed;
   }
+
+  /** Default configuration. */
+  private defaultConfig: MatImageOverlayConfig = {
+    images: [] as string[],
+    urlForImage(imageData: unknown, baseUrl?: string): string {
+      if (typeof imageData === 'string') {
+        let url = '';
+        if (baseUrl) {
+          url = `${baseUrl}${String(imageData)}`;
+        } else {
+          url = String(imageData);
+        }
+        return url;
+      } else {
+        throw new Error('Configuration element "images" must be an array of strings');
+      }
+    },
+    startImageIndex: 0
+  };
 
   constructor(
     private injector: Injector,
@@ -106,41 +125,7 @@ export class MatImageOverlay {
    * @returns An object containing all configuration parameters for the image overlay
    */
   private currentConfig(config: MatImageOverlayConfig): MatImageOverlayConfig {
-    const activeConfig = new MatImageOverlayConfig();
-    if(config.images) {
-      activeConfig.images = config.images;
-    }
-
-    if (config.urlForImage) {
-      activeConfig.urlForImage = config.urlForImage;
-    }
-
-    if (config.baseUrl) {
-      activeConfig.baseUrl = config.baseUrl;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if (!this.isNullOrUndefined(config.startImageIndex) && (config.startImageIndex! >= 0)) {
-      activeConfig.startImageIndex = config.startImageIndex;
-    }
-
-    if (config.backdropClass) {
-      activeConfig.backdropClass = config.backdropClass;
-    }
-
-    if (!this.isNullOrUndefined(config.overlayButtonsStyle)) {
-      activeConfig.overlayButtonsStyle = config.overlayButtonsStyle;
-    }
-
+    const activeConfig: MatImageOverlayConfig = {...this.defaultConfig, ...config};
     return activeConfig;
-  }
-
-  /**
-   * Check if value is null or undefined.
-   * @param value - value under inspection
-   * @returns true=value is null or undefined
-   */
-   private isNullOrUndefined(value: any): boolean { // eslint-disable-line @typescript-eslint/no-explicit-any
-    return (value === undefined) || (value === null);
   }
 }

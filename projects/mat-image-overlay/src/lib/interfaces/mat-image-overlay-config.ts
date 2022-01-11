@@ -4,9 +4,9 @@ export enum ElementDisplayStyle {
   always
 }
 
-export class MatImageOverlayConfig {
+export interface MatImageOverlayConfig {
   /** List of images to be displayed. */
-  images: unknown[] = [] as string[];
+  images: unknown[];
 
   /**
    * Get the URL for an image from the given entry of images array.
@@ -16,19 +16,7 @@ export class MatImageOverlayConfig {
    * @param baseUrl - optional url fragment to be used for building the image url
    * @returns the URL of the image
    */
-   urlForImage(imageData: unknown, baseUrl?: string): string {
-    if (typeof imageData === 'string') {
-      let url = '';
-      if (baseUrl) {
-        url = `${baseUrl}${String(imageData)}`;
-      } else {
-        url = String(imageData);
-      }
-      return url;
-    } else {
-      throw new Error('Configuration element "images" must be an array of strings');
-    }
-  }
+   urlForImage: (imageData: unknown, baseUrl?: string) => string;
 
   /** Base url to be used by method 'urlForImage' */
    baseUrl?: string;

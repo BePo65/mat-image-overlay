@@ -41,7 +41,7 @@ export class AppComponent {
    */
   openImageOverlay(imageIndex?: number): void {
     // Demo to show usage of all 'open' parameters and a string array as 'images'
-    const config = {
+    const config: MatImageOverlayConfig = {
       images: this.stringImages,
       startImageIndex: imageIndex,
       backdropClass: 'demo-backdrop-class',
@@ -62,7 +62,7 @@ export class AppComponent {
    */
   startImageShow(): void {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
-    const config = {
+    const config: MatImageOverlayConfig = {
       images: this.objectImages,
       urlForImage: this.urlForObjectImage,
       baseUrl: this.baseUrlForObjectImages,
