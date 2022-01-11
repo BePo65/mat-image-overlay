@@ -10,7 +10,7 @@
       <img class="image-link" width="128" [src]="imageUrl" (click)="openImageOverlay(imageIndex)">
     </div>
   </div>
-  <p class="actions">
+  <p class="actions" data-cy="basic-action">
     Click on one of the images above or <a href="#" (click)="openImageOverlay()" data-cy="open-overlay">open the overlay here</a>
   </p>
 </div>
@@ -20,7 +20,7 @@
       <img height="100" [src]="urlForObjectImageFromIndex(imageIndex)">
     </div>
   </div>
-  <p class="actions">
+  <p class="actions" data-cy="start-show">
     <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">Show external navigation</a>
   </p>
 </div>

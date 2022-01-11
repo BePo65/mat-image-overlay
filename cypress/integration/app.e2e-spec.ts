@@ -8,10 +8,19 @@ describe('Demo page', () => {
   });
 
   it('contains all relevant elements', () => {
-    cy.get('img').should('have.length', 4);
+    cy.get('img.image-link').should('have.length', 4);
 
-    cy.get('.actions').contains(/Click on one of the images above or open the overlay here/);
+    cy.get('.actions')
+    .filter("[data-cy=basic-action]")
+    .contains(/Click on one of the images above or open the overlay here/);
     cy.get('[data-cy=open-overlay]').should('be.visible');
+
+    cy.get('img[height="100"]').should('have.length', 4)
+
+    cy.get('.actions')
+    .filter("[data-cy=start-show]")
+    .contains(/Show external navigation/);
+    cy.get('[data-cy=start-auto-mode]').should('be.visible');
   })
 
   it('shows image with specific source as first image', () => {
