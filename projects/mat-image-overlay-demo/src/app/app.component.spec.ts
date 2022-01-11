@@ -1,18 +1,28 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatImageOverlayModule } from 'mat-image-overlay';
 
 import { AppComponent } from './app.component';
+import { EnumToArrayPipe } from './shared/enum-to-array.pipe';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        MatImageOverlayModule
-      ],
       declarations: [
-        AppComponent
+        AppComponent,
+        EnumToArrayPipe
+      ],
+      imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        MatImageOverlayModule,
+        MatFormFieldModule,
+        MatSelectModule
       ],
     }).compileComponents();
   });

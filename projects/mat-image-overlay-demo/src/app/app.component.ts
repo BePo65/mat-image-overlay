@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MatImageOverlay, MatImageOverlayRef } from 'mat-image-overlay';
-import { MatImageOverlayConfig } from 'mat-image-overlay/lib/mat-image-overlay-config';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOverlayRef } from 'mat-image-overlay';
 
 @Component({
   selector: 'app-root',
@@ -8,26 +8,46 @@ import { MatImageOverlayConfig } from 'mat-image-overlay/lib/mat-image-overlay-c
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  images = [
+  elementDisplayStyle = ElementDisplayStyle;
+
+  optionsForm = this.formBuilder.group({
+    buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]]
+  });
+
+  stringImages = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg',
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg',
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
   ];
 
-  constructor(private imageOverlay: MatImageOverlay) {
+  objectImages = [
+    { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000 },
+    { id: '1014', width: 1000, height: 1000 },
+    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
+    { id: '1015', width: Math.round(1000 / 4000 * 6000), height: 1000 }
+  ];
+
+  private baseUrlForObjectImages = 'https://picsum.photos/id/';
+
+  constructor(private imageOverlay: MatImageOverlay, private formBuilder: FormBuilder) {
     this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
     this.imageOverlay.afterClosed.subscribe(lastImageIndex => console.log(`MatImageOverlay closed; last index=${lastImageIndex}`));
   }
 
-  openImageOverlay(image?: string): void {
-    const imageIndex = this.urlToImageIndex(this.images, image);
-    // Demo to show usage of all 'open' parameters
+  /**
+   * Demo to show basic functions of overlay images.
+   * @param imageIndex - index of the first image to be displayed in overlay
+   */
+  openImageOverlay(imageIndex?: number): void {
+    // Demo to show usage of all 'open' parameters and a string array as 'images'
     const config = {
-      images: this.images,
+      images: this.stringImages,
       startImageIndex: imageIndex,
-      backdropClass: 'demo-backdrop-class'
+      backdropClass: 'demo-backdrop-class',
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value
     } as MatImageOverlayConfig;
+
     const imageOverlayRef = this.imageOverlay.open(config);
 
     // Demo to show usage of published events
@@ -37,53 +57,93 @@ export class AppComponent {
     imageOverlayRef.keydownEvents().subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
   }
 
-  // Demo to show external switching of images
+  /**
+   * Demo to show external switching of images.
+   */
   startImageShow(): void {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
     const config = {
-      images: this.images,
-      startImageIndex: 2
+      images: this.objectImages,
+      urlForImage: this.urlForObjectImage,
+      baseUrl: this.baseUrlForObjectImages,
+      startImageIndex: 2,
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value
     } as MatImageOverlayConfig;
+
     const imageOverlayRef = this.imageOverlay.open(config);
-    let loopIndex = 1;
+
     // For typecast of timer see https://stackoverflow.com/questions/45802988/typescript-use-correct-version-of-settimeout-node-vs-window
+    let loopIndex = 1;
     const timerId = setInterval(() => {
       loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
     }, 2000) as unknown as number;
   }
 
-  private switchImages(loopIndex: number, imageOverlayRef: MatImageOverlayRef, timerId: number): number {
-      switch (loopIndex) {
-        case 1:
-          console.log(`${(new Date()).toLocaleTimeString()} - goto first image`);
-          imageOverlayRef.componentInstance?.gotoFirstImage();
-          break;
-        case 2:
-          console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
-          imageOverlayRef.componentInstance?.gotoNextImage();
-          break;
-        case 3:
-          console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
-          imageOverlayRef.componentInstance?.gotoNextImage();
-          break;
-        case 4:
-          console.log(`${(new Date()).toLocaleTimeString()} - goto previous image`);
-          imageOverlayRef.componentInstance?.gotoPreviousImage();
-          break;
-        case 5:
-          console.log(`${(new Date()).toLocaleTimeString()} - close overlay`);
-          imageOverlayRef.close();
-          clearInterval(timerId);
-          break;
-      }
-
-      return ++loopIndex;
+  /**
+   * Gets url of image for objectImages source from index of image.
+   * @param imageIndex - index of image to be displayed
+   * @returns url of image to be displayed
+   */
+  urlForObjectImageFromIndex(imageIndex: number): string {
+    return this.urlForObjectImage(this.objectImages[imageIndex], this.baseUrlForObjectImages);
   }
 
-  private urlToImageIndex(images: string[], urlToCurrentImage?: string): number {
-    if (urlToCurrentImage) {
-      return images.indexOf(urlToCurrentImage);
+  /**
+   * Definition of the sequence of commands to be executed
+   * in the 'image show'.
+   * @param loopIndex - index of the step to be executed
+   * @param imageOverlayRef - overlay to be used
+   * @param timerId - id of the timer used to trigger the commands (used to stop it)
+   * @returns loopIndex to be used next time
+   */
+  private switchImages(loopIndex: number, imageOverlayRef: MatImageOverlayRef, timerId: number): number {
+    switch (loopIndex) {
+      case 1:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto first image`);
+        imageOverlayRef.gotoFirstImage();
+        break;
+      case 2:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
+        imageOverlayRef.gotoNextImage();
+        break;
+      case 3:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
+        imageOverlayRef.gotoNextImage();
+        break;
+      case 4:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto previous image`);
+        imageOverlayRef.gotoPreviousImage();
+        break;
+      case 5:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto last image`);
+        imageOverlayRef.gotoLastImage();
+        break;
+      case 6:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto 2nd image`);
+        imageOverlayRef.gotoImage(1);
+        break;
+      case 7:
+        console.log(`${(new Date()).toLocaleTimeString()} - close overlay`);
+        imageOverlayRef.close();
+        clearInterval(timerId);
+        break;
     }
-    return 0;
+
+    return ++loopIndex;
+  }
+
+  /**
+   * Gets url of image for stringImages source from index of image.
+   * @param imageData - object with image data
+   * @param baseUrl - baseUrl of images
+   * @returns url of image to be displayed
+   */
+  private urlForObjectImage(imageData: unknown, baseUrl?: string): string {
+    if (typeof imageData === 'object') {
+      const image = imageData as object;
+      return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;
+    } else {
+      throw new Error('Configuration element "images" must be an array of objects');
+    }
   }
 }

@@ -30,7 +30,7 @@ import { MatImageOverlayModule } from 'mat-image-overlay';
 export class AppModule { }
 ```
 
-Open the images via `MatImageOverlayService.open`
+Open the images via `MatImageOverlay.open`
 ```
 images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
@@ -39,11 +39,16 @@ images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
 ];
 
-constructor(private imageOverlayService: MatImageOverlayService) {
+constructor(private imageOverlayService: MatImageOverlay) {
 }
 
-openImageOverlay(): void {
-  this.imageOverlayService.open(this.images);
+openImageOverlay(imageIndex?: number): void {
+  const config = {
+    images: this.images,
+    startImageIndex: imageIndex,
+    backdropClass: 'demo-backdrop-class'
+  } as MatImageOverlayConfig;
+  const imageOverlayRef = this.imageOverlay.open(config);
 }
 ```
 
@@ -83,19 +88,26 @@ Navigate to http://localhost:4200
 | boolean | |
 
 ### MatImageOverlayConfig
+**Methods**
+| urlForImage | |
+|---|--|
+| Gets the url for an image for one entry of images array. | The default implementation expects 'images' to be an array of strings. |
+| *Parameters* | |
+| imageData<br>unknown | Data for the image. |
+| baseUrl?<br>string | Url fragment to be used for building the image url. |
+| *Returns* | |
+| string | Url for the image to be displayed. |
+
 **Properties**
 | Name  | Description |
 |---|---|
-| images<br>string[] | List of the images to display. |
-| startImageIndex<br>number | Index of the image to be displayed when initializing the image overlay. |
-| backdropClass<br>string &#124; undefined | CSS class to add to the backdrop, replacing the default backdrop css. |
+| images<br>string[] | List of the images to display (default: empty list). |
+| baseUrl?<br>string | Base url to be used by method 'urlForImage'. |
+| startImageIndex?<br>number | Index of the image to be displayed when initializing the image overlay. |
+| backdropClass?<br>string | CSS class to add to the backdrop, replacing the default backdrop css. |
+| overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). |
 
 ### MatImageOverlayRef
-**Properties**
-| Name  | Description |
-|---|---|
-| componentInstance: MatImageOverlayComponent &#124; undefined | Reference of the component displayed in the opened image overlay |
-
 **Methods**
 | close | |
 |---|--|

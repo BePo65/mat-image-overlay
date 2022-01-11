@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatImageOverlayComponent } from './mat-image-overlay.component';
 import { SimpleChildComponent } from '../test.assets/simple.child.component';
 import { MatImageOverlay } from '../mat-image-overlay';
-import { MatImageOverlayConfig } from '../mat-image-overlay-config';
+import { ElementDisplayStyle, MatImageOverlayConfig } from '../mat-image-overlay-config';
 
 describe('MatImageOverlayComponent', () => {
   let imageOverlay: MatImageOverlay;
@@ -58,15 +58,16 @@ describe('MatImageOverlayComponent', () => {
 
   it('should open an overlay with images', () => {
     const config = {
-      images: images
+      images: images,
+      overlayButtonsStyle: ElementDisplayStyle.always
     } as MatImageOverlayConfig;
     const imageOverlayRef = imageOverlay.open(config);
     dummyContainerFixture.detectChanges();
 
-    expect(imageOverlayRef.componentInstance instanceof MatImageOverlayComponent).toBe(true);
+    expect(imageOverlayRef._componentInstance instanceof MatImageOverlayComponent).toBe(true);
     expect(imageOverlay.imageOverlayExists()).toBe(true);
 
-    const closeButton = overlayContainerElement.querySelector('.cdk-overlay-container .mat-image-overlay.mat-image-overlay-close mat-icon');
+    const closeButton = overlayContainerElement.querySelector('.cdk-overlay-container .mat-image-overlay-button.mat-image-overlay-close mat-icon');
     if ((closeButton !== undefined) && (closeButton !== null)) {
       expect(closeButton.getAttribute('data-mat-icon-name')).toBe('close');
     } else {

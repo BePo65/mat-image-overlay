@@ -111,8 +111,16 @@ export class MatImageOverlay {
       activeConfig.images = config.images;
     }
 
+    if (config.urlForImage) {
+      activeConfig.urlForImage = config.urlForImage;
+    }
+
+    if (config.baseUrl) {
+      activeConfig.baseUrl = config.baseUrl;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if ((config.startImageIndex) && (config.startImageIndex >= 0)) {
+    if (!this.isNullOrUndefined(config.startImageIndex) && (config.startImageIndex! >= 0)) {
       activeConfig.startImageIndex = config.startImageIndex;
     }
 
@@ -120,6 +128,19 @@ export class MatImageOverlay {
       activeConfig.backdropClass = config.backdropClass;
     }
 
+    if (!this.isNullOrUndefined(config.overlayButtonsStyle)) {
+      activeConfig.overlayButtonsStyle = config.overlayButtonsStyle;
+    }
+
     return activeConfig;
+  }
+
+  /**
+   * Check if value is null or undefined.
+   * @param value - value under inspection
+   * @returns true=value is null or undefined
+   */
+   private isNullOrUndefined(value: any): boolean { // eslint-disable-line @typescript-eslint/no-explicit-any
+    return (value === undefined) || (value === null);
   }
 }

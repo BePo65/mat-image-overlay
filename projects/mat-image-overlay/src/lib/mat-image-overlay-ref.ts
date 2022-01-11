@@ -14,9 +14,6 @@ export const enum MatImageOverlayState {
  * Reference to an image overlay opened via the MatImageOverlay service.
  */
 export class MatImageOverlayRef {
-  /** The instance of component opened into the dialog. */
-  public componentInstance: MatImageOverlayComponent | undefined;
-
   /** Subject for notifying the user that the dialog has finished opening. */
   private readonly _afterOpened = new Subject<void>();
 
@@ -31,12 +28,10 @@ export class MatImageOverlayRef {
 
   constructor(
     private _overlayRef: OverlayRef,
-    public _matImageOverlayInstance: MatImageOverlayComponent
+    public _componentInstance: MatImageOverlayComponent
   ) {
-    this.componentInstance = this._matImageOverlayInstance;
-
     // Emit when opening is complete
-    _matImageOverlayInstance.stateChanged
+    _componentInstance.stateChanged
       .pipe(
         filter(event => event.state === ImageOverlayState.opened),
         take(1),
@@ -47,7 +42,7 @@ export class MatImageOverlayRef {
       });
 
     // Emit when closing is requested
-    _matImageOverlayInstance.stateChanged
+    _componentInstance.stateChanged
       .pipe(
         filter(event => event.state === ImageOverlayState.closingRequested),
         take(1),
@@ -57,7 +52,7 @@ export class MatImageOverlayRef {
       });
 
     // Emit when overlay is closed and return index of last image
-    _matImageOverlayInstance.stateChanged
+    _componentInstance.stateChanged
     .pipe(
       filter(event => event.state === ImageOverlayState.closed),
       take(1),
@@ -69,23 +64,22 @@ export class MatImageOverlayRef {
 
     // Dispose overlay when closing is complete
     _overlayRef.detachments().subscribe(() => {
-      this.componentInstance = undefined;
       this._overlayRef.dispose();
     });
 
     _overlayRef.backdropClick().subscribe(() => {
-      this.close(this.componentInstance?.currentImageIndex);
+      this.close(this._componentInstance?.currentImageIndex);
     });
 
     // Emit when new image has been selected
-    _matImageOverlayInstance.imageChanged.subscribe(event => {
+    _componentInstance.imageChanged.subscribe(event => {
       this._imageChanged.next(event.imageIndex);
     });
 
     /** As MatImageOverlayComponent emits the start index before MatImageOverlayRef
      * is initialized, we have to emit this value here again.
      */
-    this._imageChanged.next(this._matImageOverlayInstance.currentImageIndex);
+    this._imageChanged.next(_componentInstance.currentImageIndex);
   }
 
   /**
@@ -125,4 +119,25 @@ export class MatImageOverlayRef {
   public keydownEvents(): Observable<KeyboardEvent> {
     return this._overlayRef.keydownEvents();
   }
+
+  public gotoNextImage(): void {
+      this._componentInstance?.gotoNextImage();
+  }
+
+  public gotoPreviousImage(): void {
+    this._componentInstance?.gotoPreviousImage();
+  }
+
+  public gotoFirstImage(): void {
+    this._componentInstance?.gotoFirstImage();
+  }
+
+  public gotoLastImage(): void {
+    this._componentInstance?.gotoLastImage();
+  }
+
+  public gotoImage(imageIndex: number): void {
+    this._componentInstance?.gotoImage(imageIndex);
+  }
+
 }

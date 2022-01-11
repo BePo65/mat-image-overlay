@@ -14,7 +14,7 @@
   width: 100%;
 }
 
-.mat-image-overlay {
+.mat-image-overlay-button {
   background-color: rgba(255 255 255 / 0%);
   border: none;
   color: rgb(96 96 96);
@@ -45,9 +45,13 @@
   right: 0;
 }
 
-.mat-image-overlay-wrapper:hover .mat-image-overlay-close,
-.mat-image-overlay-wrapper:hover .mat-image-overlay-left,
-.mat-image-overlay-wrapper:hover .mat-image-overlay-right {
+.mat-image-overlay-wrapper:hover .mat-image-overlay-button.show-on-hover {
+  background-color: rgba(255 255 255 / 50%);
+  color: rgb(64 64 64);
+  visibility: initial;
+}
+
+.mat-image-overlay-button.show-always {
   background-color: rgba(255 255 255 / 50%);
   color: rgb(64 64 64);
   visibility: initial;
