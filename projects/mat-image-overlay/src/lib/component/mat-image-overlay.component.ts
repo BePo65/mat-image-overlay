@@ -37,6 +37,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   public imageChanged = new EventEmitter<ImageChangedEvent>();
 
   // These properties are internal only (for use in the template)
+  public currentImage: unknown;
   public currentImageUrl: string;
   public firstImage = false;
   public lastImage = false;
@@ -55,7 +56,8 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   ) {
     this.images = _config.images ?? [] as string[];
     this.currentImageIndex = _config.startImageIndex ?? 0;
-    this.currentImageUrl = this._config.urlForImage(this.images[this.currentImageIndex], this._config.baseUrl);
+    this.setCurrentImage(this.currentImageIndex);
+    this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
     this.descriptionDisplayStyle = _config.descriptionDisplayStyle ?? ElementDisplayStyle.onHover;
@@ -103,7 +105,8 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   public gotoNextImage(): void {
     if (this.currentImageIndex < this.images.length - 1) {
       this.currentImageIndex++;
-      this.currentImageUrl = this._config.urlForImage(this.images[this.currentImageIndex], this._config.baseUrl);
+      this.setCurrentImage(this.currentImageIndex);
+      this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
       this.updateImageState();
     }
   }
@@ -111,27 +114,31 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   public gotoPreviousImage(): void {
     if (this.currentImageIndex > 0) {
       this.currentImageIndex--;
-      this.currentImageUrl = this._config.urlForImage(this.images[this.currentImageIndex], this._config.baseUrl);
+      this.setCurrentImage(this.currentImageIndex);
+      this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
       this.updateImageState();
     }
   }
 
   public gotoFirstImage(): void {
     this.currentImageIndex = 0;
-    this.currentImageUrl = this._config.urlForImage(this.images[this.currentImageIndex], this._config.baseUrl);
+    this.setCurrentImage(this.currentImageIndex);
+    this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
     this.updateImageState();
   }
 
   public gotoLastImage(): void {
     this.currentImageIndex = this.images.length - 1;
-    this.currentImageUrl = this._config.urlForImage(this.images[this.currentImageIndex], this._config.baseUrl);
+    this.setCurrentImage(this.currentImageIndex);
+    this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
     this.updateImageState();
   }
 
   public gotoImage(imageIndex: number): void {
     if ((this.currentImageIndex > 0) && (imageIndex < this.images.length - 1)) {
       this.currentImageIndex = imageIndex;
-      this.currentImageUrl = this._config.urlForImage(this.images[this.currentImageIndex], this._config.baseUrl);
+      this.setCurrentImage(this.currentImageIndex);
+      this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
       this.updateImageState();
     }
   }
@@ -164,11 +171,14 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     return result;
   }
 
+  private setCurrentImage(imageIdex: number) {
+    this.currentImage = this.images[imageIdex];
+  }
+
   private currentImageDescription(): string | undefined {
     let result: string | undefined;
-    const image = this.images[this.currentImageIndex];
-    if (typeof image === 'object') {
-      result = (image as object)['description' as keyof object];
+    if (typeof this.currentImage === 'object') {
+      result = (this.currentImage as object)['description' as keyof object];
     }
 
     return result;
