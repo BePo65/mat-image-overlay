@@ -66,7 +66,7 @@ export class AppComponent {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
     const config: MatImageOverlayConfig = {
       images: this.objectImages,
-      urlForImage: this.urlForObjectImage,
+      urlForImage: this.urlForObjectImagesSource,
       baseUrl: this.baseUrlForObjectImages,
       startImageIndex: 2,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
@@ -83,12 +83,13 @@ export class AppComponent {
   }
 
   /**
-   * Gets url of image for objectImages source from index of image.
+   * Gets url of image for stringImages source from index of image.
+   * Function is used in component template.
    * @param imageIndex - index of image to be displayed
    * @returns url of image to be displayed
    */
-  urlForObjectImageFromIndex(imageIndex: number): string {
-    return this.urlForObjectImage(this.objectImages[imageIndex], this.baseUrlForObjectImages);
+  urlForStringImagesSource(imageIndex: number): string {
+    return this.urlForObjectImagesSource(this.objectImages[imageIndex], this.baseUrlForObjectImages);
   }
 
   /**
@@ -136,12 +137,13 @@ export class AppComponent {
   }
 
   /**
-   * Gets url of image for stringImages source from index of image.
+   * Gets url of image for objectImages source from index of image and optional baseUrl.
+   * Function is used for configuration parameter 'urlForImage'.
    * @param imageData - object with image data
    * @param baseUrl - baseUrl of images
    * @returns url of image to be displayed
    */
-  private urlForObjectImage(imageData: unknown, baseUrl?: string): string {
+  private urlForObjectImagesSource(imageData: unknown, baseUrl?: string): string {
     if (typeof imageData === 'object') {
       const image = imageData as object;
       return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;

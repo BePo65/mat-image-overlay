@@ -19,7 +19,7 @@
   <h3 class="container-title">Demo for object array as image source</h3>
   <div class="image-selection">
     <div *ngFor="let imageData of objectImages; let imageIndex = index">
-      <img height="100" [src]="urlForObjectImageFromIndex(imageIndex)">
+      <img height="100" [src]="urlForStringImagesSource(imageIndex)">
     </div>
   </div>
   <p class="actions" data-cy="start-show">
