@@ -11,7 +11,8 @@ export class AppComponent {
   elementDisplayStyle = ElementDisplayStyle;
 
   optionsForm = this.formBuilder.group({
-    buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]]
+    buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
+    descriptionStyle: [ElementDisplayStyle.never, [Validators.required]]
   });
 
   stringImages = [
@@ -22,10 +23,10 @@ export class AppComponent {
   ];
 
   objectImages = [
-    { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000 },
-    { id: '1014', width: 1000, height: 1000 },
-    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
-    { id: '1015', width: Math.round(1000 / 4000 * 6000), height: 1000 }
+    { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
+    { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
+    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000, description: 'picture 3' },
+    { id: '1015', width: Math.round(1000 / 4000 * 6000), height: 1000, description: 'picture 4' }
   ];
 
   private baseUrlForObjectImages = 'https://picsum.photos/id/';
@@ -45,7 +46,8 @@ export class AppComponent {
       images: this.stringImages,
       startImageIndex: imageIndex,
       backdropClass: 'demo-backdrop-class',
-      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
+      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value
     } as MatImageOverlayConfig;
 
     const imageOverlayRef = this.imageOverlay.open(config);
@@ -67,7 +69,8 @@ export class AppComponent {
       urlForImage: this.urlForObjectImage,
       baseUrl: this.baseUrlForObjectImages,
       startImageIndex: 2,
-      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
+      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value
     } as MatImageOverlayConfig;
 
     const imageOverlayRef = this.imageOverlay.open(config);

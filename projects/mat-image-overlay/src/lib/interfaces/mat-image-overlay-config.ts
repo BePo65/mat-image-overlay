@@ -31,6 +31,9 @@ export interface MatImageOverlayConfig {
    */
    backdropClass?: string;
 
-  /** How to show the navigational buttons in image overlay. */
+  /** How to show the navigational buttons in the image overlay. */
   overlayButtonsStyle?: ElementDisplayStyle;
+
+  /** How to show the description property in the image overlay. */
+  descriptionDisplayStyle?: ElementDisplayStyle;
 }

@@ -5,6 +5,7 @@
   <a href="https://github.com/BePo65/mat-image-overlay">BePo65/mat-image-overlay</a>
 </p>
 <div class="image-preview-container">
+  <h3 class="container-title">Demo for string array as image source</h3>
   <div class="image-selection">
     <div *ngFor="let imageUrl of stringImages; let imageIndex = index">
       <img class="image-link" width="128" [src]="imageUrl" (click)="openImageOverlay(imageIndex)">
@@ -15,6 +16,7 @@
   </p>
 </div>
 <div class="image-preview-container">
+  <h3 class="container-title">Demo for object array as image source</h3>
   <div class="image-selection">
     <div *ngFor="let imageData of objectImages; let imageIndex = index">
       <img height="100" [src]="urlForObjectImageFromIndex(imageIndex)">
@@ -36,6 +38,17 @@
       </mat-select>
       <mat-error *ngIf="optionsForm.controls.buttonStyle.touched && optionsForm.controls.buttonStyle.invalid">
         <span *ngIf="optionsForm.controls.buttonStyle.errors?.required">This field is mandatory.</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Show image description for object array as image source</mat-label>
+      <mat-select formControlName="descriptionStyle" required>
+        <mat-option *ngFor="let style of elementDisplayStyle | enumToArray" [value]="style.value">
+          {{style.key}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="optionsForm.controls.descriptionStyle.touched && optionsForm.controls.descriptionStyle.invalid">
+        <span *ngIf="optionsForm.controls.descriptionStyle.errors?.required">This field is mandatory.</span>
       </mat-error>
     </mat-form-field>
   </form>

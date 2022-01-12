@@ -44,6 +44,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   elementDisplayStyle = ElementDisplayStyle;
   public overlayButtonsStyle: ElementDisplayStyle;
+  public descriptionDisplayStyle: ElementDisplayStyle;
 
   private images: unknown[];
 
@@ -57,6 +58,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.currentImageUrl = this._config.urlForImage(this.images[this.currentImageIndex], this._config.baseUrl);
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
+    this.descriptionDisplayStyle = _config.descriptionDisplayStyle ?? ElementDisplayStyle.onHover;
 
     // Get material icons as svg icons
     this.matIconRegistry.addSvgIconLiteral('close', this.domSanitizer.bypassSecurityTrustHtml(CLOSE_ICON));
@@ -132,6 +134,44 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
       this.currentImageUrl = this._config.urlForImage(this.images[this.currentImageIndex], this._config.baseUrl);
       this.updateImageState();
     }
+  }
+
+  /**
+   * Get the description property of the current image
+   * if descriptionDisplayStyle is 'onHover'.
+   * @returns description property of the current image or undefined
+   */
+  descriptionOnHover(): string | undefined {
+    let result: string | undefined;
+    if ((this.descriptionDisplayStyle === ElementDisplayStyle.onHover)) {
+      result = this.currentImageDescription();
+    }
+
+    return result;
+
+  }
+
+  /**
+   * Get the description property of the current image.
+   * @returns description property of the current image
+   */
+  descriptionAsString(): string {
+    let result = this.currentImageDescription();
+    if (result === undefined) {
+      result = '';
+    }
+
+    return result;
+  }
+
+  private currentImageDescription(): string | undefined {
+    let result: string | undefined;
+    const image = this.images[this.currentImageIndex];
+    if (typeof image === 'object') {
+      result = (image as object)['description' as keyof object];
+    }
+
+    return result;
   }
 
   /**

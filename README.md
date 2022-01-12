@@ -107,7 +107,8 @@ Navigate to http://localhost:4200
 | baseUrl?<br>string | Base url to be used by method 'urlForImage'. |
 | startImageIndex?<br>number | Index of the image to be displayed when initializing the image overlay. |
 | backdropClass?<br>string | CSS class to add to the backdrop, replacing the default backdrop css. |
-| overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). |
+| overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover. |
+| descriptionDisplayStyle?<br>ElementDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a propert named 'description' in data source. |
 
 ### MatImageOverlayRef
 **Methods**
