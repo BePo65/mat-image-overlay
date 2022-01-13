@@ -100,6 +100,10 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
       case('Escape'):
         this.onClose();
     }
+
+    // Don't send keystroke back to psge containing overlay
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   public gotoNextImage(): void {
