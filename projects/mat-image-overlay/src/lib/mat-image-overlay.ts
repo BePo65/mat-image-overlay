@@ -70,7 +70,7 @@ export class MatImageOverlay {
       this.imageOverlayRef.afterClosed().subscribe(lastImageIndex => {
         this.imageOverlayRef = undefined;
         this.afterClosed.next(lastImageIndex);
-      })
+      });
       this.afterOpened.next(this.imageOverlayRef);
 
       return this.imageOverlayRef;
