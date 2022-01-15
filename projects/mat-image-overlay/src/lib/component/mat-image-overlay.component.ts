@@ -57,7 +57,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.images = _config.images ?? [] as string[];
     this.currentImageIndex = _config.startImageIndex ?? 0;
     this.setCurrentImage(this.currentImageIndex);
-    this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
+    this.currentImageUrl = this.urlOfCurrentImage();
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
     this.descriptionDisplayStyle = _config.descriptionDisplayStyle ?? ElementDisplayStyle.onHover;
@@ -110,7 +110,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     if (this.currentImageIndex < this.images.length - 1) {
       this.currentImageIndex++;
       this.setCurrentImage(this.currentImageIndex);
-      this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
+      this.currentImageUrl = this.urlOfCurrentImage();
       this.updateImageState();
     }
   }
@@ -119,7 +119,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     if (this.currentImageIndex > 0) {
       this.currentImageIndex--;
       this.setCurrentImage(this.currentImageIndex);
-      this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
+      this.currentImageUrl = this.urlOfCurrentImage();
       this.updateImageState();
     }
   }
@@ -127,14 +127,14 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   public gotoFirstImage(): void {
     this.currentImageIndex = 0;
     this.setCurrentImage(this.currentImageIndex);
-    this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
+    this.currentImageUrl = this.urlOfCurrentImage();
     this.updateImageState();
   }
 
   public gotoLastImage(): void {
     this.currentImageIndex = this.images.length - 1;
     this.setCurrentImage(this.currentImageIndex);
-    this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
+    this.currentImageUrl = this.urlOfCurrentImage();
     this.updateImageState();
   }
 
@@ -142,7 +142,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     if ((this.currentImageIndex > 0) && (imageIndex < this.images.length - 1)) {
       this.currentImageIndex = imageIndex;
       this.setCurrentImage(this.currentImageIndex);
-      this.currentImageUrl = this._config.urlForImage(this.currentImage, this._config.baseUrl);
+      this.currentImageUrl = this.urlOfCurrentImage();
       this.updateImageState();
     }
   }
@@ -173,6 +173,23 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     }
 
     return result;
+  }
+
+  /**
+   * Gets the url for the current image using the function 'urlForImage'
+   * from the configuration.
+   * If 'urlForImage' is undefined, return the url of the 'broken image' image.
+   * @returns the url for the current image or for the 'brokenImage'
+   */
+  private urlOfCurrentImage(): string {
+    let url = '';
+    if(this._config.urlForImage) {
+      url = this._config.urlForImage(this.currentImage, this._config.baseUrl);
+    } else {
+      console.error('Cannot get url for image, because the configuration option "urlForImage" is undefined.');
+    }
+
+    return url;
   }
 
   private setCurrentImage(imageIdex: number) {

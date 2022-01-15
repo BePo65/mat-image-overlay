@@ -10,13 +10,12 @@ export interface MatImageOverlayConfig {
 
   /**
    * Get the URL for an image from the given entry of images array.
-   * This is the default implementation that expects images to be an
-   * array of strings.
+   * The default implementation expects images to be an array of strings.
    * @param imageData - an entry from the 'images' array
    * @param baseUrl - optional url fragment to be used for building the image url
    * @returns the URL of the image
    */
-   urlForImage: (imageData: unknown, baseUrl?: string) => string;
+   urlForImage?: (imageData: unknown, baseUrl?: string) => string;
 
   /** Base url to be used by method 'urlForImage' */
    baseUrl?: string;
