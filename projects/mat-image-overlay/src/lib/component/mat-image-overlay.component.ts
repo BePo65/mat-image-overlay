@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, HostListener, Inject, InjectionToken, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Inject, InjectionToken, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -33,26 +33,30 @@ export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConf
   styleUrls: ['./mat-image-overlay.component.scss']
 })
 export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('overlayImage') overlayImage!: ElementRef;
+
   public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
   public imageChanged = new EventEmitter<ImageChangedEvent>();
 
   // These properties are internal only (for use in the template)
   public currentImage: unknown;
+  public currentImageIndex = 0;
   public currentImageUrl: string;
   public firstImage = false;
   public lastImage = false;
-  public currentImageIndex = 0;
 
   elementDisplayStyle = ElementDisplayStyle;
   public overlayButtonsStyle: ElementDisplayStyle;
   public descriptionDisplayStyle: ElementDisplayStyle;
 
   private images: unknown[];
+  private imageClickUnlistener: (() => void) | undefined;
 
   constructor(
     @Inject(IMAGE_OVERLAY_CONFIG_TOKEN) public _config: MatImageOverlayConfig,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private renderer2: Renderer2
   ) {
     this.images = _config.images ?? [] as string[];
     this.currentImageIndex = _config.startImageIndex ?? 0;
@@ -69,11 +73,23 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
+    if ((this._config.imageClickHandler !== undefined) && (typeof this._config.imageClickHandler === 'function')) {
+      this.imageClickUnlistener = this.renderer2.listen(this.overlayImage.nativeElement, 'click', () => {
+        if ((this._config.imageClickHandler !== undefined) && (typeof this._config.imageClickHandler === 'function')) {
+          this._config.imageClickHandler(this.currentImage, this._config.imageClickHandlerConfiguration);
+        }
+      });
+    }
+
     this.stateChanged.emit({ state: ImageOverlayState.opened });
   }
 
   public ngOnDestroy(): void {
     this.stateChanged.emit({ state: ImageOverlayState.closed });
+
+    if(this.imageClickUnlistener) {
+      this.imageClickUnlistener();
+    }
   }
 
   public onClose(): void {

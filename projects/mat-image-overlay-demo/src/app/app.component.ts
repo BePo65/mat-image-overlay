@@ -41,13 +41,15 @@ export class AppComponent {
    * @param imageIndex - index of the first image to be displayed in overlay
    */
   openImageOverlay(imageIndex?: number): void {
-    // Demo to show usage of all 'open' parameters and a string array as 'images'
+    // Demo to show usage of most 'open' parameters and a string array as 'images'
     const config: MatImageOverlayConfig = {
       images: this.stringImages,
       startImageIndex: imageIndex,
       backdropClass: 'demo-backdrop-class',
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
-      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value
+      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
+      imageClickHandler: this.clickHandlerForOverlayDemo,
+      imageClickHandlerConfiguration: { sampleValue: 'demo parameter for overlay demo'}
     } as MatImageOverlayConfig;
 
     const imageOverlayRef = this.imageOverlay.open(config);
@@ -61,6 +63,7 @@ export class AppComponent {
 
   /**
    * Demo to show external switching of images.
+   * Demo uses anonymous function as overlay image click handler.
    */
   startImageShow(): void {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
@@ -70,7 +73,15 @@ export class AppComponent {
       baseUrl: this.baseUrlForObjectImages,
       startImageIndex: 2,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
-      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value
+      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
+      imageClickHandler: (imageData: unknown, configuration?: object) => {
+        let additionalParameter = {};
+        if (configuration) {
+          additionalParameter = configuration;
+        }
+        console.log(`Image clicked for image '${Object(imageData)['id']}' with additional parameter '${additionalParameter['sampleValue' as keyof object]}'`);
+      },
+      imageClickHandlerConfiguration: { sampleValue: 'demo parameter for image show'}
     } as MatImageOverlayConfig;
 
     const imageOverlayRef = this.imageOverlay.open(config);
@@ -150,5 +161,18 @@ export class AppComponent {
     } else {
       throw new Error('Configuration element "images" must be an array of objects');
     }
+  }
+
+  /**
+   * Demo for overlay image click event handler using a named function.
+   * @param imageData - object with image data
+   * @param configuration - object 'imageClickHandlerConfiguration' from 'config'
+   */
+  private clickHandlerForOverlayDemo(imageData: unknown, configuration?: object): void {
+    let additionalParameter = {};
+    if (configuration) {
+      additionalParameter = configuration;
+    }
+    console.log(`Image clicked for image '${String(imageData)}' with additional parameter '${additionalParameter['sampleValue' as keyof object]}'`);
   }
 }

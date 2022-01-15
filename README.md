@@ -93,12 +93,19 @@ Navigate to http://localhost:4200
 **Methods**
 | urlForImage | |
 |---|--|
-| Gets the url for an image for one entry of images array. | The default implementation expects 'images' to be an array of strings. |
+| Gets the url for an image for one entry of images array. | This function is optional. The default implementation expects 'images' to be an array of strings. |
 | *Parameters* | |
 | imageData<br>unknown | Data for the image. |
 | baseUrl?<br>string | Url fragment to be used for building the image url. |
 | *Returns* | |
 | string | Url for the image to be displayed. |
+
+| imageClickHandler | |
+|---|--|
+| If defined this method gets called, when the image in the overlay is clicked. | This function is optional. |
+| *Parameters* | |
+| imageData<br>unknown | Data for the image. |
+| configuration?<br>object | Additional parameters defined as 'imageClickHandlerConfiguration' in the MatImageOverlayConfig object. |
 
 **Properties**
 | Name  | Description |
@@ -109,6 +116,7 @@ Navigate to http://localhost:4200
 | backdropClass?<br>string | CSS class to add to the backdrop, replacing the default backdrop css. |
 | overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover. |
 | descriptionDisplayStyle?<br>ElementDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a propert named 'description' in data source. |
+| imageClickHandlerConfiguration?<br>object | Object with arbitrary data as parameter of the 'imageClickHandler' method. |
 
 ### MatImageOverlayRef
 **Methods**

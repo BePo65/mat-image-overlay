@@ -1,5 +1,5 @@
 <figure class="mat-image-overlay-wrapper">
-  <img class="mat-image-overlay-image" [src]="currentImageUrl" [attr.title]="descriptionOnHover()">
+  <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl" [attr.title]="descriptionOnHover()">
   <figcaption class="img-description"
     [ngClass]="{'show-always': descriptionDisplayStyle === elementDisplayStyle.always}">
     {{descriptionAsString()}}
