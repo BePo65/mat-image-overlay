@@ -23,7 +23,7 @@ describe('AppComponent', () => {
         MatImageOverlayModule,
         MatFormFieldModule,
         MatSelectModule
-      ],
+      ]
     }).compileComponents();
   });
 

@@ -34,7 +34,7 @@ export class MatImageOverlayRef {
     _componentInstance.stateChanged
       .pipe(
         filter(event => event.state === ImageOverlayState.opened),
-        take(1),
+        take(1)
       )
       .subscribe(() => {
         this._afterOpened.next();
@@ -45,7 +45,7 @@ export class MatImageOverlayRef {
     _componentInstance.stateChanged
       .pipe(
         filter(event => event.state === ImageOverlayState.closingRequested),
-        take(1),
+        take(1)
       )
       .subscribe(event => {
         this.close(event?.data as number);
@@ -55,7 +55,7 @@ export class MatImageOverlayRef {
     _componentInstance.stateChanged
     .pipe(
       filter(event => event.state === ImageOverlayState.closed),
-      take(1),
+      take(1)
       )
       .subscribe(() => {
         this._afterClosed.next(this._lastImageIndex);

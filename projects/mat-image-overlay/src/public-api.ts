@@ -4,6 +4,6 @@
 
 export * from './lib/mat-image-overlay';
 export * from './lib/mat-image-overlay-ref';
-export * from './lib/mat-image-overlay-config';
+export * from './lib/interfaces/mat-image-overlay-config';
 export * from './lib/component/mat-image-overlay.component';
 export * from './lib/mat-image-overlay.module';

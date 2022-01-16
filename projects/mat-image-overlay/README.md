@@ -39,7 +39,7 @@ images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
 ];
 
-constructor(private imageOverlayService: MatImageOverlay) {
+constructor(private imageOverlay: MatImageOverlay) {
 }
 
 openImageOverlay(imageIndex?: number): void {
@@ -91,21 +91,30 @@ Navigate to http://localhost:4200
 **Methods**
 | urlForImage | |
 |---|--|
-| Gets the url for an image for one entry of images array. | The default implementation expects 'images' to be an array of strings. |
+| Gets the url for an image for one entry of images array. | This function is optional. The default implementation expects 'images' to be an array of strings. |
 | *Parameters* | |
 | imageData<br>unknown | Data for the image. |
 | baseUrl?<br>string | Url fragment to be used for building the image url. |
 | *Returns* | |
 | string | Url for the image to be displayed. |
 
+| imageClickHandler | |
+|---|--|
+| If defined this method gets called, when the image in the overlay is clicked. | This function is optional. |
+| *Parameters* | |
+| imageData<br>unknown | Data for the image. |
+| configuration?<br>object | Additional parameters defined as 'imageClickHandlerConfiguration' in the MatImageOverlayConfig object. |
+
 **Properties**
 | Name  | Description |
 |---|---|
-| images<br>string[] | List of the images to display (default: empty list). |
+| images<br>string[] | List of the images to display. |
 | baseUrl?<br>string | Base url to be used by method 'urlForImage'. |
 | startImageIndex?<br>number | Index of the image to be displayed when initializing the image overlay. |
 | backdropClass?<br>string | CSS class to add to the backdrop, replacing the default backdrop css. |
-| overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). |
+| overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover. |
+| descriptionDisplayStyle?<br>ElementDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a propert named 'description' in data source. |
+| imageClickHandlerConfiguration?<br>object | Object with arbitrary data as parameter of the 'imageClickHandler' method. |
 
 ### MatImageOverlayRef
 **Methods**

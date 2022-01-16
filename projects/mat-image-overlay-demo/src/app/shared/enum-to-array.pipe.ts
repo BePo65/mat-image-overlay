@@ -16,7 +16,7 @@ export class EnumToArrayPipe implements PipeTransform {
     return Object.keys(inputObject)
       .filter(property => !isNaN(+property))
       .map(numericProp => {
-        return {value: +numericProp, key: inputObject[numericProp as keyof object]}
+        return {value: +numericProp, key: inputObject[numericProp as keyof object]};
       });
   }
 
