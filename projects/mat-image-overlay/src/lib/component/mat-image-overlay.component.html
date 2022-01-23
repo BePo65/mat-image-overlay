@@ -4,17 +4,17 @@
     [ngClass]="{'show-always': descriptionDisplayStyle === elementDisplayStyle.always}">
     {{descriptionAsString()}}
   </figcaption>
-  <button class="mat-image-overlay-button mat-image-overlay-close"
+  <button type="button" class="mat-image-overlay-button mat-image-overlay-close"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
     (click)="onClose()" aria-hidden="false" aria-label="close overlay">
     <mat-icon svgIcon="close"></mat-icon>
   </button>
-  <button *ngIf="!firstImage" class="mat-image-overlay-button mat-image-overlay-left"
+  <button type="button" *ngIf="!firstImage" class="mat-image-overlay-button mat-image-overlay-left"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
     (click)="gotoPreviousImage()" aria-hidden="false" aria-label="previous image">
      <mat-icon svgIcon="arrow_back_ios"></mat-icon>
   </button>
-  <button *ngIf="!lastImage" class="mat-image-overlay-button mat-image-overlay-right"
+  <button type="button" *ngIf="!lastImage" class="mat-image-overlay-button mat-image-overlay-right"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
     (click)="gotoNextImage()" aria-hidden="false" aria-label="next image">
     <mat-icon svgIcon="arrow_forward_ios"></mat-icon>
