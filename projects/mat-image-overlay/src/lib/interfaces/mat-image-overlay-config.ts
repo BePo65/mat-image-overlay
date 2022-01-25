@@ -38,6 +38,20 @@ export interface MatImageOverlayConfig {
   /** How to show the navigational buttons in the image overlay. */
   overlayButtonsStyle?: ElementDisplayStyle;
 
+  /**
+   * Get the description for an image from the given entry of images array.
+   * The default configuration expects 'images' to be an array of strings.
+   * @param imageData - an entry from the 'images' array
+   * @param configuration - object containing configuration data for the 'descriptionForImage' function
+   * @returns the description of the image
+   */
+   descriptionForImage?: (imageData: unknown, configuration?: object) => string;
+
+  /**
+   * Configuration data for the 'descriptionForImage' function.
+   */
+   descriptionForImageConfiguration?: object;
+
   /** How to show the description property in the image overlay. */
   descriptionDisplayStyle?: ElementDisplayStyle;
 

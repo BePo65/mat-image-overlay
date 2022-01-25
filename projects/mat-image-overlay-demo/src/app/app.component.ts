@@ -76,6 +76,13 @@ export class AppComponent {
       baseUrl: this.baseUrlForObjectImages,
       startImageIndex: 2,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
+      descriptionForImage: (imageData: unknown, configuration?: object) => {
+        let result = '';
+        if (typeof imageData === 'object') {
+          result = (imageData as object)['description' as keyof object];
+        }
+        return result;
+      },
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value,
       imageClickHandler: (imageData: unknown, configuration?: object) => {

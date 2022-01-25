@@ -40,6 +40,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   // These properties are internal only (for use in the template)
   public currentImage: unknown;
+  public currentImageDescription = '';
   public currentImageIndex = 0;
   public currentImageUrl: string;
   public firstImage = false;
@@ -152,32 +153,12 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   private setCurrentImage(imageIdex: number) {
     this.currentImage = this.images[imageIdex];
-  /**
-   * Get the description property of the current image
-   * if descriptionDisplayStyle is 'onHover'.
-   * @returns description property of the current image or undefined
-   */
-  descriptionOnHover(): string | undefined {
-    let result: string | undefined;
-    if ((this.descriptionDisplayStyle === ElementDisplayStyle.onHover)) {
-      result = this.currentImageDescription();
+
+    if(this._config.descriptionForImage) {
+      this.currentImageDescription = this._config.descriptionForImage(this.currentImage, this._config.descriptionForImageConfiguration);
+    } else {
+      this.currentImageDescription = '';
     }
-
-    return result;
-
-  }
-
-  /**
-   * Get the description property of the current image.
-   * @returns description property of the current image
-   */
-  descriptionAsString(): string {
-    let result = this.currentImageDescription();
-    if (result === undefined) {
-      result = '';
-    }
-
-    return result;
   }
 
   /**
@@ -188,6 +169,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
    */
   private urlOfCurrentImage(): string {
     let url = '';
+
     if(this._config.urlForImage) {
       url = this._config.urlForImage(this.currentImage, this._config.baseUrl);
     } else {
@@ -195,15 +177,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     }
 
     return url;
-  }
-
-  private currentImageDescription(): string | undefined {
-    let result: string | undefined;
-    if (typeof this.currentImage === 'object') {
-      result = (this.currentImage as object)['description' as keyof object];
-    }
-
-    return result;
   }
 
   /**
