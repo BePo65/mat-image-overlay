@@ -126,39 +126,23 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   public gotoNextImage(): void {
-    if (this.currentImageIndex < this.images.length - 1) {
-      this.currentImageIndex++;
-      this.setCurrentImage(this.currentImageIndex);
-      this.currentImageUrl = this.urlOfCurrentImage();
-      this.updateImageState();
-    }
+    this.gotoImage(this.currentImageIndex + 1);
   }
 
   public gotoPreviousImage(): void {
-    if (this.currentImageIndex > 0) {
-      this.currentImageIndex--;
-      this.setCurrentImage(this.currentImageIndex);
-      this.currentImageUrl = this.urlOfCurrentImage();
-      this.updateImageState();
-    }
+    this.gotoImage(this.currentImageIndex - 1);
   }
 
   public gotoFirstImage(): void {
-    this.currentImageIndex = 0;
-    this.setCurrentImage(this.currentImageIndex);
-    this.currentImageUrl = this.urlOfCurrentImage();
-    this.updateImageState();
+    this.gotoImage(0);
   }
 
   public gotoLastImage(): void {
-    this.currentImageIndex = this.images.length - 1;
-    this.setCurrentImage(this.currentImageIndex);
-    this.currentImageUrl = this.urlOfCurrentImage();
-    this.updateImageState();
+    this.gotoImage(this.images.length - 1);
   }
 
   public gotoImage(imageIndex: number): void {
-    if ((this.currentImageIndex > 0) && (imageIndex < this.images.length - 1)) {
+    if ((imageIndex >= 0) && (imageIndex < this.images.length)) {
       this.currentImageIndex = imageIndex;
       this.setCurrentImage(this.currentImageIndex);
       this.currentImageUrl = this.urlOfCurrentImage();
@@ -166,6 +150,8 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  private setCurrentImage(imageIdex: number) {
+    this.currentImage = this.images[imageIdex];
   /**
    * Get the description property of the current image
    * if descriptionDisplayStyle is 'onHover'.
@@ -209,10 +195,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     }
 
     return url;
-  }
-
-  private setCurrentImage(imageIdex: number) {
-    this.currentImage = this.images[imageIdex];
   }
 
   private currentImageDescription(): string | undefined {
