@@ -24,18 +24,27 @@
 
 .img-description.show-always {
   display: block;
+  margin: 1px 0 0;
 }
 
 .img-description.show-on-hover {
   background-color: rgba(255 255 255 / 85%);
   bottom: 0;
-  border-radius: 4px 0 0;
   display: inline-block;
   padding: 0.15em 0.45em;
   position: absolute;
-  right: 0;
   transform: translateY(100%);
   transition: transform 150ms ease-in;
+}
+
+.img-description.show-on-hover.show-right {
+  border-radius: 4px 0 0;
+  right: 0;
+}
+
+.img-description.show-on-hover.show-left {
+  border-radius: 0 4px 0 0;
+  left: 0;
 }
 
 .mat-image-overlay-wrapper:hover .img-description.show-on-hover {
@@ -55,22 +64,22 @@
   width: 24px;
 }
 
-.mat-image-overlay-close {
+.mat-image-overlay-button-close {
   left: 0;
   top: 0;
 }
 
-.mat-image-overlay-left,
-.mat-image-overlay-right {
+.mat-image-overlay-button-left,
+.mat-image-overlay-button-right {
   top: calc(50% - 12px);
 }
 
-.mat-image-overlay-left {
+.mat-image-overlay-button-left {
   left: 0;
   padding: 0 0 0 6px;
 }
 
-.mat-image-overlay-right {
+.mat-image-overlay-button-right {
   right: 0;
 }
 

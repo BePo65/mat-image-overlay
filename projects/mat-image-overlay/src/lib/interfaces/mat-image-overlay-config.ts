@@ -4,6 +4,11 @@ export enum ElementDisplayStyle {
   always
 }
 
+export enum ElementDisplayPosition {
+  left,
+  right
+}
+
 export interface MatImageOverlayConfig {
   /** List of images to be displayed. */
   images: unknown[];
@@ -35,6 +40,9 @@ export interface MatImageOverlayConfig {
 
   /** How to show the description property in the image overlay. */
   descriptionDisplayStyle?: ElementDisplayStyle;
+
+  /** Where to show the description property in the image overlay when 'onHover'. */
+  descriptionDisplayPosition?: ElementDisplayPosition;
 
   /**
    * EventHandler to be called, when image in overlay is clicked.

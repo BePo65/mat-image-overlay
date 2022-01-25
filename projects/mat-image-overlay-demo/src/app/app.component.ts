@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOverlayRef } from 'mat-image-overlay';
+import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOverlayRef } from 'mat-image-overlay';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,12 @@ import { ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOv
 })
 export class AppComponent {
   elementDisplayStyle = ElementDisplayStyle;
+  elementDisplayPosition = ElementDisplayPosition;
 
   optionsForm = this.formBuilder.group({
     buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
-    descriptionStyle: [ElementDisplayStyle.never, [Validators.required]]
+    descriptionStyle: [ElementDisplayStyle.never, [Validators.required]],
+    descriptionPosition: [ElementDisplayPosition.right, [Validators.required]]
   });
 
   stringImages = [
@@ -48,6 +50,7 @@ export class AppComponent {
       backdropClass: 'demo-backdrop-class',
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
+      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value,
       imageClickHandler: this.clickHandlerForOverlayDemo,
       imageClickHandlerConfiguration: { sampleValue: 'demo parameter for overlay demo'}
     } as MatImageOverlayConfig;
@@ -74,6 +77,7 @@ export class AppComponent {
       startImageIndex: 2,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
+      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value,
       imageClickHandler: (imageData: unknown, configuration?: object) => {
         let additionalParameter = {};
         if (configuration) {
