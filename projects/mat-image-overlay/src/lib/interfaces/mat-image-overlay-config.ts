@@ -61,9 +61,9 @@ export interface MatImageOverlayConfig {
   /**
    * EventHandler to be called, when image in overlay is clicked.
    * @param imageData - entry from the 'images' array for the current image
-   * @param parameters - object containing configuration data for the 'imageClickHandler'
+   * @param configuration - object containing configuration data for the 'imageClickHandler'
    */
-   imageClickHandler?: (imageData: unknown, configuration?: object) => void;
+  imageClickHandler?: (imageData: unknown, configuration?: object) => void;
 
   /**
    * Configuration data for the imageClickHandler.
