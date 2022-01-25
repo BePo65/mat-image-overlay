@@ -4,52 +4,58 @@
   <span>Source on github: </span>
   <a href="https://github.com/BePo65/mat-image-overlay">BePo65/mat-image-overlay</a>
 </p>
-<div class="image-preview-container">
-  <h3 class="container-title">Demo for string array as image source</h3>
-  <div class="image-selection">
-    <div *ngFor="let imageUrl of stringImages; let imageIndex = index">
-      <img class="image-link" width="128" [src]="imageUrl" (click)="openImageOverlay(imageIndex)">
+<div class="container">
+  <div clsss="images-container">
+    <div class="image-preview-container first-container">
+      <h3 class="container-title">Demo for string array as image source</h3>
+      <div class="image-selection">
+        <div *ngFor="let imageUrl of stringImages; let imageIndex = index">
+          <img class="image-link" width="128" [src]="imageUrl" (click)="openImageOverlay(imageIndex)">
+        </div>
+      </div>
+      <p class="actions" data-cy="basic-action">
+        Click on one of the images above or <a href="#" (click)="openImageOverlay()" data-cy="open-overlay">open the overlay here</a>
+      </p>
+    </div>
+    <div class="image-preview-container next-container">
+      <h3 class="container-title">Demo for object array as image source</h3>
+      <div class="image-selection">
+        <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">
+          <span *ngFor="let imageData of objectImages; let imageIndex = index">
+            <img height="100" [src]="urlForStringImagesSource(imageIndex)">
+          </span>
+        </a>
+      </div>
+      <p class="actions" data-cy="start-show">
+        <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">Show external navigation</a>
+      </p>
     </div>
   </div>
-  <p class="actions" data-cy="basic-action">
-    Click on one of the images above or <a href="#" (click)="openImageOverlay()" data-cy="open-overlay">open the overlay here</a>
-  </p>
-</div>
-<div class="image-preview-container">
-  <h3 class="container-title">Demo for object array as image source</h3>
-  <div class="image-selection">
-    <div *ngFor="let imageData of objectImages; let imageIndex = index">
-      <img height="100" [src]="urlForStringImagesSource(imageIndex)">
-    </div>
+  <div class="options-container">
+    <h3>Options</h3>
+    <form [formGroup]="optionsForm">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Show navigational buttons</mat-label>
+        <mat-select formControlName="buttonStyle" required>
+          <mat-option *ngFor="let style of elementDisplayStyle | enumToArray" [value]="style.value">
+            {{style.key}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="optionsForm.controls.buttonStyle.touched && optionsForm.controls.buttonStyle.invalid">
+          <span *ngIf="optionsForm.controls.buttonStyle.errors?.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Show image description for object array as image source</mat-label>
+        <mat-select formControlName="descriptionStyle" required>
+          <mat-option *ngFor="let style of elementDisplayStyle | enumToArray" [value]="style.value">
+            {{style.key}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="optionsForm.controls.descriptionStyle.touched && optionsForm.controls.descriptionStyle.invalid">
+          <span *ngIf="optionsForm.controls.descriptionStyle.errors?.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+    </form>
   </div>
-  <p class="actions" data-cy="start-show">
-    <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">Show external navigation</a>
-  </p>
-</div>
-<div class="options-container">
-  <h3>Options</h3>
-  <form [formGroup]="optionsForm">
-    <mat-form-field class="form-field" appearance="outline">
-      <mat-label>Show navigational buttons</mat-label>
-      <mat-select formControlName="buttonStyle" required>
-        <mat-option *ngFor="let style of elementDisplayStyle | enumToArray" [value]="style.value">
-          {{style.key}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="optionsForm.controls.buttonStyle.touched && optionsForm.controls.buttonStyle.invalid">
-        <span *ngIf="optionsForm.controls.buttonStyle.errors?.required">This field is mandatory.</span>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="form-field" appearance="outline">
-      <mat-label>Show image description for object array as image source</mat-label>
-      <mat-select formControlName="descriptionStyle" required>
-        <mat-option *ngFor="let style of elementDisplayStyle | enumToArray" [value]="style.value">
-          {{style.key}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="optionsForm.controls.descriptionStyle.touched && optionsForm.controls.descriptionStyle.invalid">
-        <span *ngIf="optionsForm.controls.descriptionStyle.errors?.required">This field is mandatory.</span>
-      </mat-error>
-    </mat-form-field>
-  </form>
 </div>

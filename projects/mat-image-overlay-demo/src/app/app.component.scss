@@ -15,11 +15,35 @@
   text-align: center;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: auto 460px;
+  grid-template-rows: 1fr;
+  grid-template-areas: "images options";
+  gap: 0 10px;
+}
+
+.images-container {
+  grid-area: images;
+}
+
+.options-container {
+  border: 1px solid gray;
+  grid-area: options;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 400px;
+}
+
 .image-preview-container {
   border: 1px solid gray;
-  margin: 0 auto 1em;
+  margin: 0 auto;
   padding: 0 1rem 0.5rem;
   width: 650px;
+}
+
+.next-container {
+  margin-top: 1em;
 }
 
 .container-title {
@@ -45,13 +69,6 @@ img {
 
 .image-link {
   cursor: pointer;
-}
-
-.options-container {
-  border: 1px solid gray;
-  margin: 0 auto;
-  padding: 0 1rem;
-  width: 400px;
 }
 
 .form-field {
