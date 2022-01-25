@@ -1,7 +1,7 @@
 <figure class="mat-image-overlay-wrapper">
-  <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl" [attr.title]="descriptionOnHover()">
+  <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl">
   <figcaption class="img-description"
-    [ngClass]="{'show-always': descriptionDisplayStyle === elementDisplayStyle.always}">
+    [ngClass]="{'show-on-hover': descriptionDisplayStyle === elementDisplayStyle.onHover, 'show-always': descriptionDisplayStyle === elementDisplayStyle.always}">
     {{descriptionAsString()}}
   </figcaption>
   <button type="button" class="mat-image-overlay-button mat-image-overlay-close"
