@@ -20,7 +20,7 @@ export interface MatImageOverlayConfig {
    * @param baseUrl - optional url fragment to be used for building the image url
    * @returns the URL of the image
    */
-   urlForImage?: (imageData: unknown, baseUrl?: string) => string;
+  urlForImage?: (imageData: unknown, baseUrl?: string) => string;
 
   /** Base url to be used by method 'urlForImage' */
    baseUrl?: string;
@@ -33,7 +33,7 @@ export interface MatImageOverlayConfig {
    * Class definition must be placed in global styles.scss
    * because of angular view encapsulation
    */
-   backdropClass?: string;
+  backdropClass?: string;
 
   /** How to show the navigational buttons in the image overlay. */
   overlayButtonsStyle?: ElementDisplayStyle;
@@ -45,12 +45,12 @@ export interface MatImageOverlayConfig {
    * @param configuration - object containing configuration data for the 'descriptionForImage' function
    * @returns the description of the image
    */
-   descriptionForImage?: (imageData: unknown, configuration?: object) => string;
+  descriptionForImage?: (imageData: unknown, configuration?: object) => string;
 
   /**
    * Configuration data for the 'descriptionForImage' function.
    */
-   descriptionForImageConfiguration?: object;
+  descriptionForImageConfiguration?: object;
 
   /** How to show the description property in the image overlay. */
   descriptionDisplayStyle?: ElementDisplayStyle;
