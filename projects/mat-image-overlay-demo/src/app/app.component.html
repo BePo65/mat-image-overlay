@@ -10,7 +10,7 @@
       <h3 class="container-title">Demo for string array as image source</h3>
       <div class="image-selection">
         <div *ngFor="let imageUrl of stringImages; let imageIndex = index">
-          <img class="image-link" width="128" [src]="imageUrl" (click)="openImageOverlay(imageIndex)">
+          <img class="image-link" height="100" [src]="imageUrl" (click)="openImageOverlay(imageIndex)">
         </div>
       </div>
       <p class="actions" data-cy="basic-action">
@@ -20,7 +20,7 @@
     <div class="image-preview-container next-container">
       <h3 class="container-title">Demo for object array as image source</h3>
       <div class="image-selection">
-        <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">
+        <a href="#" (click)="startImageShow()" title="click to start show" data-cy="start-auto-mode">
           <span *ngFor="let imageData of objectImages; let imageIndex = index">
             <img class="images-compact" height="100" [src]="urlForStringImagesSource(imageIndex)">
           </span>
