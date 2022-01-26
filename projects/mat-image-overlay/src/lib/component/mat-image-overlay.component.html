@@ -1,4 +1,4 @@
-<figure class="mat-image-overlay-wrapper">
+<figure class="mat-image-overlay-wrapper" (mouseenter)="figureHovering = true" (mouseleave)="figureHovering = false" [class.hovering]="figureHovering">
   <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl">
   <figcaption class="img-description"
     [ngClass]="{'show-on-hover': descriptionDisplayStyle === elementDisplayStyle.onHover,

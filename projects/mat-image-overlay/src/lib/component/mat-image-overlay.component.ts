@@ -52,6 +52,9 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   elementDisplayPosition = ElementDisplayPosition;
   public descriptionDisplayPosition = this.elementDisplayPosition.right;
 
+  // Propery is needed for MatImageOverlayHarness
+  public figureHovering = false;
+
   private images: unknown[];
   private imageClickUnlistener: (() => void) | undefined;
 
