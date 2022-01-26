@@ -67,7 +67,7 @@ describe('MatImageOverlayComponent', () => {
     expect(imageOverlayRef._componentInstance instanceof MatImageOverlayComponent).toBe(true);
     expect(imageOverlay.imageOverlayExists()).toBe(true);
 
-    const closeButton = overlayContainerElement.querySelector('.cdk-overlay-container .mat-image-overlay-button.mat-image-overlay-close mat-icon');
+    const closeButton = overlayContainerElement.querySelector('.cdk-overlay-container .mat-image-overlay-button.mat-image-overlay-button-close mat-icon');
     if ((closeButton !== undefined) && (closeButton !== null)) {
       expect(closeButton.getAttribute('data-mat-icon-name')).toBe('close');
     } else {

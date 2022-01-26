@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOverlayRef } from 'mat-image-overlay';
+import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOverlayRef } from 'mat-image-overlay';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,12 @@ import { ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOv
 })
 export class AppComponent {
   elementDisplayStyle = ElementDisplayStyle;
+  elementDisplayPosition = ElementDisplayPosition;
 
   optionsForm = this.formBuilder.group({
     buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
-    descriptionStyle: [ElementDisplayStyle.never, [Validators.required]]
+    descriptionStyle: [ElementDisplayStyle.never, [Validators.required]],
+    descriptionPosition: [ElementDisplayPosition.right, [Validators.required]]
   });
 
   stringImages = [
@@ -25,7 +27,7 @@ export class AppComponent {
   objectImages = [
     { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
     { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
-    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000, description: 'picture 3' },
+    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
     { id: '1015', width: Math.round(1000 / 4000 * 6000), height: 1000, description: 'picture 4' }
   ];
 
@@ -37,7 +39,7 @@ export class AppComponent {
   }
 
   /**
-   * Demo to show basic functions of overlay images.
+   * Demo to show most functions of overlay images.
    * @param imageIndex - index of the first image to be displayed in overlay
    */
   openImageOverlay(imageIndex?: number): void {
@@ -47,7 +49,20 @@ export class AppComponent {
       startImageIndex: imageIndex,
       backdropClass: 'demo-backdrop-class',
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
+      descriptionForImage: (imageData: unknown, configuration?: object) => {
+        let result = '';
+        if (typeof imageData === 'string') {
+          if (configuration) {
+            result = `${configuration['label' as keyof object]}: ${String(imageData)}`;
+          } else {
+            result = String(imageData);
+          }
+        }
+        return result;
+      },
+      descriptionForImageConfiguration: {label: 'file name'},
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
+      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value,
       imageClickHandler: this.clickHandlerForOverlayDemo,
       imageClickHandlerConfiguration: { sampleValue: 'demo parameter for overlay demo'}
     } as MatImageOverlayConfig;
@@ -73,7 +88,15 @@ export class AppComponent {
       baseUrl: this.baseUrlForObjectImages,
       startImageIndex: 2,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
+      descriptionForImage: (imageData: unknown) => {
+        let result = '';
+        if (typeof imageData === 'object') {
+          result = (imageData as object)['description' as keyof object];
+        }
+        return result;
+      },
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
+      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value,
       imageClickHandler: (imageData: unknown, configuration?: object) => {
         let additionalParameter = {};
         if (configuration) {
@@ -96,6 +119,17 @@ export class AppComponent {
     imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId)
     );
 
+  }
+
+  /**
+   * Demo to show overlay images with mnimal configuration.
+   */
+  openMinimalConfigImageOverlay(): void {
+    const config: MatImageOverlayConfig = {
+      images: this.stringImages
+    } as MatImageOverlayConfig;
+
+    this.imageOverlay.open(config);
   }
 
   /**

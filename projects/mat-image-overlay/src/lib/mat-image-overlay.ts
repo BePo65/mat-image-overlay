@@ -27,8 +27,10 @@ export class MatImageOverlay {
   private defaultConfig: MatImageOverlayConfig = {
     images: [] as string[],
     urlForImage(imageData: unknown, baseUrl?: string): string {
-      if (typeof imageData === 'string') {
-        let url = '';
+      if (imageData === undefined) {
+        return '';
+      } else if (typeof imageData === 'string') {
+        let url: string;
         if (baseUrl) {
           url = `${baseUrl}${String(imageData)}`;
         } else {
@@ -36,7 +38,7 @@ export class MatImageOverlay {
         }
         return url;
       } else {
-        throw new Error('Configuration element "images" must be an array of strings');
+        throw new Error('Default implementation of "urlForImage": "images" must be an array of strings"');
       }
     },
     startImageIndex: 0

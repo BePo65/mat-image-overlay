@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Injec
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { ElementDisplayStyle, MatImageOverlayConfig } from '../interfaces/mat-image-overlay-config';
+import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlayConfig } from '../interfaces/mat-image-overlay-config';
 import { ARROW_BACKWARD_ICON, ARROW_FORWARD_ICON, CLOSE_ICON } from '../mat-image-overlay.svg';
 
 /**
@@ -40,6 +40,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   // These properties are internal only (for use in the template)
   public currentImage: unknown;
+  public currentImageDescription = '';
   public currentImageIndex = 0;
   public currentImageUrl: string;
   public firstImage = false;
@@ -48,6 +49,11 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   elementDisplayStyle = ElementDisplayStyle;
   public overlayButtonsStyle: ElementDisplayStyle;
   public descriptionDisplayStyle: ElementDisplayStyle;
+  elementDisplayPosition = ElementDisplayPosition;
+  public descriptionDisplayPosition = this.elementDisplayPosition.right;
+
+  // Propery is needed for MatImageOverlayHarness
+  public figureHovering = false;
 
   private images: unknown[];
   private imageClickUnlistener: (() => void) | undefined;
@@ -65,6 +71,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
     this.descriptionDisplayStyle = _config.descriptionDisplayStyle ?? ElementDisplayStyle.onHover;
+    this.descriptionDisplayPosition = _config.descriptionDisplayPosition ?? ElementDisplayPosition.right;
 
     // Get material icons as svg icons
     this.matIconRegistry.addSvgIconLiteral('close', this.domSanitizer.bypassSecurityTrustHtml(CLOSE_ICON));
@@ -123,39 +130,23 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   public gotoNextImage(): void {
-    if (this.currentImageIndex < this.images.length - 1) {
-      this.currentImageIndex++;
-      this.setCurrentImage(this.currentImageIndex);
-      this.currentImageUrl = this.urlOfCurrentImage();
-      this.updateImageState();
-    }
+    this.gotoImage(this.currentImageIndex + 1);
   }
 
   public gotoPreviousImage(): void {
-    if (this.currentImageIndex > 0) {
-      this.currentImageIndex--;
-      this.setCurrentImage(this.currentImageIndex);
-      this.currentImageUrl = this.urlOfCurrentImage();
-      this.updateImageState();
-    }
+    this.gotoImage(this.currentImageIndex - 1);
   }
 
   public gotoFirstImage(): void {
-    this.currentImageIndex = 0;
-    this.setCurrentImage(this.currentImageIndex);
-    this.currentImageUrl = this.urlOfCurrentImage();
-    this.updateImageState();
+    this.gotoImage(0);
   }
 
   public gotoLastImage(): void {
-    this.currentImageIndex = this.images.length - 1;
-    this.setCurrentImage(this.currentImageIndex);
-    this.currentImageUrl = this.urlOfCurrentImage();
-    this.updateImageState();
+    this.gotoImage(this.images.length - 1);
   }
 
   public gotoImage(imageIndex: number): void {
-    if ((this.currentImageIndex > 0) && (imageIndex < this.images.length - 1)) {
+    if ((imageIndex >= 0) && (imageIndex < this.images.length)) {
       this.currentImageIndex = imageIndex;
       this.setCurrentImage(this.currentImageIndex);
       this.currentImageUrl = this.urlOfCurrentImage();
@@ -164,31 +155,22 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Get the description property of the current image
-   * if descriptionDisplayStyle is 'onHover'.
-   * @returns description property of the current image or undefined
+   * Is 'text' undefined or an empty string.
+   * @param text - element under inspection
+   * @returns if 'text'is not a non empty string
    */
-  descriptionOnHover(): string | undefined {
-    let result: string | undefined;
-    if ((this.descriptionDisplayStyle === ElementDisplayStyle.onHover)) {
-      result = this.currentImageDescription();
-    }
-
-    return result;
-
+  isUndefinedOrEmpty(text: string | undefined): boolean {
+    return (text === undefined) || (text.length === 0);
   }
 
-  /**
-   * Get the description property of the current image.
-   * @returns description property of the current image
-   */
-  descriptionAsString(): string {
-    let result = this.currentImageDescription();
-    if (result === undefined) {
-      result = '';
-    }
+  private setCurrentImage(imageIdex: number) {
+    this.currentImage = this.images[imageIdex];
 
-    return result;
+    if(this._config.descriptionForImage) {
+      this.currentImageDescription = this._config.descriptionForImage(this.currentImage, this._config.descriptionForImageConfiguration);
+    } else {
+      this.currentImageDescription = '';
+    }
   }
 
   /**
@@ -199,6 +181,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
    */
   private urlOfCurrentImage(): string {
     let url = '';
+
     if(this._config.urlForImage) {
       url = this._config.urlForImage(this.currentImage, this._config.baseUrl);
     } else {
@@ -206,19 +189,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     }
 
     return url;
-  }
-
-  private setCurrentImage(imageIdex: number) {
-    this.currentImage = this.images[imageIdex];
-  }
-
-  private currentImageDescription(): string | undefined {
-    let result: string | undefined;
-    if (typeof this.currentImage === 'object') {
-      result = (this.currentImage as object)['description' as keyof object];
-    }
-
-    return result;
   }
 
   /**
