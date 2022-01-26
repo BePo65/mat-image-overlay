@@ -154,6 +154,15 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Is 'text' undefined or an empty string.
+   * @param text - element under inspection
+   * @returns if 'text'is not a non empty string
+   */
+  isUndefinedOrEmpty(text: string | undefined): boolean {
+    return (text === undefined) || (text.length === 0);
+  }
+
   private setCurrentImage(imageIdex: number) {
     this.currentImage = this.images[imageIdex];
 

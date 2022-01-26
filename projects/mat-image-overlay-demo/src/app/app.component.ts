@@ -27,7 +27,7 @@ export class AppComponent {
   objectImages = [
     { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
     { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
-    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000, description: 'picture 3' },
+    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
     { id: '1015', width: Math.round(1000 / 4000 * 6000), height: 1000, description: 'picture 4' }
   ];
 
