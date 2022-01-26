@@ -39,7 +39,7 @@ export class AppComponent {
   }
 
   /**
-   * Demo to show basic functions of overlay images.
+   * Demo to show most functions of overlay images.
    * @param imageIndex - index of the first image to be displayed in overlay
    */
   openImageOverlay(imageIndex?: number): void {
@@ -107,6 +107,17 @@ export class AppComponent {
     imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId)
     );
 
+  }
+
+  /**
+   * Demo to show overlay images with mnimal configuration.
+   */
+  openMinimalConfigImageOverlay(): void {
+    const config: MatImageOverlayConfig = {
+      images: this.stringImages
+    } as MatImageOverlayConfig;
+
+    this.imageOverlay.open(config);
   }
 
   /**

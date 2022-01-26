@@ -22,12 +22,23 @@
       <div class="image-selection">
         <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">
           <span *ngFor="let imageData of objectImages; let imageIndex = index">
-            <img height="100" [src]="urlForStringImagesSource(imageIndex)">
+            <img class="images-compact" height="100" [src]="urlForStringImagesSource(imageIndex)">
           </span>
         </a>
       </div>
       <p class="actions" data-cy="start-show">
         <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">Show external navigation</a>
+      </p>
+    </div>
+    <div class="image-preview-container next-container">
+      <h3 class="container-title">Demo for overlay image with minimal configuration</h3>
+      <div class="image-selection">
+        <a href="#" (click)="openMinimalConfigImageOverlay()" title="click to open first image" data-cy="open-min-config">
+          <img class="image-link" height="100" src="assets/minimalConfigDemo.jpg">
+        </a>
+      </div>
+      <p class="actions" data-cy="start-show">
+        <a href="#" (click)="openMinimalConfigImageOverlay()" data-cy="start-min-config">Open image overlay</a>
       </p>
     </div>
   </div>
