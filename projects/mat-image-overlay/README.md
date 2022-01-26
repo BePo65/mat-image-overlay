@@ -105,6 +105,13 @@ Navigate to http://localhost:4200
 | imageData<br>unknown | Data for the image. |
 | configuration?<br>object | Additional parameters defined as 'imageClickHandlerConfiguration' in the MatImageOverlayConfig object. |
 
+| descriptionForImage | |
+|---|--|
+| If defined this method gets called to fetch the image description. | This function is optional. |
+| *Parameters* | |
+| imageData<br>unknown | Data for the image. |
+| configuration?<br>object | Additional parameters defined as 'descriptionForImageConfiguration' in the MatImageOverlayConfig object. |
+
 **Properties**
 | Name  | Description |
 |---|---|
@@ -116,6 +123,7 @@ Navigate to http://localhost:4200
 | descriptionDisplayStyle?<br>ElementDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a propert named 'description' in data source. |
 | descriptionDisplayPosition?<br>ElementDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a propert named 'description' in data source. |
 | imageClickHandlerConfiguration?<br>object | Object with arbitrary data as parameter of the 'imageClickHandler' method. |
+| descriptionForImageConfiguration?<br>object | Object with arbitrary data as parameter of the 'descriptionForImage' method. |
 
 ### MatImageOverlayRef
 **Methods**
