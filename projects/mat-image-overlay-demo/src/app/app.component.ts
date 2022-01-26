@@ -49,6 +49,18 @@ export class AppComponent {
       startImageIndex: imageIndex,
       backdropClass: 'demo-backdrop-class',
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
+      descriptionForImage: (imageData: unknown, configuration?: object) => {
+        let result = '';
+        if (typeof imageData === 'string') {
+          if (configuration) {
+            result = `${configuration['label' as keyof object]}: ${String(imageData)}`;
+          } else {
+            result = String(imageData);
+          }
+        }
+        return result;
+      },
+      descriptionForImageConfiguration: {label: 'file name'},
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value,
       imageClickHandler: this.clickHandlerForOverlayDemo,
@@ -76,7 +88,7 @@ export class AppComponent {
       baseUrl: this.baseUrlForObjectImages,
       startImageIndex: 2,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
-      descriptionForImage: (imageData: unknown, configuration?: object) => {
+      descriptionForImage: (imageData: unknown) => {
         let result = '';
         if (typeof imageData === 'object') {
           result = (imageData as object)['description' as keyof object];
