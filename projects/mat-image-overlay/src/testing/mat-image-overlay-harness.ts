@@ -47,7 +47,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * Gets a flag that is true, when the 'previous' button is visible.
    * @returns true, if 'previous' button is visible
    */
-   async buttonPreviousVisible(): Promise<boolean> {
+  async buttonPreviousVisible(): Promise<boolean> {
     let result = false;
 
     try {
@@ -68,7 +68,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * Gets a flag that is true, when the 'next' button is visible.
    * @returns true, if 'next' button is visible
    */
-   async buttonNextVisible(): Promise<boolean> {
+  async buttonNextVisible(): Promise<boolean> {
     let result = false;
 
     try {
@@ -148,7 +148,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * Therefore we use a hack with 'figureHovering' in overlay component and events in template.
    * @returns true if the figure tag of the overlay is hovered
    */
-   private async figureIsHovering(): Promise<boolean> {
+  private async figureIsHovering(): Promise<boolean> {
     const figureTestElement = await this.host();
     return await figureTestElement.hasClass('hovering');
   }
