@@ -21,9 +21,6 @@ import { MatImageOverlay } from './mat-image-overlay';
   ],
   providers: [
     MatImageOverlay
-  ],
-  exports: [
-    MatImageOverlayComponent
   ]
 })
 export class MatImageOverlayModule { }
