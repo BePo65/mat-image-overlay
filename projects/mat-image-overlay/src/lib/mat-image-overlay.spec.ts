@@ -347,7 +347,7 @@ describe('MatImageOverlay with Harness', () => {
     const config: MatImageOverlayConfig = {
       images: stringImages
     } as MatImageOverlayConfig;
-    const overlay = fixture.componentInstance.open(config);
+    fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
     expect(overlayHarness).not.toBeUndefined();
 
@@ -380,6 +380,39 @@ describe('MatImageOverlay with Harness', () => {
 
     // close overlay
     await overlayHarness.sendKeys(TestKey.ESCAPE);
+    const overlays = await loader.getAllHarnesses(MatImageOverlayHarness);
+    expect(overlays.length).toBe(0);
+  });
+
+  it('should navigate with overlay-ref', async () => {
+    const config: MatImageOverlayConfig = {
+      images: stringImages
+    } as MatImageOverlayConfig;
+    const overlay = fixture.componentInstance.open(config);
+    const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+    expect(overlayHarness).not.toBeUndefined();
+
+    // Start with 1st image
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
+
+    // Goto next image
+    await overlay.gotoNextImage();
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[1]);
+
+    // Goto last image
+    await overlay.gotoLastImage();
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[3]);
+
+    // Goto previous image
+    await overlay.gotoPreviousImage();
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[2]);
+
+    // Goto first image
+    await overlay.gotoFirstImage();
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
+
+    // close overlay
+    await overlay.close();
     const overlays = await loader.getAllHarnesses(MatImageOverlayHarness);
     expect(overlays.length).toBe(0);
   });
