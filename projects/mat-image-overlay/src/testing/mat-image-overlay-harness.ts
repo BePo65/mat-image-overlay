@@ -1,6 +1,4 @@
-import { AsyncFactoryFn, ContentContainerComponentHarness, HarnessPredicate, TestElement, TestKey } from '@angular/cdk/testing';
-
-import { MatImageOverlayHarnessFilters } from './mat-image-harness-filters';
+import { AsyncFactoryFn, ContentContainerComponentHarness, TestElement, TestKey } from '@angular/cdk/testing';
 
 /** Harness for interacting with a standard `MatImageOverlay` in tests. */
 export class MatImageOverlayHarness extends ContentContainerComponentHarness {
@@ -12,16 +10,6 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   protected buttonNext: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-right');
   protected figure: AsyncFactoryFn<TestElement> = this.locatorFor('figure');
   protected description: AsyncFactoryFn<TestElement> = this.locatorFor('figcaption');
-
-  /**
-   * Gets a `HarnessPredicate` that can be used to search for a `MatImageOverlayHarness` that meets
-   * certain criteria.
-   * @param options Options for filtering which image overlay instances are considered a match.
-   * @return a `HarnessPredicate` configured with the given options.
-   */
-  static with(options: MatImageOverlayHarnessFilters = {}): HarnessPredicate<MatImageOverlayHarness> {
-    return new HarnessPredicate(MatImageOverlayHarness, options);
-  }
 
   /**
    * Closes the image overlay by pressing escape.
