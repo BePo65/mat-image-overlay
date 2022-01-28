@@ -1,4 +1,4 @@
-import { AsyncFactoryFn, ContentContainerComponentHarness, TestElement, TestKey } from '@angular/cdk/testing';
+import { AsyncFactoryFn, ContentContainerComponentHarness, ModifierKeys, TestElement, TestKey } from '@angular/cdk/testing';
 
 /** Harness for interacting with a standard `MatImageOverlay` in tests. */
 export class MatImageOverlayHarness extends ContentContainerComponentHarness {
@@ -10,6 +10,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   protected buttonNext: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-right');
   protected figure: AsyncFactoryFn<TestElement> = this.locatorFor('figure');
   protected description: AsyncFactoryFn<TestElement> = this.locatorFor('figcaption');
+  protected image: AsyncFactoryFn<TestElement> = this.locatorFor('img');
 
   /**
    * Closes the image overlay by pressing escape.
@@ -128,6 +129,41 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   async figureHover(): Promise<void> {
     const figure = await this.host();
     await figure.hover();
+  }
+
+  /**
+   * Gets the src attribute of the img tag of the overlay (the url of the image).
+   * @returns url of the image or empty string
+   */
+   async imageUrl(): Promise<string> {
+    const image = await this.image();
+    const url = await image.getAttribute('src');
+    return url ?? '';
+  }
+
+  /**
+   * Send keys to the overlay.
+   * @param keys - comma separated list of keys to be sent
+   * @returns empty promise
+   */
+  async sendKeys(...keys: (string | TestKey)[]): Promise<void> {
+    const imageOverlay = await this.host();
+    await imageOverlay.sendKeys(...keys);
+  }
+
+  /**
+   * Send keys with modifier key (shift, control, alt, meta) to the overlay.
+   * @param modifiers - modifier key (shift, control, alt, meta)
+   * @param keys - comma separated list of keys to be sent
+   * @returns empty promise
+   */
+  async sendKeysWithModifiers(modifiers?: ModifierKeys, ...keys: (string | TestKey)[]): Promise<void> {
+    const imageOverlay = await this.host();
+    if (modifiers) {
+      await imageOverlay.sendKeys(modifiers, ...keys);
+    } else {
+      await imageOverlay.sendKeys(...keys);
+    }
   }
 
   /**

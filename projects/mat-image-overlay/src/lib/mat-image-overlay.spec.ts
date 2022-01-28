@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { HarnessLoader } from '@angular/cdk/testing';
+import { HarnessLoader, TestKey } from '@angular/cdk/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -341,6 +341,47 @@ describe('MatImageOverlay with Harness', () => {
     expect(overlay).not.toBeUndefined();
 
     await expectAsync(overlay.descptionVisible()).toBeResolvedTo(false);
+  });
+
+  it('should navigate with buttons', async () => {
+    const config: MatImageOverlayConfig = {
+      images: stringImages
+    } as MatImageOverlayConfig;
+    const overlay = fixture.componentInstance.open(config);
+    const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+    expect(overlayHarness).not.toBeUndefined();
+
+    // Start with 1st image
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
+
+    // Goto next image
+    await overlayHarness.sendKeys(TestKey.RIGHT_ARROW);
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[1]);
+
+    // Goto last image
+    await overlayHarness.sendKeys(TestKey.END);
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[3]);
+
+    // Goto previous image
+    await overlayHarness.sendKeys(TestKey.LEFT_ARROW);
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[2]);
+
+    // Goto first image
+    await overlayHarness.sendKeys(TestKey.HOME);
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
+
+    // Goto next image with button down
+    await overlayHarness.sendKeys(TestKey.DOWN_ARROW);
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[1]);
+
+    // Goto previous image with button up
+    await overlayHarness.sendKeys(TestKey.UP_ARROW);
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
+
+    // close overlay
+    await overlayHarness.sendKeys(TestKey.ESCAPE);
+    const overlays = await loader.getAllHarnesses(MatImageOverlayHarness);
+    expect(overlays.length).toBe(0);
   });
 });
 
