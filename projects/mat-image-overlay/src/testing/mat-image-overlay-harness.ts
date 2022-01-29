@@ -2,8 +2,8 @@ import { AsyncFactoryFn, ContentContainerComponentHarness, ModifierKeys, TestEle
 
 /** Harness for interacting with a standard `MatImageOverlay` in tests. */
 export class MatImageOverlayHarness extends ContentContainerComponentHarness {
-  /** The selector for the host element of a `MatImageOver` instance. */
-  static hostSelector = '.mat-image-overlay-wrapper';
+  /** The selector for the host element of a `MatImageOverlay` instance. */
+  static hostSelector = '.mat-image-overlay-container';
 
   protected buttonClose: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-close');
   protected buttonPrevious: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-left');
@@ -11,12 +11,37 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   protected figure: AsyncFactoryFn<TestElement> = this.locatorFor('figure');
   protected description: AsyncFactoryFn<TestElement> = this.locatorFor('figcaption');
   protected image: AsyncFactoryFn<TestElement> = this.locatorFor('img');
+  protected backdrop: AsyncFactoryFn<TestElement> = this.locatorFor('.cdk-overlay-backdrop');
+  protected wrapper: AsyncFactoryFn<TestElement> = this.locatorFor('.mat-image-overlay-wrapper');
+
+  async overlayIsLoaded(): Promise<boolean> {
+    let result = false;
+
+    try {
+      const wrapper = await this.wrapper();
+      result = (wrapper !== undefined);
+    } catch {
+      // Promise throws when 'wrapper' element does not exist; use default value
+    }
+
+    return result;
+  }
 
   /**
    * Closes the image overlay by pressing escape.
    */
   async close(): Promise<void> {
-    await (await this.host()).sendKeys(TestKey.ESCAPE);
+    const wrapper = await this.wrapper();
+    await wrapper.sendKeys(TestKey.ESCAPE);
+  }
+
+  /**
+   * Clicks the backdrop of the image overlay.
+   * @returns empty promise
+   */
+   async clickBackdrop(): Promise<void> {
+    const backdrop = await this.backdrop();
+    await backdrop.click();
   }
 
   /**
@@ -24,12 +49,19 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * @returns true, if 'close' button is visible
    */
   async buttonCloseVisible(): Promise<boolean> {
-    const figureIsHovering = await this.figureIsHovering();
-    const buttonCloseTestElement = await this.buttonClose();
-    const buttonShowAlways = await buttonCloseTestElement.hasClass('show-always');
-    const buttonShowOnHover = await buttonCloseTestElement.hasClass('show-on-hover');
+    let result = false;
 
-    return (buttonShowAlways || (buttonShowOnHover && figureIsHovering));
+    try {
+      const figureIsHovering = await this.figureIsHovering();
+      const buttonCloseTestElement = await this.buttonClose();
+      const buttonShowAlways = await buttonCloseTestElement.hasClass('show-always');
+      const buttonShowOnHover = await buttonCloseTestElement.hasClass('show-on-hover');
+      result = (buttonShowAlways || (buttonShowOnHover && figureIsHovering));
+    } catch (err) {
+      // Promise throws when 'wrapper' element does not exist; use default value
+    }
+
+    return result;
   }
 
   /**
@@ -127,7 +159,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * @returns empty promise
    */
   async figureHover(): Promise<void> {
-    const figure = await this.host();
+    const figure = await this.figure();
     await figure.hover();
   }
 
@@ -147,8 +179,8 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * @returns empty promise
    */
   async sendKeys(...keys: (string | TestKey)[]): Promise<void> {
-    const imageOverlay = await this.host();
-    await imageOverlay.sendKeys(...keys);
+    const figure = await this.figure();
+    await figure.sendKeys(...keys);
   }
 
   /**
@@ -158,12 +190,22 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * @returns empty promise
    */
   async sendKeysWithModifiers(modifiers?: ModifierKeys, ...keys: (string | TestKey)[]): Promise<void> {
-    const imageOverlay = await this.host();
+    const figure = await this.figure();
     if (modifiers) {
-      await imageOverlay.sendKeys(modifiers, ...keys);
+      await figure.sendKeys(modifiers, ...keys);
     } else {
-      await imageOverlay.sendKeys(...keys);
+      await figure.sendKeys(...keys);
     }
+  }
+
+  /**
+   * Gets a flag that is true, when the backdrop contains the given css class.
+   * @param classname - name of the css class to be evaluated
+   * @returns true, if backdrop contains the given css class
+   */
+  async hasBackdropClass(classname: string): Promise<boolean> {
+    const backdrop = await this.backdrop();
+    return await backdrop.hasClass(classname);
   }
 
   /**
@@ -173,7 +215,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * @returns true if the figure tag of the overlay is hovered
    */
   private async figureIsHovering(): Promise<boolean> {
-    const figureTestElement = await this.host();
-    return await figureTestElement.hasClass('hovering');
+    const figure = await this.figure();
+    return await figure.hasClass('hovering');
   }
 }

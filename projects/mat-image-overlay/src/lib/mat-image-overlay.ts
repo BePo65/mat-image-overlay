@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 
@@ -46,8 +46,13 @@ export class MatImageOverlay {
 
   constructor(
     private injector: Injector,
-    private overlay: Overlay
-  ) { }
+    private overlay: Overlay,
+    private overlayContainer: OverlayContainer
+  ) {
+    // Add class to container to make container identifyable by MatImageOverlayHarness
+    const container = overlayContainer.getContainerElement();
+    container.classList.add('mat-image-overlay-container');
+  }
 
   /**
    * Open the image overlay and display the first image.
