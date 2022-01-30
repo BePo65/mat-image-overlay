@@ -1,4 +1,4 @@
-import { AsyncFactoryFn, ContentContainerComponentHarness, ModifierKeys, TestElement, TestKey } from '@angular/cdk/testing';
+import { AsyncFactoryFn, ContentContainerComponentHarness, TestElement, TestKey } from '@angular/cdk/testing';
 
 /** Harness for interacting with a standard `MatImageOverlay` in tests. */
 export class MatImageOverlayHarness extends ContentContainerComponentHarness {
@@ -41,7 +41,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   }
 
   /**
-   * Clicks the backdrop of the image overlay.
+   * Closes the image overlay by clicking the backdrop of the image overlay.
    * @returns Promise that resolves when the action completes
    */
    async clickBackdrop(): Promise<void> {
@@ -51,7 +51,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Gets a flag that is true, when the 'close' button is visible.
-   * @returns true, if 'close' button is visible
+   * @returns true, if the 'close' button is visible
    */
   async buttonCloseVisible(): Promise<boolean> {
     let result = false;
@@ -112,7 +112,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   }
 
   /**
-   * Gets a flag that is true, when the description is visible (tag 'figcaption').
+   * Gets a flag that is true, when the description of the image is visible (tag 'figcaption').
    * @returns true, if description is visible
    */
    async descptionVisible(): Promise<boolean> {
@@ -186,21 +186,6 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   async sendKeys(...keys: (string | TestKey)[]): Promise<void> {
     const figure = await this.figure();
     await figure.sendKeys(...keys);
-  }
-
-  /**
-   * Send keys with modifier key (shift, control, alt, meta) to the overlay.
-   * @param modifiers - modifier key (shift, control, alt, meta)
-   * @param keys - comma separated list of keys to be sent
-   * @returns Promise that resolves when the action completes
-   */
-  async sendKeysWithModifiers(modifiers?: ModifierKeys, ...keys: (string | TestKey)[]): Promise<void> {
-    const figure = await this.figure();
-    if (modifiers) {
-      await figure.sendKeys(modifiers, ...keys);
-    } else {
-      await figure.sendKeys(...keys);
-    }
   }
 
   /**

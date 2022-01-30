@@ -486,12 +486,8 @@ describe('MatImageOverlay with Harness', () => {
     await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
 
     // Goto next image
-    await overlayHarness.sendKeysWithModifiers(undefined, TestKey.RIGHT_ARROW);
+    await overlayHarness.sendKeys(TestKey.RIGHT_ARROW);
     await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[1]);
-
-    // Send Shift+LEFT_ARROW (results in no action)
-    await overlayHarness.sendKeysWithModifiers({shift: true}, TestKey.LEFT_ARROW);
-    await expectAsync(overlayHarness.sendKeysWithModifiers({shift: true}, TestKey.LEFT_ARROW)).toBeResolved();
   });
 
   it('should set backdrop class', async () => {
