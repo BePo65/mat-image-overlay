@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rafasantos/mat-image-overlay"
+    "url": "https://github.com/BePo65/mat-image-overlay.git"
   },
   "peerDependencies": {
     "@angular/common": "^12.2.0",
