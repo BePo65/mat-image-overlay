@@ -14,6 +14,10 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   protected backdrop: AsyncFactoryFn<TestElement> = this.locatorFor('.cdk-overlay-backdrop');
   protected wrapper: AsyncFactoryFn<TestElement> = this.locatorFor('.mat-image-overlay-wrapper');
 
+  /**
+   * Gets a flag that is true, when the image overlay is visible.
+   * @returns true, if the image overlay is visible
+   */
   async overlayIsLoaded(): Promise<boolean> {
     let result = false;
 
@@ -29,6 +33,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Closes the image overlay by pressing escape.
+   * @returns Promise that resolves when the action completes
    */
   async close(): Promise<void> {
     const wrapper = await this.wrapper();
@@ -37,7 +42,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the backdrop of the image overlay.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
    async clickBackdrop(): Promise<void> {
     const backdrop = await this.backdrop();
@@ -129,7 +134,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'close overlay' button in image overlay.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async clickCloseButton(): Promise<void> {
     const button = await this.buttonClose();
@@ -138,7 +143,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'goto previous image' button in image overlay.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async clickPreviousButton(): Promise<void> {
     const button = await this.buttonPrevious();
@@ -147,7 +152,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'goto next image' button in image overlay.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async clickNextButton(): Promise<void> {
     const button = await this.buttonNext();
@@ -156,7 +161,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Sets the figure tag of the overlay into the hover state.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async figureHover(): Promise<void> {
     const figure = await this.figure();
@@ -176,7 +181,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   /**
    * Send keys to the overlay.
    * @param keys - comma separated list of keys to be sent
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async sendKeys(...keys: (string | TestKey)[]): Promise<void> {
     const figure = await this.figure();
@@ -187,7 +192,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * Send keys with modifier key (shift, control, alt, meta) to the overlay.
    * @param modifiers - modifier key (shift, control, alt, meta)
    * @param keys - comma separated list of keys to be sent
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async sendKeysWithModifiers(modifiers?: ModifierKeys, ...keys: (string | TestKey)[]): Promise<void> {
     const figure = await this.figure();
