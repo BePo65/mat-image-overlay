@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/BePo65/mat-image-overlay/compare/v2.0.0...v3.0.0) (2022-01-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove 'with' and filter from MatImageOverlayHarness
+as this feature is unnecessary (only 1 MatImageOverlay can be created
+at one time).
+
+### Features
+
+* add 'imageUrl' and 'sendKeys' to MatImageOverlayHarness ([e08547a](https://github.com/BePo65/mat-image-overlay/commit/e08547a69ed9c5ef7451f80ca270cdff159ba856))
+* move host() of MatImageOverlayHarness to overlayContainer ([3becd0d](https://github.com/BePo65/mat-image-overlay/commit/3becd0d26312f4c19e4a6f034e5cbded4ce2761d))
+* remove 'with' and filter from MatImageOverlayHarness ([e577640](https://github.com/BePo65/mat-image-overlay/commit/e5776405db87f124a858804efc264a97dc58b9e4))
+* remove sendKeysWithModifiers as modifiers are not evaluated ([eb57718](https://github.com/BePo65/mat-image-overlay/commit/eb57718bd8679a9a6fe47d551ef72bd15c9c5f55))
+
 ## [2.0.0](https://github.com/BePo65/mat-image-overlay/compare/v1.0.0...v2.0.0) (2022-01-26)
 
 
