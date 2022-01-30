@@ -63,8 +63,15 @@ npm start
 
 Navigate to http://localhost:4200
 
-## API
+# API reference for Mat-Image-Overlay
+
+```typescript
+import { MatImageOverlayModule } from 'mat-image-overlay';
+```
+## Services
 ### MatImageOverlay
+Service to open Mat-Image-Overlay as modal overlay.
+
 **Properties**
 | Name  | Description |
 |---|---|
@@ -87,7 +94,10 @@ Navigate to http://localhost:4200
 | *Returns* | |
 | boolean | |
 
+## Interfaces
 ### MatImageOverlayConfig
+Configuration for opening a modal image overlay with the MatImageOverlay service.
+
 **Methods**
 | urlForImage | |
 |---|--|
@@ -125,7 +135,10 @@ Navigate to http://localhost:4200
 | imageClickHandlerConfiguration?<br>object | Object with arbitrary data as parameter of the 'imageClickHandler' method. |
 | descriptionForImageConfiguration?<br>object | Object with arbitrary data as parameter of the 'descriptionForImage' method. |
 
+## Classes
 ### MatImageOverlayRef
+Reference to an image overlay opened via the MatImageOverlay service.
+
 **Methods**
 | close | |
 |---|--|
@@ -158,6 +171,8 @@ Navigate to http://localhost:4200
 | Observable&lt;number&gt; | Observable returns index of the image displayed. |
 
 ### MatImageOverlayComponent
+Component used by MatImageOverlay to display the images in the modal overlay.
+
 **Methods**
 | gotoNextImage | |
 |---|--|
@@ -181,7 +196,110 @@ Navigate to http://localhost:4200
 | *Parameters* | |
 | imageIndex<br>number | Index of the image to be displayed. |
 
-## Development
+# API reference for Mat-Image-Overlay testing
+
+```typescript
+import { MatImageOverlayHarness } from 'mat-image-overlay/testing';
+```
+## Classes
+### MatImageOverlayHarness extends ContentContainerComponentHarness
+Harness for interacting with a standard MatImageOverlay in tests.
+
+**Properties**
+| Name  | Description |
+|---|---|
+| static hostSelector: '.mat-image-overlay-container' | The selector for the host element of a MatImageOverlay instance. |
+
+**Methods**
+| async overlayIsLoaded | |
+|---|--|
+| Gets a flag that is true, when the image overlay is visible. | |
+| *Returns* | |
+| Promise&lt;boolean&gt; | Flag that shows, if the image overlay is visible.
+
+| async close | |
+|---|--|
+| Closes the image overlay by pressing escape. | |
+| *Returns* | |
+| Promise&lt;void&gt; | Promise that resolves when the action completes..
+
+| async clickBackdrop | |
+|---|--|
+| Closes the image overlay by clicking the backdrop of the image overlay. | |
+| *Returns* | |
+| Promise&lt;void&gt; | Promise that resolves when the action completes..
+
+| async buttonCloseVisible | |
+|---|--|
+| Gets a flag that is true, when the 'close' button is visible. | |
+| *Returns* | |
+| Promise&lt;boolean&gt; | Flag that shows, if the 'close' button is visible.
+
+| async buttonPreviousVisible | |
+|---|--|
+| Gets a flag that is true, when the 'previous' button is visible. | |
+| *Returns* | |
+| Promise&lt;boolean&gt; | Flag that shows, if the 'previous' button is visible.
+
+| async buttonNextVisible | |
+|---|--|
+| Gets a flag that is true, when the 'next' button is visible. | |
+| *Returns* | |
+| Promise&lt;boolean&gt; | Flag that shows, if the 'next' button is visible.
+
+| async descptionVisible | |
+|---|--|
+| Gets a flag that is true, when the 'description' of the image is visible. | |
+| *Returns* | |
+| Promise&lt;boolean&gt; | Flag that shows, if the 'description' is visible.
+
+| async clickCloseButton | |
+|---|--|
+| Clicks the 'close overlay' button of the image overlay. | |
+| *Returns* | |
+| Promise&lt;void&gt; | Promise that resolves when the action completes..
+
+| async clickPreviousButton | |
+|---|--|
+| Clicks the 'goto previous image' button of the image overlay. | |
+| *Returns* | |
+| Promise&lt;void&gt; | Promise that resolves when the action completes..
+
+| async clickNextButton | |
+|---|--|
+| Clicks the 'goto next image' button of the image overlay. | |
+| *Returns* | |
+| Promise&lt;void&gt; | Promise that resolves when the action completes..
+
+| async figureHover | |
+|---|--|
+| Sets the figure tag of the overlay (the content of the overlay) into the hover state. | |
+| *Returns* | |
+| Promise&lt;void&gt; | Promise that resolves when the action completes..
+
+| async imageUrl | |
+|---|--|
+| Gets the url of the current image in the overlay. | |
+| *Returns* | |
+| Promise&lt;boolean&gt; | Url of the image or empty string.
+
+| async sendKeys | |
+|---|--|
+| Send keys to the overlay. | |
+| *Parameters* | |
+| ...keys<br>TestKey[] | Keys to be sent. Posiible values are the arrow keys, the home and the end key. |
+| *Returns* | |
+| Promise&lt;void&gt; | Promise that resolves when the action completes..
+
+| async hasBackdropClass | |
+|---|--|
+| Gets a flag that is true, when the backdrop contains the given css class. | |
+| *Parameters* | |
+| classname<br>string | Name of the css class to be evaluated. |
+| *Returns* | |
+| Promise&lt;boolean&gt; | Flag that shows, if the backdrop contains the given css class.
+
+# Development
 Build the library and the demo project:
 ```
 npm run build
@@ -208,15 +326,15 @@ Start end tests for the demo project with cypress and keep cypress open to rerun
 npm run e2e
 ```
 
-### Open issues
+## Open issues
 - Script to prepare publishing demo to gh-pages must copy subfolders in a separate pass as cpy-cli cannot do it by now (2021-12-27); see [sindresorhus/cpy-cli issue #27](https://github.com/sindresorhus/cpy-cli/issues/27) and [sindresorhus/cpy-cli pull request #77](https://github.com/sindresorhus/cpy/pull/77).
 
 ## Used assets
 The component uses [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
 The icons are stored in the code as strings representing the icons as svg graphics.
 
-## Contributing
-### Changelog
+# Contributing
+## Changelog
 The project uses 'standard-version' to create the changelog. To enable this system, commit messages are linted before commits are executed by git.
 
 **The structure of commit messages is**:
@@ -249,5 +367,5 @@ type and scope
 
 For details of the commit messages format see [Contributing to Angular](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit).
 
-## License
+# License
 The code is released under the [MIT license](LICENSE)

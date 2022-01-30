@@ -1,53 +1,79 @@
-import { AsyncFactoryFn, ContentContainerComponentHarness, HarnessPredicate, TestElement, TestKey } from '@angular/cdk/testing';
-
-import { MatImageOverlayHarnessFilters } from './mat-image-harness-filters';
+import { AsyncFactoryFn, ContentContainerComponentHarness, TestElement, TestKey } from '@angular/cdk/testing';
 
 /** Harness for interacting with a standard `MatImageOverlay` in tests. */
 export class MatImageOverlayHarness extends ContentContainerComponentHarness {
-  /** The selector for the host element of a `MatImageOver` instance. */
-  static hostSelector = '.mat-image-overlay-wrapper';
+  /** The selector for the host element of a `MatImageOverlay` instance. */
+  static hostSelector = '.mat-image-overlay-container';
 
   protected buttonClose: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-close');
   protected buttonPrevious: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-left');
   protected buttonNext: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-right');
   protected figure: AsyncFactoryFn<TestElement> = this.locatorFor('figure');
   protected description: AsyncFactoryFn<TestElement> = this.locatorFor('figcaption');
+  protected image: AsyncFactoryFn<TestElement> = this.locatorFor('img');
+  protected backdrop: AsyncFactoryFn<TestElement> = this.locatorFor('.cdk-overlay-backdrop');
+  protected wrapper: AsyncFactoryFn<TestElement> = this.locatorFor('.mat-image-overlay-wrapper');
 
   /**
-   * Gets a `HarnessPredicate` that can be used to search for a `MatImageOverlayHarness` that meets
-   * certain criteria.
-   * @param options Options for filtering which image overlay instances are considered a match.
-   * @return a `HarnessPredicate` configured with the given options.
+   * Gets a flag that is true, when the image overlay is visible.
+   * @returns true, if the image overlay is visible
    */
-  static with(options: MatImageOverlayHarnessFilters = {}): HarnessPredicate<MatImageOverlayHarness> {
-    return new HarnessPredicate(MatImageOverlayHarness, options);
+  async overlayIsLoaded(): Promise<boolean> {
+    let result = false;
+
+    try {
+      const wrapper = await this.wrapper();
+      result = (wrapper !== undefined);
+    } catch {
+      // Promise throws when 'wrapper' element does not exist; use default value
+    }
+
+    return result;
   }
 
   /**
    * Closes the image overlay by pressing escape.
+   * @returns Promise that resolves when the action completes
    */
   async close(): Promise<void> {
-    await (await this.host()).sendKeys(TestKey.ESCAPE);
+    const wrapper = await this.wrapper();
+    await wrapper.sendKeys(TestKey.ESCAPE);
+  }
+
+  /**
+   * Closes the image overlay by clicking the backdrop of the image overlay.
+   * @returns Promise that resolves when the action completes
+   */
+   async clickBackdrop(): Promise<void> {
+    const backdrop = await this.backdrop();
+    await backdrop.click();
   }
 
   /**
    * Gets a flag that is true, when the 'close' button is visible.
-   * @returns true, if 'close' button is visible
+   * @returns true, if the 'close' button is visible
    */
   async buttonCloseVisible(): Promise<boolean> {
-    const figureIsHovering = await this.figureIsHovering();
-    const buttonCloseTestElement = await this.buttonClose();
-    const buttonShowAlways = await buttonCloseTestElement.hasClass('show-always');
-    const buttonShowOnHover = await buttonCloseTestElement.hasClass('show-on-hover');
+    let result = false;
 
-    return (buttonShowAlways || (buttonShowOnHover && figureIsHovering));
+    try {
+      const figureIsHovering = await this.figureIsHovering();
+      const buttonCloseTestElement = await this.buttonClose();
+      const buttonShowAlways = await buttonCloseTestElement.hasClass('show-always');
+      const buttonShowOnHover = await buttonCloseTestElement.hasClass('show-on-hover');
+      result = (buttonShowAlways || (buttonShowOnHover && figureIsHovering));
+    } catch (err) {
+      // Promise throws when 'wrapper' element does not exist; use default value
+    }
+
+    return result;
   }
 
   /**
    * Gets a flag that is true, when the 'previous' button is visible.
    * @returns true, if 'previous' button is visible
    */
-   async buttonPreviousVisible(): Promise<boolean> {
+  async buttonPreviousVisible(): Promise<boolean> {
     let result = false;
 
     try {
@@ -68,7 +94,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * Gets a flag that is true, when the 'next' button is visible.
    * @returns true, if 'next' button is visible
    */
-   async buttonNextVisible(): Promise<boolean> {
+  async buttonNextVisible(): Promise<boolean> {
     let result = false;
 
     try {
@@ -86,7 +112,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   }
 
   /**
-   * Gets a flag that is true, when the description is visible (tag 'figcaption').
+   * Gets a flag that is true, when the description of the image is visible (tag 'figcaption').
    * @returns true, if description is visible
    */
    async descptionVisible(): Promise<boolean> {
@@ -108,7 +134,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'close overlay' button in image overlay.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async clickCloseButton(): Promise<void> {
     const button = await this.buttonClose();
@@ -117,7 +143,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'goto previous image' button in image overlay.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async clickPreviousButton(): Promise<void> {
     const button = await this.buttonPrevious();
@@ -126,7 +152,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'goto next image' button in image overlay.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async clickNextButton(): Promise<void> {
     const button = await this.buttonNext();
@@ -135,11 +161,41 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Sets the figure tag of the overlay into the hover state.
-   * @returns empty promise
+   * @returns Promise that resolves when the action completes
    */
   async figureHover(): Promise<void> {
-    const figure = await this.host();
+    const figure = await this.figure();
     await figure.hover();
+  }
+
+  /**
+   * Gets the src attribute of the img tag of the overlay (the url of the image).
+   * @returns url of the image or empty string
+   */
+   async imageUrl(): Promise<string> {
+    const image = await this.image();
+    const url = await image.getAttribute('src');
+    return url ?? '';
+  }
+
+  /**
+   * Send keys to the overlay.
+   * @param keys - comma separated list of keys to be sent
+   * @returns Promise that resolves when the action completes
+   */
+  async sendKeys(...keys: (string | TestKey)[]): Promise<void> {
+    const figure = await this.figure();
+    await figure.sendKeys(...keys);
+  }
+
+  /**
+   * Gets a flag that is true, when the backdrop contains the given css class.
+   * @param classname - name of the css class to be evaluated
+   * @returns true, if backdrop contains the given css class
+   */
+  async hasBackdropClass(classname: string): Promise<boolean> {
+    const backdrop = await this.backdrop();
+    return await backdrop.hasClass(classname);
   }
 
   /**
@@ -148,8 +204,8 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * Therefore we use a hack with 'figureHovering' in overlay component and events in template.
    * @returns true if the figure tag of the overlay is hovered
    */
-   private async figureIsHovering(): Promise<boolean> {
-    const figureTestElement = await this.host();
-    return await figureTestElement.hasClass('hovering');
+  private async figureIsHovering(): Promise<boolean> {
+    const figure = await this.figure();
+    return await figure.hasClass('hovering');
   }
 }
