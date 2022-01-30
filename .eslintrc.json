@@ -1,9 +1,13 @@
 {
   "root": true,
+  "plugins": [
+    "jasmine"
+  ],
   "overrides": [
     {
       "files": [
-        "*.ts"
+        "*.ts",
+        "*.spec.ts"
       ],
       "parserOptions": {
         "project": [
