@@ -1,0 +1,3 @@
+- replace options 'urlForImage', 'descriptionForImage', 'baseUrl' and 'descriptionForImageConfiguration'
+  with object as parameter of open method
+- replace options 'imageClickHandler' and 'imageClickHandlerConfiguration' with event emitter
