@@ -1,3 +1,5 @@
+- add eslint plugins: eslint-plugin-import, eslint-import-resolver-typescript, eslint-plugin-prefer-arrow
+- compare eslint config to mat-tristate-checkbox
 - replace options 'urlForImage', 'descriptionForImage', 'baseUrl' and 'descriptionForImageConfiguration'
   with object as parameter of open method
 - replace options 'imageClickHandler' and 'imageClickHandlerConfiguration' with event emitter
