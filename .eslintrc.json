@@ -1,7 +1,14 @@
 {
   "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jasmine": true
+  },
   "plugins": [
-    "jasmine"
+    "import",
+    "jasmine",
+    "prefer-arrow"
   ],
   "overrides": [
     {
@@ -9,17 +16,36 @@
         "*.ts",
         "*.spec.ts"
       ],
+      "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": [
           "tsconfig.json"
         ],
         "createDefaultProgram": true
       },
+      "settings": {
+        "import/parsers": {
+          "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        "import/resolver": {
+          "node": true,
+          "typescript": {
+            "project": [
+              "./tsconfig.json"
+            ]
+          }
+        }
+      },
       "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "plugin:jasmine/recommended"
       ],
       "rules": {
         "@angular-eslint/directive-selector": [
@@ -41,6 +67,12 @@
         "@typescript-eslint/quotes": [
           "error",
           "single"
+        ],
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
         ],
         "comma-dangle": "error",
         "semi": [2, "always"]
