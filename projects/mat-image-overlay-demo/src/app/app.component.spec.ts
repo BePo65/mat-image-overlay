@@ -16,7 +16,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let loader: HarnessLoader;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
@@ -45,14 +45,15 @@ describe('AppComponent', () => {
 
   it('should render title', () => {
     const dom = fixture.nativeElement as HTMLElement;
+
     expect(dom.querySelector('.actions')?.textContent?.substring(0, 33)).toContain('Click on one of the images above');
   });
 
   it('should load image overlay', async () => {
     fixture.componentInstance.openImageOverlay();
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.overlayIsLoaded()).withContext('Image overlay is loaded').toBeResolvedTo(true);
   });
 });

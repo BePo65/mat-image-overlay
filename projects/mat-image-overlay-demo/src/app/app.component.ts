@@ -48,12 +48,12 @@ export class AppComponent {
       images: this.stringImages,
       startImageIndex: imageIndex,
       backdropClass: 'demo-backdrop-class',
-      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionForImage: (imageData: unknown, configuration?: object) => {
         let result = '';
         if (typeof imageData === 'string') {
           if (configuration) {
-            result = `${configuration['label' as keyof object]}: ${String(imageData)}`;
+            result = `${String(configuration['label' as keyof object])}: ${String(imageData)}`;
           } else {
             result = String(imageData);
           }
@@ -61,9 +61,9 @@ export class AppComponent {
         return result;
       },
       descriptionForImageConfiguration: {label: 'file name'},
-      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
-      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value,
-      imageClickHandler: this.clickHandlerForOverlayDemo,
+      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
+      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
+      imageClickHandler: this.clickHandlerForOverlayDemo,  // eslint-disable-line @typescript-eslint/unbound-method
       imageClickHandlerConfiguration: { sampleValue: 'demo parameter for overlay demo'}
     } as MatImageOverlayConfig;
 
@@ -71,8 +71,8 @@ export class AppComponent {
 
     // Demo to show usage of published events
     imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
-    imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${lastImageIndex}`));
-    imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${currentImageIndex}`));
+    imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${String(lastImageIndex)}`));
+    imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${String(currentImageIndex)}`));
     imageOverlayRef.keydownEvents().subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
   }
 
@@ -84,10 +84,10 @@ export class AppComponent {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
     const config: MatImageOverlayConfig = {
       images: this.objectImages,
-      urlForImage: this.urlForObjectImagesSource,
+      urlForImage: this.urlForObjectImagesSource,  // eslint-disable-line @typescript-eslint/unbound-method
       baseUrl: this.baseUrlForObjectImages,
       startImageIndex: 2,
-      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value,
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionForImage: (imageData: unknown) => {
         let result = '';
         if (typeof imageData === 'object') {
@@ -95,14 +95,16 @@ export class AppComponent {
         }
         return result;
       },
-      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value,
-      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value,
+      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
+      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
       imageClickHandler: (imageData: unknown, configuration?: object) => {
         let additionalParameter = {};
         if (configuration) {
           additionalParameter = configuration;
         }
-        console.log(`Image clicked for image '${Object(imageData)['id']}' with additional parameter '${additionalParameter['sampleValue' as keyof object]}'`);
+        const image = imageData as object;
+        const imageId: string = image['id' as keyof object];
+        console.log(`Image clicked for image '${imageId}' with additional parameter '${String(additionalParameter['sampleValue' as keyof object])}'`);
       },
       imageClickHandlerConfiguration: { sampleValue: 'demo parameter for image show'}
     } as MatImageOverlayConfig;
@@ -196,7 +198,8 @@ export class AppComponent {
   private urlForObjectImagesSource(imageData: unknown, baseUrl?: string): string {
     if (typeof imageData === 'object') {
       const image = imageData as object;
-      return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;
+      const imageId: string = image['id' as keyof object];
+      return `${String(baseUrl)}${imageId}/${String(image['width' as keyof object])}/${String(image['height' as keyof object])}`;
     } else {
       throw new Error('Configuration element "images" must be an array of objects');
     }
@@ -212,6 +215,6 @@ export class AppComponent {
     if (configuration) {
       additionalParameter = configuration;
     }
-    console.log(`Image clicked for image '${String(imageData)}' with additional parameter '${additionalParameter['sampleValue' as keyof object]}'`);
+    console.log(`Image clicked for image '${String(imageData)}' with additional parameter '${String(additionalParameter['sampleValue' as keyof object])}'`);
   }
 }

@@ -27,7 +27,7 @@ describe('MatImageOverlay with Harness', () => {
   let fixture: ComponentFixture<MatImageOverlayTestComponent>;
   let loader: HarnessLoader;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
         MatImageOverlayTestComponent
@@ -48,7 +48,8 @@ describe('MatImageOverlay with Harness', () => {
       images: objectImages,
       urlForImage: (imageData: unknown, baseUrl?: string) => {
         const image = imageData as object;
-        return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;
+        const imageId: string = image['id' as keyof object];
+          return `${String(baseUrl)}${imageId}/${String(image['width' as keyof object])}/${String(image['height' as keyof object])}`;
       },
       baseUrl: 'https://picsum.photos/id/',
       descriptionForImage: (imageData: unknown) => {
@@ -74,7 +75,7 @@ describe('MatImageOverlay with Harness', () => {
     expect(overlayHarness).not.toBeUndefined();
   });
 
-  it('should load image overlay without option "urlForImage"', async () => {
+  it('should load image overlay without option "urlForImage"', () => {
     const config: MatImageOverlayConfig = {
       images: objectImages
     } as MatImageOverlayConfig;
@@ -99,6 +100,7 @@ describe('MatImageOverlay with Harness', () => {
 
     expect(() => fixture.componentInstance.open(config)).not.toThrow();
     const overlayHarnesses = await loader.getAllHarnesses(MatImageOverlayHarness);
+
     expect(overlayHarnesses.length).withContext('Number of visible image overlays').toBe(1);
 
     // Try to open second image overlay instance
@@ -112,8 +114,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.buttonCloseVisible()).withContext('"Close" button is not visible').toBeResolvedTo(false);
     await expectAsync(overlayHarness.buttonPreviousVisible()).withContext('"Preview" button is not visible').toBeResolvedTo(false);
     await expectAsync(overlayHarness.buttonNextVisible()).withContext('"Next" button is not visible').toBeResolvedTo(false);
@@ -126,8 +128,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.buttonCloseVisible()).withContext('"Close" button is visible').toBeResolvedTo(true);
     await expectAsync(overlayHarness.buttonPreviousVisible()).withContext('"Preview" button is not visible').toBeResolvedTo(false);
     await expectAsync(overlayHarness.buttonNextVisible()).withContext('"Next" button is visible').toBeResolvedTo(true);
@@ -141,8 +143,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.buttonCloseVisible()).withContext('"Close" button is not visible').toBeResolvedTo(false);
     await expectAsync(overlayHarness.buttonPreviousVisible()).withContext('"Preview" button is not visible').toBeResolvedTo(false);
     await expectAsync(overlayHarness.buttonNextVisible()).withContext('"Next" button is not visible').toBeResolvedTo(false);
@@ -161,8 +163,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.buttonCloseVisible()).withContext('"Close" button is not visible').toBeResolvedTo(false);
     await expectAsync(overlayHarness.buttonPreviousVisible()).withContext('"Preview" button is not visible').toBeResolvedTo(false);
     await expectAsync(overlayHarness.buttonNextVisible()).withContext('"Next" button is not visible').toBeResolvedTo(false);
@@ -186,8 +188,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await overlayHarness.close();
     await expectAsync(overlayHarness.overlayIsLoaded()).withContext('Image overlay is no more available').toBeResolvedTo(false);
   });
@@ -199,8 +201,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await overlayHarness.clickCloseButton();
     await expectAsync(overlayHarness.overlayIsLoaded()).withContext('Image overlay is no more available').toBeResolvedTo(false);
   });
@@ -211,8 +213,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await overlayHarness.clickBackdrop();
     await expectAsync(overlayHarness.overlayIsLoaded()).withContext('Image overlay is no more available').toBeResolvedTo(false);
   });
@@ -224,8 +226,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.buttonCloseVisible()).withContext('"Close" button is visible').toBeResolvedTo(true);
     await expectAsync(overlayHarness.buttonPreviousVisible()).withContext('"Preview" button is not visible').toBeResolvedTo(false);
     await expectAsync(overlayHarness.buttonNextVisible()).withContext('"Next" button is visible').toBeResolvedTo(true);
@@ -239,6 +241,7 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+
     expect(overlayHarness).not.toBeUndefined();
 
     // Open overlay on first image
@@ -261,8 +264,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.buttonCloseVisible()).withContext('"Close" button is visible').toBeResolvedTo(true);
     await expectAsync(overlayHarness.buttonPreviousVisible()).withContext('"Preview" button is visible').toBeResolvedTo(true);
     await expectAsync(overlayHarness.buttonNextVisible()).withContext('"Next" button is not visible').toBeResolvedTo(false);
@@ -273,7 +276,8 @@ describe('MatImageOverlay with Harness', () => {
       images: objectImages,
       urlForImage: (imageData: unknown, baseUrl?: string) => {
         const image = imageData as object;
-        return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;
+        const imageId: string = image['id' as keyof object];
+        return `${String(baseUrl)}${imageId}/${String(image['width' as keyof object])}/${String(image['height' as keyof object])}`;
       },
       baseUrl: 'https://picsum.photos/id/',
       descriptionForImage: (imageData: unknown) => {
@@ -283,8 +287,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.descptionVisible()).withContext('Image "description" is not visible').toBeResolvedTo(false);
   });
 
@@ -293,7 +297,8 @@ describe('MatImageOverlay with Harness', () => {
       images: objectImages,
       urlForImage: (imageData: unknown, baseUrl?: string) => {
         const image = imageData as object;
-        return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;
+        const imageId: string = image['id' as keyof object];
+        return `${String(baseUrl)}${imageId}/${String(image['width' as keyof object])}/${String(image['height' as keyof object])}`;
       },
       baseUrl: 'https://picsum.photos/id/',
       descriptionForImage: (imageData: unknown) => {
@@ -303,8 +308,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.descptionVisible()).withContext('Image "description" is visible').toBeResolvedTo(true);
   });
 
@@ -313,7 +318,8 @@ describe('MatImageOverlay with Harness', () => {
       images: objectImages,
       urlForImage: (imageData: unknown, baseUrl?: string) => {
         const image = imageData as object;
-        return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;
+        const imageId: string = image['id' as keyof object];
+        return `${String(baseUrl)}${imageId}/${String(image['width' as keyof object])}/${String(image['height' as keyof object])}`;
       },
       baseUrl: 'https://picsum.photos/id/',
       descriptionForImage: (imageData: unknown) => {
@@ -323,8 +329,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.descptionVisible()).withContext('Image "description" is not visible').toBeResolvedTo(false);
 
     // Hover the img tag
@@ -339,7 +345,8 @@ describe('MatImageOverlay with Harness', () => {
       ],
       urlForImage: (imageData: unknown, baseUrl?: string) => {
         const image = imageData as object;
-        return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;
+        const imageId: string = image['id' as keyof object];
+        return `${String(baseUrl)}${imageId}/${String(image['width' as keyof object])}/${String(image['height' as keyof object])}`;
       },
       baseUrl: 'https://picsum.photos/id/',
       descriptionForImage: (imageData: unknown) => {
@@ -349,8 +356,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.descptionVisible()).withContext('Image "description" is not visible').toBeResolvedTo(false);
   });
 
@@ -361,7 +368,8 @@ describe('MatImageOverlay with Harness', () => {
       ],
       urlForImage: (imageData: unknown, baseUrl?: string) => {
         const image = imageData as object;
-        return `${baseUrl}${image['id' as keyof object]}/${image['width' as keyof object]}/${image['height' as keyof object]}`;
+        const imageId: string = image['id' as keyof object];
+        return `${String(baseUrl)}${imageId}/${String(image['width' as keyof object])}/${String(image['height' as keyof object])}`;
       },
       baseUrl: 'https://picsum.photos/id/',
       descriptionForImage: (imageData: unknown) => {
@@ -371,8 +379,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.descptionVisible()).withContext('Image "description" is not visible').toBeResolvedTo(false);
   });
 
@@ -382,6 +390,7 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+
     expect(overlayHarness).not.toBeUndefined();
 
     // Start with 1st image
@@ -404,6 +413,7 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+
     expect(overlayHarness).not.toBeUndefined();
 
     // Start with 1st image
@@ -444,33 +454,34 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     const overlay = fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+
     expect(overlayHarness).not.toBeUndefined();
 
     // Start with 1st image
     await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
 
     // Goto next image
-    await overlay.gotoNextImage();
+    overlay.gotoNextImage();
     await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[1]);
 
     // Goto last image
-    await overlay.gotoLastImage();
+    overlay.gotoLastImage();
     await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[3]);
 
     // Goto previous image
-    await overlay.gotoPreviousImage();
+    overlay.gotoPreviousImage();
     await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[2]);
 
     // Goto first image
-    await overlay.gotoFirstImage();
+    overlay.gotoFirstImage();
     await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
 
     // Goto 3rd image
-    await overlay.gotoImage(2);
+    overlay.gotoImage(2);
     await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[2]);
 
     // close overlay
-    await overlay.close();
+    overlay.close();
     await expectAsync(overlayHarness.overlayIsLoaded()).withContext('Image overlay is no more available').toBeResolvedTo(false);
   });
 
@@ -480,6 +491,7 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+
     expect(overlayHarness).not.toBeUndefined();
 
     // Start with 1st image
@@ -498,10 +510,8 @@ describe('MatImageOverlay with Harness', () => {
     } as MatImageOverlayConfig;
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
-    expect(overlayHarness).not.toBeUndefined();
 
-    const result = await overlayHarness.hasBackdropClass(sampleCssClass);
-    expect(result).toBeTruthy();
+    expect(overlayHarness).not.toBeUndefined();
     await expectAsync(overlayHarness.hasBackdropClass(sampleCssClass)).withContext('Image overlay backdrop has class set').toBeResolvedTo(true);
   });
 });
