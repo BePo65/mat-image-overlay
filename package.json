@@ -15,7 +15,7 @@
     "build": "npm run build:lib && npm run build:demo",
     "build:lib": "ng build mat-image-overlay",
     "build:demo": "ng build mat-image-overlay-demo --delete-output-path --configuration production",
-    "build:ghpages": "del-cli ghpages && cpy \"dist/mat-image-overlay-demo/*\" ghpages && cpy \"dist/mat-image-overlay-demo/assets/*\" ghpages/assets",
+    "build:ghpages": "del-cli ghpages && cpy \"dist/mat-image-overlay-demo/**\" ghpages",
     "test": "npm run test:lib -- --watch=false && npm run test:demo -- --watch=false",
     "test:lib": "ng test mat-image-overlay",
     "test:demo": "ng test mat-image-overlay-demo",
