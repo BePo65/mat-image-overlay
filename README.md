@@ -329,7 +329,7 @@ npm run e2e
 ```
 
 ## Open issues
-- Script to prepare publishing demo to gh-pages must copy subfolders in a separate pass as cpy-cli cannot do it by now (2021-12-27); see [sindresorhus/cpy-cli issue #27](https://github.com/sindresorhus/cpy-cli/issues/27) and [sindresorhus/cpy-cli pull request #77](https://github.com/sindresorhus/cpy/pull/77).
+- .
 
 ## Used assets
 The component uses [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
