@@ -61,7 +61,7 @@
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "cpy-cli": "^4.1.0",
-    "cypress": "^9.5.4",
+    "cypress": "^9.6.0",
     "cypress-real-events": "^1.7.0",
     "del-cli": "^4.0.1",
     "eslint": "^7.32.0",
