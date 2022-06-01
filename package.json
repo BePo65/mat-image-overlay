@@ -55,7 +55,7 @@
     "@angular/compiler-cli": "^12.2.16",
     "@commitlint/cli": "^16.2.4",
     "@commitlint/config-angular": "^16.2.4",
-    "@cypress/schematic": "^1.6.0",
+    "@cypress/schematic": "^1.7.0",
     "@types/jasmine": "^4.0.3",
     "@types/node": "^16.11.33",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
