@@ -335,6 +335,13 @@ npm run e2e
 The component uses [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
 The icons are stored in the code as strings representing the icons as svg graphics.
 
+## Version hint
+Required versions (e.g. caused by version dependencies):
+| Package | Version | Remark |
+|-----|------------------|---|
+| @angular-eslint/* | 12.x.y | requires eslint V7 |
+| @angular-eslint/* | 13.x.y | requires angular V13 |
+
 # Contributing
 ## Changelog
 The project uses 'standard-version' to create the changelog. To enable this system, commit messages are linted before commits are executed by git.
