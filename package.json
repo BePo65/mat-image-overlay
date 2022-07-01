@@ -75,7 +75,7 @@
     "karma-coverage": "^2.2.0",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "ng-packagr": "^12.2.6",
+    "ng-packagr": "^14.0.2",
     "standard-version": "^9.5.0",
     "start-server-and-test": "^1.14.0",
     "stylelint": "^14.9.1",
