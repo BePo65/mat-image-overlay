@@ -1,3 +1,10 @@
 {
-  "ngPackage": { }
+  "name": "mat-image-overlay-testharness",
+  "description": "The testing harness for the mat-image-overlay component.",
+  "version": "3.0.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BePo65/mat-image-overlay.git"
+  },
+  "license": "MIT"
 }

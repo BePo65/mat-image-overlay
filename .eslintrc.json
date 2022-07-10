@@ -8,6 +8,7 @@
   "plugins": [
     "import",
     "jasmine",
+    "json",
     "prefer-arrow"
   ],
   "overrides": [
@@ -45,7 +46,8 @@
         "plugin:import/errors",
         "plugin:import/warnings",
         "plugin:import/typescript",
-        "plugin:jasmine/recommended"
+        "plugin:jasmine/recommended",
+        "plugin:json/recommended"
       ],
       "rules": {
         "@angular-eslint/directive-selector": [
