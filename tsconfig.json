@@ -25,8 +25,9 @@
         "dist/mat-image-overlay/mat-image-overlay",
         "dist/mat-image-overlay"
       ],
-      "mat-image-overlay/*": [
-        "dist/mat-image-overlay/*"
+      "mat-image-overlay/testing": [
+        "dist/mat-image-overlay/testing",
+        "dist/mat-image-overlay/testing/mat-image-overlay-testing"
       ]
     }
   },

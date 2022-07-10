@@ -101,6 +101,10 @@
         "type": "json"
       },
       {
+        "filename": "projects/mat-image-overlay/testing/package.json",
+        "type": "json"
+      },
+      {
         "filename": "README.md",
         "updater": "tools/npm-scripts/readme-updater.js"
       },
