@@ -22,6 +22,6 @@ updates:
   - dependency-name: "rxjs"
     versions: ["7.x"]
   - dependency-name: "zone"
-    versions: ["0.11.7"]
+    versions: ["0.11.7", "0.11.8"]
   - dependency-name: "typescript"
     versions: ["4.4.x", "4.5.x", "4.6.x"]
