@@ -16,7 +16,7 @@ updates:
   - dependency-name: "@angular-eslint/*"
     versions: ["13.x", "14.x"]
   - dependency-name: "@types/node"
-    versions: ["17.x", "18.x"]
+    versions: ["17.x", "18.x", "19.x"]
   - dependency-name: "eslint"
     versions: ["8.x"]
   - dependency-name: "rxjs"
