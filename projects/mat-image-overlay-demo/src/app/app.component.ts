@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOverlayRef } from 'mat-image-overlay';
 
 @Component({
@@ -33,7 +33,7 @@ export class AppComponent {
 
   private baseUrlForObjectImages = 'https://picsum.photos/id/';
 
-  constructor(private imageOverlay: MatImageOverlay, private formBuilder: FormBuilder) {
+  constructor(private imageOverlay: MatImageOverlay, private formBuilder: UntypedFormBuilder) {
     this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
     this.imageOverlay.afterClosed.subscribe(lastImageIndex => console.log(`MatImageOverlay closed; last index=${lastImageIndex}`));
   }
