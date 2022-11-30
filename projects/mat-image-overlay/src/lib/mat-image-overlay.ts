@@ -18,8 +18,8 @@ export class MatImageOverlay {
   }
 
   /** Stream that emits when the image overlay has been closed. */
-  private readonly _afterClosed = new Subject<number>();
-  get afterClosed(): Subject<number> {
+  private readonly _afterClosed = new Subject<number | undefined>();
+  get afterClosed(): Subject<number | undefined> {
     return this._afterClosed;
   }
 
