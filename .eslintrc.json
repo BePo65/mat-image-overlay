@@ -6,16 +6,31 @@
     "jasmine": true
   },
   "plugins": [
+    "@typescript-eslint",
+    "prefer-arrow",
     "import",
+    "jsdoc",
     "jasmine",
-    "json",
-    "prefer-arrow"
+    "json"
   ],
   "overrides": [
     {
       "files": [
         "*.ts",
         "*.spec.ts"
+      ],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "plugin:jsdoc/recommended",
+        "plugin:jasmine/recommended",
+        "plugin:json/recommended"
       ],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
@@ -26,7 +41,7 @@
       },
       "settings": {
         "import/parsers": {
-          "@typescript-eslint/parser": [".ts", ".tsx"]
+          "@typescript-eslint/parser": [".ts"]
         },
         "import/resolver": {
           "node": true,
@@ -37,18 +52,6 @@
           }
         }
       },
-      "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:import/typescript",
-        "plugin:jasmine/recommended",
-        "plugin:json/recommended"
-      ],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -77,8 +80,28 @@
           }
         ],
         "comma-dangle": "error",
+        "jsdoc/require-param-type": "off",
+        "jsdoc/require-returns-type": ["off", {"contexts":["any"]}],
+        "no-trailing-spaces": "warn",
+        "prefer-arrow/prefer-arrow-functions": [
+          "warn",
+          {
+            "disallowPrototype": true,
+            "singleReturnOnly": false,
+            "classPropertiesAllowed": false
+          }
+        ],
         "semi": [2, "always"]
       }
+    },
+    {
+      "files": [
+        "*.json"
+      ],
+      "extends": [
+        "plugin:json/recommended"
+      ],
+      "rules": {}
     },
     {
       "files": [

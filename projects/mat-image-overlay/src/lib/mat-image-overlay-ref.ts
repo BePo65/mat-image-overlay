@@ -76,7 +76,8 @@ export class MatImageOverlayRef {
       this._imageChanged.next(event.imageIndex);
     });
 
-    /** As MatImageOverlayComponent emits the start index before MatImageOverlayRef
+    /**
+     * As MatImageOverlayComponent emits the start index before MatImageOverlayRef
      * is initialized, we have to emit this value here again.
      */
     this._imageChanged.next(_componentInstance.currentImageIndex);
@@ -84,6 +85,7 @@ export class MatImageOverlayRef {
 
   /**
    * Close the image overlay.
+   *
    * @param lastImageIndex Optional result to return to the image overlay opener.
    */
   public close(lastImageIndex?: number): void {
@@ -93,6 +95,8 @@ export class MatImageOverlayRef {
 
   /**
    * Gets an observable that is notified when the image overlay is finished opening.
+   *
+   * @returns observable that fires when image overlay is open
    */
   public afterOpened(): Observable<void> {
     return this._afterOpened;
@@ -101,6 +105,8 @@ export class MatImageOverlayRef {
   /**
    * Gets an observable that is notified when the image overlay is finished closing.
    * Observable returns the index of the last image displayed.
+   *
+   * @returns observable that sends the index of the last image displayed when image overlay is closed
    */
    public afterClosed(): Observable<number | undefined> {
     return this._afterClosed;
@@ -108,6 +114,8 @@ export class MatImageOverlayRef {
 
   /**
    * Gets an observable that is notified when a new image has been selected.
+   *
+   * @returns observable that sends the index of the selected image
    */
   public imageChanged(): Observable<number | undefined> {
     return this._imageChanged;
@@ -115,6 +123,8 @@ export class MatImageOverlayRef {
 
   /**
    * Gets an observable that is notified when keydown events are targeted on the overlay.
+   *
+   * @returns observable that sends Key down events targeted on the overlay
    */
   public keydownEvents(): Observable<KeyboardEvent> {
     return this._overlayRef.keydownEvents();

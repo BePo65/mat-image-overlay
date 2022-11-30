@@ -26,7 +26,7 @@ export class MatImageOverlay {
   /** Default configuration. */
   private defaultConfig: MatImageOverlayConfig = {
     images: [] as string[],
-    urlForImage(imageData: unknown, baseUrl?: string): string {
+    urlForImage: (imageData: unknown, baseUrl?: string): string => {
       if (imageData === undefined) {
         return '';
       } else if (typeof imageData === 'string') {
@@ -56,6 +56,7 @@ export class MatImageOverlay {
 
   /**
    * Open the image overlay and display the first image.
+   *
    * @param config - Object containing all configuration parameters
    * @returns An object as an interface to the created image overlay
    */
@@ -88,6 +89,7 @@ export class MatImageOverlay {
 
   /**
    * Has overlay been created and is visible?
+   *
    * @returns A flag indicating if image overlay is visible
    */
   public imageOverlayExists(): boolean {
@@ -96,6 +98,7 @@ export class MatImageOverlay {
 
   /**
    * Create injector for image overlay configuration object.
+   *
    * @param config - Object containing all configuration parameters
    * @returns The new injector instance
    */
@@ -111,6 +114,7 @@ export class MatImageOverlay {
   /**
    * Build the configuration for the image overlay.
    * The configuration includes common elements and elements from the given config object.
+   *
    * @param config - Object containing all configuration parameters (only 'backdropClass' is used)
    * @returns An object with all configuratio parameters for the image overlay
    */
@@ -128,6 +132,7 @@ export class MatImageOverlay {
   /**
    * Create the configuration object for the image overlay.
    * The method validates the properties of the given config parameter.
+   *
    * @param config - Object containing all configuration parameters
    * @returns An object containing all configuration parameters for the image overlay
    */

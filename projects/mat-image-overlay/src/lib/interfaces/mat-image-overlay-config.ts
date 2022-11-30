@@ -16,6 +16,7 @@ export interface MatImageOverlayConfig {
   /**
    * Get the URL for an image from the given entry of images array.
    * The default configuration expects 'images' to be an array of strings.
+   *
    * @param imageData - an entry from the 'images' array
    * @param baseUrl - optional url fragment to be used for building the image url
    * @returns the URL of the image
@@ -41,6 +42,7 @@ export interface MatImageOverlayConfig {
   /**
    * Get the description for an image from the given entry of images array.
    * The default configuration expects 'images' to be an array of strings.
+   *
    * @param imageData - an entry from the 'images' array
    * @param configuration - object containing configuration data for the 'descriptionForImage' function
    * @returns the description of the image
@@ -60,6 +62,7 @@ export interface MatImageOverlayConfig {
 
   /**
    * EventHandler to be called, when image in overlay is clicked.
+   *
    * @param imageData - entry from the 'images' array for the current image
    * @param configuration - object containing configuration data for the 'imageClickHandler'
    */
