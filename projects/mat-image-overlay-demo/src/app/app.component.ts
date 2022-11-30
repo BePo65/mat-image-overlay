@@ -35,7 +35,7 @@ export class AppComponent {
 
   constructor(private imageOverlay: MatImageOverlay, private formBuilder: UntypedFormBuilder) {
     this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
-    this.imageOverlay.afterClosed.subscribe(lastImageIndex => console.log(`MatImageOverlay closed; last index=${lastImageIndex}`));
+    this.imageOverlay.afterClosed.subscribe(lastImageIndex => console.log(`MatImageOverlay closed; last index=${lastImageIndex || 0}`));
   }
 
   /**
