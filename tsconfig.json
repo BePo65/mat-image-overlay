@@ -14,7 +14,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
     "lib": [
       "es2018",
@@ -29,7 +29,8 @@
         "dist/mat-image-overlay/testing",
         "dist/mat-image-overlay/testing/mat-image-overlay-testing"
       ]
-    }
+    },
+    "useDefineForClassFields": false
   },
   "include": [
     "projects"
