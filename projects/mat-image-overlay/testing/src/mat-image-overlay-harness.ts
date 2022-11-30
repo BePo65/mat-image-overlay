@@ -16,6 +16,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Gets a flag that is true, when the image overlay is visible.
+   *
    * @returns true, if the image overlay is visible
    */
   async overlayIsLoaded(): Promise<boolean> {
@@ -33,6 +34,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Closes the image overlay by pressing escape.
+   *
    * @returns Promise that resolves when the action completes
    */
   async close(): Promise<void> {
@@ -42,6 +44,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Closes the image overlay by clicking the backdrop of the image overlay.
+   *
    * @returns Promise that resolves when the action completes
    */
    async clickBackdrop(): Promise<void> {
@@ -51,6 +54,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Gets a flag that is true, when the 'close' button is visible.
+   *
    * @returns true, if the 'close' button is visible
    */
   async buttonCloseVisible(): Promise<boolean> {
@@ -71,6 +75,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Gets a flag that is true, when the 'previous' button is visible.
+   *
    * @returns true, if 'previous' button is visible
    */
   async buttonPreviousVisible(): Promise<boolean> {
@@ -92,6 +97,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Gets a flag that is true, when the 'next' button is visible.
+   *
    * @returns true, if 'next' button is visible
    */
   async buttonNextVisible(): Promise<boolean> {
@@ -113,6 +119,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Gets a flag that is true, when the description of the image is visible (tag 'figcaption').
+   *
    * @returns true, if description is visible
    */
    async descptionVisible(): Promise<boolean> {
@@ -134,6 +141,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'close overlay' button in image overlay.
+   *
    * @returns Promise that resolves when the action completes
    */
   async clickCloseButton(): Promise<void> {
@@ -143,6 +151,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'goto previous image' button in image overlay.
+   *
    * @returns Promise that resolves when the action completes
    */
   async clickPreviousButton(): Promise<void> {
@@ -152,6 +161,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Clicks the 'goto next image' button in image overlay.
+   *
    * @returns Promise that resolves when the action completes
    */
   async clickNextButton(): Promise<void> {
@@ -161,6 +171,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Sets the figure tag of the overlay into the hover state.
+   *
    * @returns Promise that resolves when the action completes
    */
   async figureHover(): Promise<void> {
@@ -170,6 +181,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Gets the src attribute of the img tag of the overlay (the url of the image).
+   *
    * @returns url of the image or empty string
    */
    async imageUrl(): Promise<string> {
@@ -180,6 +192,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Send keys to the overlay.
+   *
    * @param keys - comma separated list of keys to be sent
    * @returns Promise that resolves when the action completes
    */
@@ -190,6 +203,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
 
   /**
    * Gets a flag that is true, when the backdrop contains the given css class.
+   *
    * @param classname - name of the css class to be evaluated
    * @returns true, if backdrop contains the given css class
    */
@@ -202,6 +216,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * Css value 'visibility' of a tag is only set on page load. When using a css rule for e.g. the
    * buttons with figure:hover, harness.getCssValue() does not represent the visibility of the button.
    * Therefore we use a hack with 'figureHovering' in overlay component and events in template.
+   *
    * @returns true if the figure tag of the overlay is hovered
    */
   private async figureIsHovering(): Promise<boolean> {

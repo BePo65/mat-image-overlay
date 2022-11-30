@@ -2,7 +2,7 @@
  * SVG icons used in mat-image-overlay component
  * Source: Google Fonts (See https://fonts.google.com/icons?selected=Material+Icons)
  * License: Apache License Version 2.0 (see http://www.apache.org/licenses/LICENSE-2.0.txt)
-*/
+ */
 
 export const CLOSE_ICON =
   `<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">

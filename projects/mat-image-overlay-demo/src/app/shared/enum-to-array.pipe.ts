@@ -3,7 +3,7 @@
  * The enum is defined without explicit values (e.g. enum Demo {A, B, C}).
  * The enum must be assigned to a property of the component that uses the
  * pipeline in its template (e.g. demo = Demo;).
-*/
+ */
 
 import { Pipe, PipeTransform } from '@angular/core';
 

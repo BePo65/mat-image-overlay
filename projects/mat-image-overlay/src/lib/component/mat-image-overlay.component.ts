@@ -156,6 +156,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Is 'text' undefined or an empty string.
+   *
    * @param text - element under inspection
    * @returns if 'text'is not a non empty string
    */
@@ -177,6 +178,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
    * Gets the url for the current image using the function 'urlForImage'
    * from the configuration.
    * If 'urlForImage' is undefined, return the url of the 'broken image' image.
+   *
    * @returns the url for the current image or for the 'brokenImage'
    */
   private urlOfCurrentImage(): string {
