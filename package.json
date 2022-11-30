@@ -78,7 +78,7 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "ng-packagr": "^15.0.1",
-    "rxjs": "^6.6.7",
+    "rxjs": "^7.5.7",
     "standard-version": "^9.5.0",
     "start-server-and-test": "^1.14.0",
     "stylelint": "^14.15.0",
