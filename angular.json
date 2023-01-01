@@ -4,10 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "mat-image-overlay-demo": {
-      "root": "projects/mat-image-overlay-demo",
-      "sourceRoot": "projects/mat-image-overlay-demo/src",
       "projectType": "application",
-      "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
@@ -16,6 +13,9 @@
           "strict": true
         }
       },
+      "root": "projects/mat-image-overlay-demo",
+      "sourceRoot": "projects/mat-image-overlay-demo/src",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -24,9 +24,10 @@
             "deleteOutputPath": true,
             "index": "projects/mat-image-overlay-demo/src/index.html",
             "main": "projects/mat-image-overlay-demo/src/main.ts",
-            "polyfills": "projects/mat-image-overlay-demo/src/polyfills.ts",
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/mat-image-overlay-demo/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "projects/mat-image-overlay-demo/src/favicon.ico",
               "projects/mat-image-overlay-demo/src/assets",
@@ -46,6 +47,7 @@
                 "output": "."
               }
             ],
+            "inlineStyleLanguage": "scss",
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/mat-image-overlay-demo/src/styles.scss"
@@ -109,15 +111,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/mat-image-overlay-demo/src/test.ts",
-            "polyfills": "projects/mat-image-overlay-demo/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/mat-image-overlay-demo/tsconfig.spec.json",
             "karmaConfig": "projects/mat-image-overlay-demo/karma.conf.js",
-            "inlineStyleLanguage": "scss",
             "assets": [
               "projects/mat-image-overlay-demo/src/favicon.ico",
               "projects/mat-image-overlay-demo/src/assets"
             ],
+            "inlineStyleLanguage": "scss",
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/mat-image-overlay-demo/src/styles.scss"
@@ -130,39 +134,9 @@
           "options": {
             "lintFilePatterns": [
               "projects/mat-image-overlay-demo/src/**/*.ts",
+              "projects/mat-image-overlay-demo/src/**/*.json",
               "projects/mat-image-overlay-demo/src/**/*.html"
             ]
-          }
-        },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "mat-image-overlay-demo:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "mat-image-overlay-demo:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false
-          }
-        },
-        "e2e": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "mat-image-overlay-demo:serve",
-            "watch": true,
-            "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "mat-image-overlay-demo:serve:production"
-            }
           }
         }
       }
@@ -191,7 +165,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/mat-image-overlay/src/test.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/mat-image-overlay/tsconfig.spec.json",
             "karmaConfig": "projects/mat-image-overlay/karma.conf.js"
           }
@@ -201,6 +178,7 @@
           "options": {
             "lintFilePatterns": [
               "projects/mat-image-overlay/**/*.ts",
+              "projects/mat-image-overlay/**/*.json",
               "projects/mat-image-overlay/**/*.html"
             ]
           }

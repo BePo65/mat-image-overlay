@@ -1,0 +1,18 @@
+/* "include": ["../cypress.config.ts"] required for eslint */
+{
+  "extends": "../tsconfig.app.json",
+  "compilerOptions": {
+    "inlineSources": false,
+    "sourceMap": false,
+    "types": [
+      "cypress-real-events"
+    ]
+  },
+  "files": [],
+  "include": [
+    "**/*.ts",
+    "../cypress.config.ts",
+    "node_modules/cypress"
+  ],
+  "exclude": []
+}

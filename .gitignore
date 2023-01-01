@@ -4,7 +4,6 @@
 /dist
 /tmp
 /out-tsc
-/.angular
 # output for demo
 /docs
 
@@ -15,8 +14,8 @@
 chrome-profiler-events*.json
 
 # cypress files
-cypress/videos
-cypress/screenshots
+**/cypress/videos
+**/cypress/screenshots
 
 # IDEs and editors
 /.idea
@@ -36,6 +35,7 @@ cypress/screenshots
 .history/*
 
 # misc
+**/.angular/cache
 /.sass-cache
 /connect.lock
 /coverage
