@@ -80,7 +80,7 @@
     "ng-packagr": "^15.0.1",
     "rxjs": "^7.5.7",
     "standard-version": "^9.5.0",
-    "start-server-and-test": "^1.14.0",
+    "start-server-and-test": "^1.15.2",
     "stylelint": "^14.15.0",
     "stylelint-config-recommended-scss": "^8.0.0",
     "stylelint-config-standard": "^29.0.0",
