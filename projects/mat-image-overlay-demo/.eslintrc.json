@@ -15,7 +15,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "lib",
+            "prefix": "app",
             "style": "camelCase"
           }
         ],
@@ -23,7 +23,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "lib",
+            "prefix": "app",
             "style": "kebab-case"
           }
         ]
@@ -40,7 +40,7 @@
       ],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
-        "project": "projects/mat-image-overlay/cypress/tsconfig.json",
+        "project": "projects/mat-image-overlay-demo/cypress/tsconfig.json",
         "ecmaVersion": 2021,
         "sourceType": "module"
       },
@@ -52,7 +52,7 @@
           "node": true,
           "typescript": {
             "project": [
-              "projects/mat-image-overlay/cypress/tsconfig.json"
+              "projects/mat-image-overlay-demo/cypress/tsconfig.json"
             ]
           }
         }
@@ -106,8 +106,7 @@
     {
       "files": [
         "*.html"
-      ],
-      "rules": {}
+      ]
     }
   ]
 }
