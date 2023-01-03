@@ -1,7 +1,9 @@
 /*
  * setupNodeEvents is required, as angular multi project workspace uses
  * tsconfig.app.json as a typescript configuration file and without the
- * webpack preprocessor cypress expects a file named tsconfig.json
+ * webpack preprocessor cypress expects a file named tsconfig.json.
+ *
+ * No 'component' config element, as this is a demo withhout a component.
  */
 
 import { defineConfig } from 'cypress';
@@ -16,21 +18,5 @@ export default defineConfig({
       on('file:preprocessor', webpackPreprocessor(defaults));
       return config;
     }
-  },
-  component: {
-    devServer: {
-      framework: 'angular',
-      bundler: 'webpack',
-      options: {
-        projectConfig: {
-          root: '',
-          sourceRoot: 'projects/mat-image-overlay-demo',
-          buildOptions: {
-            tsConfig: 'cypress/tsconfig.json'
-          }
-        }
-      }
-    },
-    specPattern: '**/ct/*.cy.ts'
   }
 });
