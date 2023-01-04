@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.0.0](https://github.com/BePo65/mat-image-overlay/compare/v3.0.3...v15.0.0) (2023-01-04)
+
+
+### Bug Fixes
+
+* errors from stylelint ([99e4cea](https://github.com/BePo65/mat-image-overlay/commit/99e4cea75365476dac210157128b7e10f6068b69))
+* type error in event handler ([712b2c6](https://github.com/BePo65/mat-image-overlay/commit/712b2c61a96c0bd365d04488aa304b84baa450e6))
+* warnings from upgrading to angular v15 ([a87f141](https://github.com/BePo65/mat-image-overlay/commit/a87f14124353bef3db5e025b277955ff664ad34a))
+
 ### [3.0.3](https://github.com/BePo65/mat-image-overlay/compare/v3.0.2...v3.0.3) (2022-07-10)
 
 ### [3.0.2](https://github.com/BePo65/mat-image-overlay/compare/v3.0.1...v3.0.2) (2022-01-30)
