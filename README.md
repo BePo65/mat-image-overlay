@@ -320,13 +320,9 @@ npm run test
 
 Run end to end tests for the demo project with cypress once (e.g. for CI scenarios):
 ```
-npm run cypress:run
-```
-
-Start end tests for the demo project with cypress and keep cypress open to rerun tests:
-```
 npm run e2e
 ```
+The script 'build:ghpages' is used by the github automation to publish the demo to github pages, when the master branch is updated.
 
 ## Open issues
 - .
@@ -336,11 +332,7 @@ The component uses [Google Material Icons](https://google.github.io/material-des
 The icons are stored in the code as strings representing the icons as svg graphics.
 
 ## Version hint
-Required versions (e.g. caused by version dependencies):
-| Package | Version | Remark |
-|-----|------------------|---|
-| @angular-eslint/* | 12.x.y | requires eslint V7 |
-| @angular-eslint/* | 13.x.y | requires angular V13 |
+* currently no hints (we are on Angular 15)
 
 # Contributing
 ## Changelog
