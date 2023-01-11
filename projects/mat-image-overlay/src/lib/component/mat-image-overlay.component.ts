@@ -37,20 +37,20 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
   public imageChanged = new EventEmitter<ImageChangedEvent>();
+  public currentImageIndex = 0;
 
   // These properties are internal only (for use in the template)
-  public currentImage: unknown;
-  public currentImageDescription = '';
-  public currentImageIndex = 0;
-  public currentImageUrl: string;
-  public firstImage = false;
-  public lastImage = false;
+  protected currentImage: unknown;
+  protected currentImageDescription = '';
+  protected currentImageUrl: string;
+  protected firstImage = false;
+  protected lastImage = false;
 
-  public elementDisplayStyle = ElementDisplayStyle;
-  public overlayButtonsStyle: ElementDisplayStyle;
-  public descriptionDisplayStyle: ElementDisplayStyle;
-  public elementDisplayPosition = ElementDisplayPosition;
-  public descriptionDisplayPosition = this.elementDisplayPosition.right;
+  protected elementDisplayStyle = ElementDisplayStyle;
+  protected overlayButtonsStyle: ElementDisplayStyle;
+  protected descriptionDisplayStyle: ElementDisplayStyle;
+  protected elementDisplayPosition = ElementDisplayPosition;
+  protected descriptionDisplayPosition = this.elementDisplayPosition.right;
 
   // Propery is needed for MatImageOverlayHarness
   public figureHovering = false;
@@ -161,7 +161,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
    * @param text - element under inspection
    * @returns if 'text'is not a non empty string
    */
-  public isUndefinedOrEmpty(text: string | undefined): boolean {
+  protected isUndefinedOrEmpty(text: string | undefined): boolean {
     return (text === undefined) || (text.length === 0);
   }
 
