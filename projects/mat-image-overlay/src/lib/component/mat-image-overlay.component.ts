@@ -46,10 +46,10 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   public firstImage = false;
   public lastImage = false;
 
-  elementDisplayStyle = ElementDisplayStyle;
+  public elementDisplayStyle = ElementDisplayStyle;
   public overlayButtonsStyle: ElementDisplayStyle;
   public descriptionDisplayStyle: ElementDisplayStyle;
-  elementDisplayPosition = ElementDisplayPosition;
+  public elementDisplayPosition = ElementDisplayPosition;
   public descriptionDisplayPosition = this.elementDisplayPosition.right;
 
   // Propery is needed for MatImageOverlayHarness
@@ -156,11 +156,12 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Is 'text' undefined or an empty string.
+   * Used in html template.
    *
    * @param text - element under inspection
    * @returns if 'text'is not a non empty string
    */
-  isUndefinedOrEmpty(text: string | undefined): boolean {
+  public isUndefinedOrEmpty(text: string | undefined): boolean {
     return (text === undefined) || (text.length === 0);
   }
 
