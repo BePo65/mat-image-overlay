@@ -32,7 +32,7 @@ import { MatImageOverlayModule } from 'mat-image-overlay';
 export class AppModule { }
 ```
 
-Open the images via `MatImageOverlay.open`
+Define a function to open the images in your application component (e.g. `app.component.ts`)
 ```
 images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
@@ -54,6 +54,13 @@ openImageOverlay(imageIndex?: number): void {
 }
 ```
 
+Open the overlay via a clickable element in your html template (e.g. `app.component.html`)
+```html
+  <p>
+    Click <a href="#" (click)="openImageOverlay()">here to open the overlay</a>
+  </p>
+```
+
 ## Mat-Image-Overlay Demo
 Demo project to show case how `mat-image-overlay` works.
 
@@ -67,9 +74,6 @@ Navigate to http://localhost:4200
 
 # API reference for Mat-Image-Overlay
 
-```typescript
-import { MatImageOverlayModule } from 'mat-image-overlay';
-```
 ## Services
 ### MatImageOverlay
 Service to open Mat-Image-Overlay as modal overlay.
