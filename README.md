@@ -109,37 +109,30 @@ Configuration for opening a modal image overlay with the MatImageOverlay service
 |---|--|
 | Gets the url for an image for one entry of images array. | This function is optional. The default implementation expects 'images' to be an array of strings. |
 | *Parameters* | |
-| imageData<br>unknown | Data for the image. |
-| baseUrl?<br>string | Url fragment to be used for building the image url. |
+| imageData | Data for the image. |
+| baseUrl | Url fragment to be used for building the image url. Optional parameter. |
 | *Returns* | |
 | string | Url for the image to be displayed. |
 
-| imageClickHandler | |
-|---|--|
-| If defined this method gets called, when the image in the overlay is clicked. | This function is optional. |
-| *Parameters* | |
-| imageData<br>unknown | Data for the image. |
-| configuration?<br>object | Additional parameters defined as 'imageClickHandlerConfiguration' in the MatImageOverlayConfig object. |
-
 | descriptionForImage | |
 |---|--|
-| If defined this method gets called to fetch the image description. | This function is optional. |
+|This method gets called to fetch the image description. | This function is optional. |
 | *Parameters* | |
-| imageData<br>unknown | Data for the image. |
-| configuration?<br>object | Additional parameters defined as 'descriptionForImageConfiguration' in the MatImageOverlayConfig object. |
+| imageData | Data for the image. |
+| configuration | Additional parameters defined as 'descriptionForImageConfiguration' in the MatImageOverlayConfig object. |
 
 **Properties**
 | Name  | Description |
 |---|---|
-| images<br>string[] | List of the images to display. |
-| baseUrl?<br>string | Base url to be used by method 'urlForImage'. |
-| startImageIndex?<br>number | Index of the image to be displayed when initializing the image overlay. |
-| backdropClass?<br>string | CSS class to add to the backdrop, replacing the default backdrop css. |
-| overlayButtonsStyle?<br>ElementDisplayStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover. |
-| descriptionDisplayStyle?<br>ElementDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a propert named 'description' in data source. |
-| descriptionDisplayPosition?<br>ElementDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a propert named 'description' in data source. |
-| imageClickHandlerConfiguration?<br>object | Object with arbitrary data as parameter of the 'imageClickHandler' method. |
-| descriptionForImageConfiguration?<br>object | Object with arbitrary data as parameter of the 'descriptionForImage' method. |
+| images | Array of the images to display. |
+| baseUrl | Base url to be used by method 'urlForImage'.<br>Optional parameter. |
+| startImageIndex | Index of the image to be displayed when initializing the image overlay.<br>Optional parameter. |
+| backdropClass | CSS class to add to the backdrop, replacing the default backdrop css.<br>Optional parameter. |
+| overlayButtonsStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover.<br>Optional parameter. |
+| descriptionDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a property named 'description' in data source.<br>Optional parameter. |
+| descriptionDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a propert named 'description' in data source.<br>Optional parameter. |
+| imageClickHandlerConfiguration | Object with arbitrary data as parameter of the 'imageClickHandler' method.<br>Optional parameter. |
+| descriptionForImageConfiguration | Object with arbitrary data as parameter of the 'descriptionForImage' method.<br>Optional parameter. |
 
 ## Classes
 ### MatImageOverlayRef
@@ -150,7 +143,7 @@ Reference to an image overlay opened via the MatImageOverlay service.
 |---|--|
 | Closes the image overlay. | |
 | *Parameters* | |
-| lastImageIndex<br>number | Index of the last image displayed in the overlay. |
+| lastImageIndex | Index of the last image displayed in the overlay. |
 
 | afterOpened | |
 |---|--|
@@ -169,6 +162,12 @@ Reference to an image overlay opened via the MatImageOverlay service.
 | Gets an observable that is notified when a new image has been selected. | |
 | *Returns* | |
 | Observable&lt;number&gt; | Observable returns index of the image displayed. |
+
+| imageClicked | |
+|---|--|
+| Gets an observable that is notified when an image has been clicked. | |
+| *Returns* | |
+| Observable&lt;ImageClickedEvent&gt; | Observable returns object with data of the clicked image and imageClickedConfiguration object from the config object. |
 
 | keydownEvents | |
 |---|--|
@@ -200,7 +199,7 @@ Component used by MatImageOverlay to display the images in the modal overlay.
 |---|--|
 | Display the image in the datasource selected by the imageIndex. | |
 | *Parameters* | |
-| imageIndex<br>number | Index of the image to be displayed. |
+| imageIndex | Index of the image to be displayed. |
 
 # API reference for Mat-Image-Overlay testing
 
@@ -329,7 +328,7 @@ npm run e2e
 The script 'build:ghpages' is used by the github automation to publish the demo to github pages, when the master branch is updated.
 
 ## Open issues
-- .
+  - &minus;
 
 ## Used assets
 The component uses [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
