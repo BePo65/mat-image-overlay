@@ -1,2 +1,1 @@
-- replace options 'urlForImage', 'descriptionForImage', 'baseUrl' and 'descriptionForImageConfiguration'
-  with object as parameter of open method
+nothing to do
