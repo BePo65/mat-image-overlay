@@ -15,15 +15,34 @@ export enum ImageOverlayState {
 }
 
 /**
- * Event that captures the state of the component.
+ * Properties of the event that captures the state of the component.
+ *
+ * state: new state of the overlay
+ * data: number of image or undefined (state open or closed)
  */
 export interface ImageOverlayStateEvent {
   state: ImageOverlayState;
   data?: unknown;
 }
 
+/**
+ * Properties of the event that triggers, when a new image gets shown.
+ *
+ * imageIndex: index of the new image
+ */
 export interface ImageChangedEvent {
   imageIndex: number;
+}
+
+/**
+ * Properties of the event that triggers, when a new image gets clicked.
+ *
+ * imageData: entry from the 'images' array for the current image
+ * configuration: object containing configuration data as defined in config.imageClickedConfiguration
+ */
+export interface ImageClickedEvent {
+  imageData: unknown;
+  configuration?: object;
 }
 
 export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
@@ -37,20 +56,21 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
   public imageChanged = new EventEmitter<ImageChangedEvent>();
+  public imageClicked = new EventEmitter<ImageClickedEvent>();
+  public currentImageIndex = 0;
 
   // These properties are internal only (for use in the template)
-  public currentImage: unknown;
-  public currentImageDescription = '';
-  public currentImageIndex = 0;
-  public currentImageUrl: string;
-  public firstImage = false;
-  public lastImage = false;
+  protected currentImage: unknown;
+  protected currentImageDescription = '';
+  protected currentImageUrl: string;
+  protected firstImage = false;
+  protected lastImage = false;
 
-  elementDisplayStyle = ElementDisplayStyle;
-  public overlayButtonsStyle: ElementDisplayStyle;
-  public descriptionDisplayStyle: ElementDisplayStyle;
-  elementDisplayPosition = ElementDisplayPosition;
-  public descriptionDisplayPosition = this.elementDisplayPosition.right;
+  protected elementDisplayStyle = ElementDisplayStyle;
+  protected overlayButtonsStyle: ElementDisplayStyle;
+  protected descriptionDisplayStyle: ElementDisplayStyle;
+  protected elementDisplayPosition = ElementDisplayPosition;
+  protected descriptionDisplayPosition = this.elementDisplayPosition.right;
 
   // Propery is needed for MatImageOverlayHarness
   public figureHovering = false;
@@ -80,13 +100,9 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    if ((this._config.imageClickHandler !== undefined) && (typeof this._config.imageClickHandler === 'function')) {
-      this.imageClickUnlistener = this.renderer2.listen(this.overlayImage.nativeElement, 'click', () => {
-        if ((this._config.imageClickHandler !== undefined) && (typeof this._config.imageClickHandler === 'function')) {
-          this._config.imageClickHandler(this.currentImage, this._config.imageClickHandlerConfiguration);
-        }
-      });
-    }
+    this.imageClickUnlistener = this.renderer2.listen(this.overlayImage.nativeElement, 'click', () => {
+      this.imageClicked.emit({ imageData: this.currentImage, configuration: this._config.imageClickedConfiguration });
+    });
 
     this.stateChanged.emit({ state: ImageOverlayState.opened });
   }
@@ -156,11 +172,12 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Is 'text' undefined or an empty string.
+   * Used in html template.
    *
    * @param text - element under inspection
    * @returns if 'text'is not a non empty string
    */
-  isUndefinedOrEmpty(text: string | undefined): boolean {
+  protected isUndefinedOrEmpty(text: string | undefined): boolean {
     return (text === undefined) || (text.length === 0);
   }
 

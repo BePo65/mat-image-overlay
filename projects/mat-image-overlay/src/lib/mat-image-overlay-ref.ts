@@ -2,13 +2,21 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
-import { ImageOverlayState, MatImageOverlayComponent } from './component/mat-image-overlay.component';
+import { ImageClickedEvent, ImageOverlayState, MatImageOverlayComponent } from './component/mat-image-overlay.component';
 
 /** Possible states of the lifecycle of an image overlay. */
 export const enum MatImageOverlayState {
   OPEN,
   CLOSED
 }
+
+/**
+ * Properties of the event that triggers, when a new image gets clicked.
+ *
+ * imageData: entry from the 'images' array for the current image
+ * configuration: object containing configuration data as defined in config.imageClickedConfiguration
+ */
+export  { ImageClickedEvent } from './component/mat-image-overlay.component';
 
 /**
  * Reference to an image overlay opened via the MatImageOverlay service.
@@ -22,6 +30,9 @@ export class MatImageOverlayRef {
 
   //  Subject for notifying the user that new image has been selected
   private readonly _imageChanged = new BehaviorSubject<number | undefined>(undefined);
+
+  //  Subject for notifying the user that an image has been clicked
+  private readonly _imageClicked = new Subject<ImageClickedEvent>();
 
   /** Index of last image shown to be passed to afterClosed. */
   private _lastImageIndex: number | undefined;
@@ -53,9 +64,9 @@ export class MatImageOverlayRef {
 
     // Emit when overlay is closed and return index of last image
     _componentInstance.stateChanged
-    .pipe(
-      filter(event => event.state === ImageOverlayState.closed),
-      take(1)
+      .pipe(
+        filter(event => event.state === ImageOverlayState.closed),
+        take(1)
       )
       .subscribe(() => {
         this._afterClosed.next(this._lastImageIndex);
@@ -81,6 +92,11 @@ export class MatImageOverlayRef {
      * is initialized, we have to emit this value here again.
      */
     this._imageChanged.next(_componentInstance.currentImageIndex);
+
+    // Emit when an image has been clicked
+    _componentInstance.imageClicked.subscribe(event => {
+      this._imageClicked.next(event);
+    });
   }
 
   /**
@@ -119,6 +135,16 @@ export class MatImageOverlayRef {
    */
   public imageChanged(): Observable<number | undefined> {
     return this._imageChanged;
+  }
+
+  /**
+   * Gets an observable that is notified when an image has been clicked.
+   *
+   * @returns observable that sends the object of the selected image and the
+   * .        imageClickedConfiguration object from the config
+   */
+  public imageClicked(): Observable<ImageClickedEvent> {
+    return this._imageClicked;
   }
 
   /**

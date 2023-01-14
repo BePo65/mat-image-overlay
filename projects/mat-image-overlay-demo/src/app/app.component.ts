@@ -64,7 +64,6 @@ export class AppComponent {
       descriptionForImageConfiguration: {label: 'file name'},
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
-      imageClickHandler: this.clickHandlerForOverlayDemo,  // eslint-disable-line @typescript-eslint/unbound-method
       imageClickHandlerConfiguration: { sampleValue: 'demo parameter for overlay demo'}
     } as MatImageOverlayConfig;
 
@@ -74,6 +73,7 @@ export class AppComponent {
     imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
     imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${String(lastImageIndex)}`));
     imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${String(currentImageIndex)}`));
+    imageOverlayRef.imageClicked().subscribe(event => this.clickHandlerForOverlayDemo(event.imageData, event.configuration));
     imageOverlayRef.keydownEvents().subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
   }
 

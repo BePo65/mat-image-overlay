@@ -61,15 +61,7 @@ export interface MatImageOverlayConfig {
   descriptionDisplayPosition?: ElementDisplayPosition;
 
   /**
-   * EventHandler to be called, when image in overlay is clicked.
-   *
-   * @param imageData - entry from the 'images' array for the current image
-   * @param configuration - object containing configuration data for the 'imageClickHandler'
+   * Configuration data for the imageClicked event handler.
    */
-  imageClickHandler?: (imageData: unknown, configuration?: object) => void;
-
-  /**
-   * Configuration data for the imageClickHandler.
-   */
-  imageClickHandlerConfiguration?: object;
+  imageClickedConfiguration?: object;
 }
