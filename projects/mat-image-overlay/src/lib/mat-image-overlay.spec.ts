@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { HarnessLoader, TestKey } from '@angular/cdk/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatImageOverlay } from './mat-image-overlay';
 import { MatImageOverlayModule } from './mat-image-overlay.module';
+import { ImageClickedEvent } from './mat-image-overlay-ref';
 import { ElementDisplayStyle, MatImageOverlayConfig } from './interfaces/mat-image-overlay-config';
 import { MatImageOverlayHarness } from '../../testing/src/mat-image-overlay-harness';
 
@@ -484,6 +485,29 @@ describe('MatImageOverlay with Harness', () => {
     overlay.close();
     await expectAsync(overlayHarness.overlayIsLoaded()).withContext('Image overlay is no more available').toBeResolvedTo(false);
   });
+
+  it('should click image', fakeAsync(async () => {
+    const imageGotClickedData: ImageClickedEvent[] = [];
+    const config: MatImageOverlayConfig = {
+      images: stringImages
+    } as MatImageOverlayConfig;
+    const imageOverlayRef = fixture.componentInstance.open(config);
+    const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+    imageOverlayRef.imageClicked().subscribe(event => imageGotClickedData.push(event));
+
+    expect(overlayHarness).not.toBeUndefined();
+
+    // Start with 1st image
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
+
+    // Click image
+    await overlayHarness.clickImage();
+    flush();
+
+    //test, if click handler got called once for the first image
+    expect(imageGotClickedData.length).toBe(1);
+    expect(imageGotClickedData[0].imageData).toBe(stringImages[0]);
+  }));
 
   it('should send keys', async () => {
     const config: MatImageOverlayConfig = {

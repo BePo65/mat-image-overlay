@@ -191,6 +191,16 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   }
 
   /**
+   * Clicks the img tag of the overlay (the current image).
+   *
+   * @returns Promise that resolves when the action completes
+   */
+   async clickImage(): Promise<void> {
+    const image = await this.image();
+    await image.click();
+  }
+
+  /**
    * Send keys to the overlay.
    *
    * @param keys - comma separated list of keys to be sent
