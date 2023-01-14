@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.1.0](https://github.com/BePo65/mat-image-overlay/compare/v15.0.0...v15.1.0) (2023-01-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* drops 'imageClickHandler' from configuration and moves
+it as an observable to 'MatImageOverlayRef'
+
+### Features
+
+* embed roboto font instead of linking it ([de1fab3](https://github.com/BePo65/mat-image-overlay/commit/de1fab36e67d4dc6e0c8f7781e240da87310c510))
+* replace option 'imageClickHandler' with observable ([70c9442](https://github.com/BePo65/mat-image-overlay/commit/70c94424276756d3890b1ede108b19d09feb1658))
+
 ## [15.0.0](https://github.com/BePo65/mat-image-overlay/compare/v3.0.3...v15.0.0) (2023-01-04)
 
 
