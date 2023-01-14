@@ -32,8 +32,8 @@
     "release": "standard-version -i CHANGELOG.md --same-file",
     "e2e": "start-server-and-test \"ng serve\" http://localhost:4200 \"npm run cypress:demo:run:e2e\"",
     "ct": "npm run cypress:lib:run:ct",
-    "cypress:demo:open": "cypress open --project=projects/mat-image-overlay-demo",
-    "cypress:demo:run:e2e": "cypress run --project=projects/mat-image-overlay-demo",
+    "cypress:demo:open": "start-server-and-test \"ng serve\" http://localhost:4200 \"cypress open --project=projects/mat-image-overlay-demo\"",
+    "cypress:demo:run:e2e": "start-server-and-test \"ng serve\" http://localhost:4200 \"cypress run --project=projects/mat-image-overlay-demo\"",
     "cypress:lib:open": "cypress open --project=projects/mat-image-overlay",
     "cypress:lib:run:ct": "cypress run --project=projects/mat-image-overlay --component"
   },
