@@ -326,8 +326,10 @@ npm run cypress:demo:open
   - &minus;
 
 ## Used assets
-The component uses [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
-The icons are stored in the code as strings representing the icons as svg graphics.
+The component is based on Angular Material and uses [Google Fonts](https://fonts.google.com/specimen/Roboto) and [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
+Bith fonts are part of the project and not fetched via https.
+
+Some special icons are stored in the code as strings representing the icons as svg graphics.
 
 # Contributing
 ## Changelog
