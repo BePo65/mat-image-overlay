@@ -9,6 +9,10 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
     "module": "es2022",
     "moduleResolution": "node",
     "noImplicitOverride": true,
@@ -16,14 +20,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "strict": true,
-    "target": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
     "paths": {
       "mat-image-overlay": [
         "dist/mat-image-overlay/mat-image-overlay",
@@ -34,6 +30,10 @@
         "dist/mat-image-overlay/testing/mat-image-overlay-testing"
       ]
     },
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2022",
+    "useDefineForClassFields": false,
     "types": ["jasmine"]
   },
   "angularCompilerOptions": {
