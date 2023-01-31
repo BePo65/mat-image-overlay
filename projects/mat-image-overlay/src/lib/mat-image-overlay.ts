@@ -1,11 +1,11 @@
-import { Injectable, Injector } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { Injectable, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { IMAGE_OVERLAY_CONFIG_TOKEN, MatImageOverlayComponent } from './component/mat-image-overlay.component';
-import { MatImageOverlayRef } from './mat-image-overlay-ref';
 import { MatImageOverlayConfig } from './interfaces/mat-image-overlay-config';
+import { MatImageOverlayRef } from './mat-image-overlay-ref';
 
 @Injectable()
 export class MatImageOverlay {

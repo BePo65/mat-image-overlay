@@ -1,14 +1,15 @@
+import { HarnessLoader, TestKey } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
-import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { HarnessLoader, TestKey } from '@angular/cdk/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatImageOverlay } from './mat-image-overlay';
-import { MatImageOverlayModule } from './mat-image-overlay.module';
-import { ImageClickedEvent } from './mat-image-overlay-ref';
-import { ElementDisplayStyle, MatImageOverlayConfig } from './interfaces/mat-image-overlay-config';
 import { MatImageOverlayHarness } from '../../testing/src/mat-image-overlay-harness';
+
+import { ElementDisplayStyle, MatImageOverlayConfig } from './interfaces/mat-image-overlay-config';
+import { MatImageOverlay } from './mat-image-overlay';
+import { ImageClickedEvent } from './mat-image-overlay-ref';
+import { MatImageOverlayModule } from './mat-image-overlay.module';
 
 describe('MatImageOverlay with Harness', () => {
   const stringImages = [
