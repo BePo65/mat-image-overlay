@@ -6,11 +6,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatImageOverlayModule } from 'mat-image-overlay';
-import { MatImageOverlayHarness } from 'mat-image-overlay/testing';
 
 import { AppComponent } from './app.component';
 import { EnumToArrayPipe } from './shared/enum-to-array.pipe';
+
+import { MatImageOverlayModule } from 'mat-image-overlay';
+import { MatImageOverlayHarness } from 'mat-image-overlay/testing';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;

@@ -6,8 +6,8 @@
  * No 'component' config element, as this is a demo without a component.
  */
 
-import { defineConfig } from 'cypress';
 import * as webpackPreprocessor from '@cypress/webpack-preprocessor';
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
   e2e: {
