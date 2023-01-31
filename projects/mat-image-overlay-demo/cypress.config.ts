@@ -3,7 +3,7 @@
  * tsconfig.app.json as a typescript configuration file and without the
  * webpack preprocessor cypress expects a file named tsconfig.json.
  *
- * No 'component' config element, as this is a demo withhout a component.
+ * No 'component' config element, as this is a demo without a component.
  */
 
 import { defineConfig } from 'cypress';
