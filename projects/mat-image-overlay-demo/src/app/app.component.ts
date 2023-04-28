@@ -41,7 +41,6 @@ export class AppComponent {
 
   /**
    * Demo to show most functions of overlay images.
-   *
    * @param imageIndex - index of the first image to be displayed in overlay
    */
   openImageOverlay(imageIndex?: number): void {
@@ -139,7 +138,6 @@ export class AppComponent {
   /**
    * Gets url of image for stringImages source from index of image.
    * Function is used in component template.
-   *
    * @param imageIndex - index of image to be displayed
    * @returns url of image to be displayed
    */
@@ -150,7 +148,6 @@ export class AppComponent {
   /**
    * Definition of the sequence of commands to be executed
    * in the 'image show'.
-   *
    * @param loopIndex - index of the step to be executed
    * @param imageOverlayRef - overlay to be used
    * @param timerId - id of the timer used to trigger the commands (used to stop it)
@@ -195,7 +192,6 @@ export class AppComponent {
   /**
    * Gets url of image for objectImages source from index of image and optional baseUrl.
    * Function is used for configuration parameter 'urlForImage'.
-   *
    * @param imageData - object with image data
    * @param baseUrl - baseUrl of images
    * @returns url of image to be displayed
@@ -212,7 +208,6 @@ export class AppComponent {
 
   /**
    * Demo for overlay image click event handler using a named function.
-   *
    * @param imageData - object with image data
    * @param configuration - object 'imageClickHandlerConfiguration' from 'config'
    */

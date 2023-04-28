@@ -101,7 +101,6 @@ export class MatImageOverlayRef {
 
   /**
    * Close the image overlay.
-   *
    * @param lastImageIndex Optional result to return to the image overlay opener.
    */
   public close(lastImageIndex?: number): void {
@@ -111,7 +110,6 @@ export class MatImageOverlayRef {
 
   /**
    * Gets an observable that is notified when the image overlay is finished opening.
-   *
    * @returns observable that fires when image overlay is open
    */
   public afterOpened(): Observable<void> {
@@ -121,7 +119,6 @@ export class MatImageOverlayRef {
   /**
    * Gets an observable that is notified when the image overlay is finished closing.
    * Observable returns the index of the last image displayed.
-   *
    * @returns observable that sends the index of the last image displayed when image overlay is closed
    */
    public afterClosed(): Observable<number | undefined> {
@@ -130,7 +127,6 @@ export class MatImageOverlayRef {
 
   /**
    * Gets an observable that is notified when a new image has been selected.
-   *
    * @returns observable that sends the index of the selected image
    */
   public imageChanged(): Observable<number | undefined> {
@@ -139,7 +135,6 @@ export class MatImageOverlayRef {
 
   /**
    * Gets an observable that is notified when an image has been clicked.
-   *
    * @returns observable that sends the object of the selected image and the
    * .        imageClickedConfiguration object from the config
    */
@@ -149,7 +144,6 @@ export class MatImageOverlayRef {
 
   /**
    * Gets an observable that is notified when keydown events are targeted on the overlay.
-   *
    * @returns observable that sends Key down events targeted on the overlay
    */
   public keydownEvents(): Observable<KeyboardEvent> {
