@@ -125,7 +125,7 @@ export class AppComponent {
   }
 
   /**
-   * Demo to show overlay images with mnimal configuration.
+   * Demo to show overlay images with minimal configuration.
    */
   openMinimalConfigImageOverlay(): void {
     const config: MatImageOverlayConfig = {
