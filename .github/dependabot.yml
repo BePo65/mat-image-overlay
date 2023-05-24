@@ -8,5 +8,11 @@ updates:
   ignore:
     - dependency-name: "@types/node"
       versions: ["19.x", "20.x"]
+    - dependency-name: "@angular/*"
+      versions: ["15.x"]
+    - dependency-name: "@angular-devkit/build-angular"
+      versions: ["15.x"]
+    - dependency-name: "@angular-eslint/*"
+      versions: ["15.x"]
     - dependency-name: "typescript"
       versions: ["5.x"]
