@@ -16,3 +16,5 @@ updates:
       versions: ["16.x"]
     - dependency-name: "typescript"
       versions: ["5.x"]
+    - dependency-name: "zone"
+      versions: ["0.14.x"]
