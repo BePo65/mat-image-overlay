@@ -16,7 +16,7 @@
     "lint:demo": "eslint --report-unused-disable-directives \"projects/mat-image-overlay-demo\"",
     "lint:scss": "npx stylelint \"**/*.scss\"",
     "lint:commits": "commitlint --from 81ad0b8fb70526 --to HEAD --verbose",
-    "test": "npm run test:lib -- --watch=false && npm run test:demo -- --watch=false",
+    "test": "npm run test:lib -- --watch=false --browsers=ChromeHeadless && npm run test:demo -- --watch=false --browsers=ChromeHeadless",
     "test:lib": "ng test mat-image-overlay",
     "test:demo": "ng test mat-image-overlay-demo",
     "test:lib:coverage:ui": "set BROWSERSLIST_IGNORE_OLD_DATA=1 && ng test mat-image-overlay --code-coverage --watch=false && node tools/open-coverage.mjs",
