@@ -327,12 +327,9 @@ npm run e2e
 ```
 The script 'build:ghpages' is used by the github automation to publish the demo to github pages, when the master branch is updated.
 
-## Open issues
-  - &minus;
-
 ## Used assets
 The component is based on Angular Material and uses [Google Fonts](https://fonts.google.com/specimen/Roboto) and [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
-Bith fonts are part of the project and not fetched via https.
+Both fonts are part of the project and not fetched via https.
 
 Some special icons are stored in the code as strings representing the icons as svg graphics.
 
