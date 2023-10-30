@@ -6,7 +6,7 @@ An [Angular Material](https://material.angular.io/) based component that shows i
 The component is based on Rafasantos [angular-material-image-overlay](https://github.com/rafasantos/angular-material-image-overlay).
 
 ## Demo
- Try out the [demo page](https://bepo65.github.io/mat-image-overlay/)
+ Try out the [demo page](https://bepo65.github.io/mat-image-overlay/).
 
 ![Screenshot](assets/screenshot.jpg "Screenshot of the demo page")
 
