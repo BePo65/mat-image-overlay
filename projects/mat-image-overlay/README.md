@@ -1,5 +1,5 @@
 # Mat-Image-Overlay
-![Version](https://img.shields.io/badge/version-15.1.3-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-15.1.4-blue.svg?cacheSeconds=2592000)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kefranabg/readme-md-generator/blob/master/LICENSE)
 
 An [Angular Material](https://material.angular.io/) based component that shows images in an overlay.
