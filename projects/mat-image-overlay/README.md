@@ -5,7 +5,9 @@
 An [Angular Material](https://material.angular.io/) based component that shows images in an overlay.
 The component is based on Rafasantos [angular-material-image-overlay](https://github.com/rafasantos/angular-material-image-overlay).
 
-## Example
+## Demo
+ Try out the [demo page](https://bepo65.github.io/mat-image-overlay/).
+
 ![Screenshot](assets/screenshot.jpg "Screenshot from demo page")
 
 ## Quick Start
@@ -321,9 +323,6 @@ Start cypress interactively for the demo project to run e2e test:
 ```
 npm run cypress:demo:open
 ```
-
-## Open issues
-  - &minus;
 
 ## Used assets
 The component is based on Angular Material and uses [Google Fonts](https://fonts.google.com/specimen/Roboto) and [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
