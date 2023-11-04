@@ -72,7 +72,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   protected elementDisplayPosition = ElementDisplayPosition;
   protected descriptionDisplayPosition = this.elementDisplayPosition.right;
 
-  // Propery is needed for MatImageOverlayHarness
+  // Property is needed for MatImageOverlayHarness
   public figureHovering = false;
 
   private images: unknown[];
@@ -140,7 +140,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
         this.onClose();
     }
 
-    // Don't send keystroke back to psge containing overlay
+    // Don't send keystroke back to page containing overlay
     event.preventDefault();
     event.stopPropagation();
   }
@@ -180,8 +180,8 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     return (text === undefined) || (text.length === 0);
   }
 
-  private setCurrentImage(imageIdex: number) {
-    this.currentImage = this.images[imageIdex];
+  private setCurrentImage(imageIndex: number) {
+    this.currentImage = this.images[imageIndex];
 
     if(this._config.descriptionForImage) {
       this.currentImageDescription = this._config.descriptionForImage(this.currentImage, this._config.descriptionForImageConfiguration);
