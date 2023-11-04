@@ -69,13 +69,13 @@ Navigate to http://localhost:4200
 
 ## Services
 ### MatImageOverlay
-Service to open Mat-Image-Overlay as modal overlay.
+Service to open Mat-Image-Overlay as a modal overlay.
 
 **Properties**
 | Name  | Description |
 |---|---|
 | imageOverlayRef: MatImageOverlayRef &#124; undefined | Reference of the opened image overlay. |
-| afterOpened: Subject&lt;MatImaeOverlayRef&gt; | Stream that gets notified when the image overlay has been opened. |
+| afterOpened: Subject&lt;MatImageOverlayRef&gt; | Stream that gets notified when the image overlay has been opened. |
 | afterClosed: Subject&lt;number&gt; | Stream that gets notified when the image overlay has been closed. |
 
 **Methods**
@@ -89,9 +89,9 @@ Service to open Mat-Image-Overlay as modal overlay.
 
 | imageOverlayExists | |
 |---|--|
-| Checks Whether the image overlay already exists. | |
+| Checks whether the image overlay already exists. | |
 | *Returns* | |
-| boolean | |
+| boolean | true = image overlay exists |
 
 ## Interfaces
 ### MatImageOverlayConfig
@@ -100,30 +100,32 @@ Configuration for opening a modal image overlay with the MatImageOverlay service
 **Methods**
 | urlForImage | |
 |---|--|
-| Gets the url for an image for one entry of images array. | This function is optional. The default implementation expects 'images' to be an array of strings. |
+| Gets the url for an image for one entry of images array. | The default implementation expects 'images' to be an array of strings.<br>The use of this method is optional. |
 | *Parameters* | |
-| imageData | Data for the image. |
-| baseUrl | Url fragment to be used for building the image url. Optional parameter. |
+| imageData | Data for the image. This parameter contains the entry for the requested image from the 'images' property of the configuration object. |
+| baseUrl | Url fragment to be used for building the image url. This parameter is taken from the configuration object. Optional parameter. |
 | *Returns* | |
 | string | Url for the image to be displayed. |
 
 | descriptionForImage | |
 |---|--|
-|This method gets called to fetch the image description. | This function is optional. |
+| Gets the image description. | This function is optional. |
 | *Parameters* | |
-| imageData | Data for the image. |
+| imageData | Data for the image. This parameter contains the entry for the requested image from the 'images' property of the configuration object. |
 | configuration | Additional parameters defined as 'descriptionForImageConfiguration' in the MatImageOverlayConfig object. |
+| *Returns* | |
+| string | Url for the image to be displayed. |
 
 **Properties**
 | Name  | Description |
 |---|---|
-| images | Array of the images to display. |
+| images | Array of the images to display. The expected default format is an array of image urls as strings.<br>If 'urlForImage' is provided, data from this array is provided as parameter 'imageData' to the 'urlForImage' method. In that case the array could also contain objects with arbitrary data. |
 | baseUrl | Base url to be used by method 'urlForImage'.<br>Optional parameter. |
 | startImageIndex | Index of the image to be displayed when initializing the image overlay.<br>Optional parameter. |
 | backdropClass | CSS class to add to the backdrop, replacing the default backdrop css.<br>Optional parameter. |
 | overlayButtonsStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover.<br>Optional parameter. |
 | descriptionDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a property named 'description' in data source.<br>Optional parameter. |
-| descriptionDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a propert named 'description' in data source.<br>Optional parameter. |
+| descriptionDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a property named 'description' in data source.<br>Optional parameter. |
 | imageClickHandlerConfiguration | Object with arbitrary data as parameter of the 'imageClickHandler' method.<br>Optional parameter. |
 | descriptionForImageConfiguration | Object with arbitrary data as parameter of the 'descriptionForImage' method.<br>Optional parameter. |
 
@@ -142,25 +144,25 @@ Reference to an image overlay opened via the MatImageOverlay service.
 |---|--|
 | Gets an observable that is notified when the image overlay is finished opening. | |
 | *Returns* | |
-| Observable&lt;void&gt; | |
+| Observable&lt;void&gt; | Observable that fires, when the overlay has been opened. |
 
 | afterClosed | |
 |---|--|
 | Gets an observable that is notified when the image overlay is finished closing. | |
 | *Returns* | |
-| Observable&lt;number&gt; | Observable returns index of the last image displayed. |
+| Observable&lt;number&gt; | Observable that returns the index of the last image displayed. |
 
 | imageChanged | |
 |---|--|
 | Gets an observable that is notified when a new image has been selected. | |
 | *Returns* | |
-| Observable&lt;number&gt; | Observable returns index of the image displayed. |
+| Observable&lt;number&gt; | Observable that returns the index of the image displayed. |
 
 | imageClicked | |
 |---|--|
 | Gets an observable that is notified when an image has been clicked. | |
 | *Returns* | |
-| Observable&lt;ImageClickedEvent&gt; | Observable returns object with data of the clicked image and imageClickedConfiguration object from the config object. |
+| Observable&lt;ImageClickedEvent&gt; | Observable that returns the object with data of the clicked image and the imageClickedConfiguration object from the config object. |
 
 | keydownEvents | |
 |---|--|
@@ -211,91 +213,91 @@ Harness for interacting with a standard MatImageOverlay in tests.
 **Methods**
 | async overlayIsLoaded | |
 |---|--|
-| Gets a flag that is true, when the image overlay is visible. | |
+| Gets a promise that fulfills to true, when the image overlay is visible. | |
 | *Returns* | |
-| Promise&lt;boolean&gt; | Flag that shows, if the image overlay is visible.
+| Promise&lt;boolean&gt; | Promise that fulfills to a flag that shows, if the image overlay is visible.
 
 | async close | |
 |---|--|
 | Closes the image overlay by pressing escape. | |
 | *Returns* | |
-| Promise&lt;void&gt; | Promise that resolves when the action completes..
+| Promise&lt;void&gt; | Promise that fulfills, when the action completes.
 
 | async clickBackdrop | |
 |---|--|
 | Closes the image overlay by clicking the backdrop of the image overlay. | |
 | *Returns* | |
-| Promise&lt;void&gt; | Promise that resolves when the action completes..
+| Promise&lt;void&gt; | Promise that fulfills, when the action completes.
 
 | async buttonCloseVisible | |
 |---|--|
-| Gets a flag that is true, when the 'close' button is visible. | |
+| Gets a promise that fulfills to true, when the 'close' button is visible. | |
 | *Returns* | |
-| Promise&lt;boolean&gt; | Flag that shows, if the 'close' button is visible.
+| Promise&lt;boolean&gt; | Promise that fulfills to a flag that shows, if the 'close' button is visible.
 
 | async buttonPreviousVisible | |
 |---|--|
-| Gets a flag that is true, when the 'previous' button is visible. | |
+| Gets a promise that fulfills to true, when the 'previous' button is visible. | |
 | *Returns* | |
-| Promise&lt;boolean&gt; | Flag that shows, if the 'previous' button is visible.
+| Promise&lt;boolean&gt; | Promise that fulfills to a flag that shows, if the 'previous' button is visible.
 
 | async buttonNextVisible | |
 |---|--|
-| Gets a flag that is true, when the 'next' button is visible. | |
+| Gets a promise that fulfills to true, when the 'next' button is visible. | |
 | *Returns* | |
-| Promise&lt;boolean&gt; | Flag that shows, if the 'next' button is visible.
+| Promise&lt;boolean&gt; | Promise that fulfills to a flag that shows, if the 'next' button is visible.
 
-| async descptionVisible | |
+| async descriptionVisible | |
 |---|--|
-| Gets a flag that is true, when the 'description' of the image is visible. | |
+| Gets a promise that fulfills to true, when the 'description' of the image is visible. | |
 | *Returns* | |
-| Promise&lt;boolean&gt; | Flag that shows, if the 'description' is visible.
+| Promise&lt;boolean&gt; | Promise that fulfills to a flag that shows, if the 'description' is visible.
 
 | async clickCloseButton | |
 |---|--|
 | Clicks the 'close overlay' button of the image overlay. | |
 | *Returns* | |
-| Promise&lt;void&gt; | Promise that resolves when the action completes..
+| Promise&lt;void&gt; | Promise that fulfills, when the action completes.
 
 | async clickPreviousButton | |
 |---|--|
 | Clicks the 'goto previous image' button of the image overlay. | |
 | *Returns* | |
-| Promise&lt;void&gt; | Promise that resolves when the action completes..
+| Promise&lt;void&gt; | Promise that fulfills, when the action completes.
 
 | async clickNextButton | |
 |---|--|
 | Clicks the 'goto next image' button of the image overlay. | |
 | *Returns* | |
-| Promise&lt;void&gt; | Promise that resolves when the action completes..
+| Promise&lt;void&gt; | Promise that fulfills, when the action completes.
 
 | async figureHover | |
 |---|--|
 | Sets the figure tag of the overlay (the content of the overlay) into the hover state. | |
 | *Returns* | |
-| Promise&lt;void&gt; | Promise that resolves when the action completes..
+| Promise&lt;void&gt; | Promise that fulfills, when the action completes.
 
 | async imageUrl | |
 |---|--|
-| Gets the url of the current image in the overlay. | |
+| Gets a promise that fulfills to the url of the current image in the overlay. | |
 | *Returns* | |
-| Promise&lt;boolean&gt; | Url of the image or empty string.
+| Promise&lt;boolean&gt; | Promise that fulfills to the url of the image or to an empty string.
 
 | async sendKeys | |
 |---|--|
 | Send keys to the overlay. | |
 | *Parameters* | |
-| ...keys<br>TestKey[] | Keys to be sent. Posiible values are the arrow keys, the home and the end key. |
+| ...keys | Array of 'TestKey' to be sent. Possible values are the arrow keys, the home and the end key. |
 | *Returns* | |
-| Promise&lt;void&gt; | Promise that resolves when the action completes..
+| Promise&lt;void&gt; | Promise that resolves when the action completes.
 
 | async hasBackdropClass | |
 |---|--|
-| Gets a flag that is true, when the backdrop contains the given css class. | |
+| Gets a promise that fulfills to true, when the backdrop contains the given css class. | |
 | *Parameters* | |
-| classname<br>string | Name of the css class to be evaluated. |
+| classname | Name of the css class to be evaluated. |
 | *Returns* | |
-| Promise&lt;boolean&gt; | Flag that shows, if the backdrop contains the given css class.
+| Promise&lt;boolean&gt; | Promise fulfills to a flag that shows, if the backdrop contains the given css class.
 
 # Development
 Build the library and the demo project:
