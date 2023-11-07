@@ -49,7 +49,7 @@ export class MatImageOverlay {
     private overlay: Overlay,
     private overlayContainer: OverlayContainer
   ) {
-    // Add class to container to make container identifyable by MatImageOverlayHarness
+    // Add class to container to make container identifiable by MatImageOverlayHarness
     const container = overlayContainer.getContainerElement();
     container.classList.add('mat-image-overlay-container');
   }
@@ -112,7 +112,7 @@ export class MatImageOverlay {
    * Build the configuration for the image overlay.
    * The configuration includes common elements and elements from the given config object.
    * @param config - Object containing all configuration parameters (only 'backdropClass' is used)
-   * @returns An object with all configuratio parameters for the image overlay
+   * @returns An object with all configuration parameters for the image overlay
    */
   private buildOverlayConfig(config: MatImageOverlayConfig): OverlayConfig {
     const result = new OverlayConfig();
