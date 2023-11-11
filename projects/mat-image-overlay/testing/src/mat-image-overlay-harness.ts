@@ -115,7 +115,7 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
    * Gets a flag that is true, when the description of the image is visible (tag 'figcaption').
    * @returns true, if description is visible
    */
-   async descptionVisible(): Promise<boolean> {
+   async descriptionVisible(): Promise<boolean> {
     let result = false;
 
     try {

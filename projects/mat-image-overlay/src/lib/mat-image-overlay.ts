@@ -4,7 +4,8 @@ import { Injectable, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { IMAGE_OVERLAY_CONFIG_TOKEN, MatImageOverlayComponent } from './component/mat-image-overlay.component';
-import { MatImageOverlayConfig } from './interfaces/mat-image-overlay-config';
+import { DefaultImageDetailsProvider } from './default-image-details-provider';
+import { MatImageOverlayConfig } from './interfaces/mat-image-overlay-config.interface';
 import { MatImageOverlayRef } from './mat-image-overlay-ref';
 
 @Injectable()
@@ -25,22 +26,7 @@ export class MatImageOverlay {
 
   /** Default configuration. */
   private defaultConfig: MatImageOverlayConfig = {
-    images: [] as string[],
-    urlForImage: (imageData: unknown, baseUrl?: string): string => {
-      if (imageData === undefined) {
-        return '';
-      } else if (typeof imageData === 'string') {
-        let url: string;
-        if (baseUrl) {
-          url = `${baseUrl}${String(imageData)}`;
-        } else {
-          url = String(imageData);
-        }
-        return url;
-      } else {
-        throw new Error('Default implementation of "urlForImage": "images" must be an array of strings"');
-      }
-    },
+    imageDetails: new DefaultImageDetailsProvider(),
     startImageIndex: 0
   };
 

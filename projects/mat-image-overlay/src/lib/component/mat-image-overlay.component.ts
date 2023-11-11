@@ -2,7 +2,8 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Injec
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlayConfig } from '../interfaces/mat-image-overlay-config';
+import { MatImageDetailsProvider } from '../interfaces/mat-image-details-provider.class';
+import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlayConfig } from '../interfaces/mat-image-overlay-config.interface';
 import { ARROW_BACKWARD_ICON, ARROW_FORWARD_ICON, CLOSE_ICON } from '../mat-image-overlay.svg';
 
 /**
@@ -34,17 +35,6 @@ export interface ImageChangedEvent {
   imageIndex: number;
 }
 
-/**
- * Properties of the event that triggers, when a new image gets clicked.
- *
- * imageData: entry from the 'images' array for the current image
- * configuration: object containing configuration data as defined in config.imageClickedConfiguration
- */
-export interface ImageClickedEvent {
-  imageData: unknown;
-  configuration?: object;
-}
-
 export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
 
 @Component({
@@ -56,13 +46,15 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
   public imageChanged = new EventEmitter<ImageChangedEvent>();
-  public imageClicked = new EventEmitter<ImageClickedEvent>();
+  public imageClicked = new EventEmitter<Record<string, unknown>>();
   public currentImageIndex = 0;
 
+  // Property is needed for MatImageOverlayHarness
+  public figureHovering = false;
+
   // These properties are internal only (for use in the template)
-  protected currentImage: unknown;
   protected currentImageDescription = '';
-  protected currentImageUrl: string;
+  protected currentImageUrl = '';
   protected firstImage = false;
   protected lastImage = false;
 
@@ -72,11 +64,9 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   protected elementDisplayPosition = ElementDisplayPosition;
   protected descriptionDisplayPosition = this.elementDisplayPosition.right;
 
-  // Property is needed for MatImageOverlayHarness
-  public figureHovering = false;
-
-  private images: unknown[];
+  private imageDetails: MatImageDetailsProvider;
   private imageClickUnlistener: (() => void) | undefined;
+  private imagedClickedAdditionalData: Record<string, unknown> = {};
 
   constructor(
     @Inject(IMAGE_OVERLAY_CONFIG_TOKEN) public _config: MatImageOverlayConfig,
@@ -84,10 +74,19 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     private domSanitizer: DomSanitizer,
     private renderer2: Renderer2
   ) {
-    this.images = _config.images ?? [] as string[];
+    if (_config.imageDetails && (typeof _config.imageDetails === 'object')) {
+      this.imageDetails = _config.imageDetails;
+    } else {
+      throw new Error('The configuration for MatImageOverlay must contain a field named "imageDetails');
+    }
+
     this.currentImageIndex = _config.startImageIndex ?? 0;
-    this.setCurrentImage(this.currentImageIndex);
-    this.currentImageUrl = this.urlOfCurrentImage();
+    if (this.imageDetails.numberOfImages > 0) {
+      this.currentImageDescription = this.imageDetails.descriptionForImage(this.currentImageIndex);
+      this.currentImageUrl = this.imageDetails.urlForImage(this.currentImageIndex);
+    }
+
+    this.imagedClickedAdditionalData = _config.imageClickedAdditionalData ?? {};
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
     this.descriptionDisplayStyle = _config.descriptionDisplayStyle ?? ElementDisplayStyle.onHover;
@@ -101,7 +100,8 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.imageClickUnlistener = this.renderer2.listen(this.overlayImage.nativeElement, 'click', () => {
-      this.imageClicked.emit({ imageData: this.currentImage, configuration: this._config.imageClickedConfiguration });
+      const result = this.mergeRecords(this.imageDetails.imageInformation(this.currentImageIndex), this.imagedClickedAdditionalData || {});
+      this.imageClicked.emit(result);
     });
 
     this.stateChanged.emit({ state: ImageOverlayState.opened });
@@ -113,6 +113,10 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     if(this.imageClickUnlistener) {
       this.imageClickUnlistener();
     }
+  }
+
+  public get numberOfImages(): number {
+    return this.imageDetails.numberOfImages;
   }
 
   public onClose(): void {
@@ -158,14 +162,14 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   public gotoLastImage(): void {
-    this.gotoImage(this.images.length - 1);
+    this.gotoImage(this.imageDetails.numberOfImages - 1);
   }
 
   public gotoImage(imageIndex: number): void {
-    if ((imageIndex >= 0) && (imageIndex < this.images.length)) {
+    if ((imageIndex >= 0) && (imageIndex < this.imageDetails.numberOfImages)) {
       this.currentImageIndex = imageIndex;
-      this.setCurrentImage(this.currentImageIndex);
-      this.currentImageUrl = this.urlOfCurrentImage();
+      this.currentImageDescription = this.imageDetails.descriptionForImage(imageIndex);
+      this.currentImageUrl = this.imageDetails.urlForImage(imageIndex);
       this.updateImageState();
     }
   }
@@ -180,41 +184,27 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     return (text === undefined) || (text.length === 0);
   }
 
-  private setCurrentImage(imageIndex: number) {
-    this.currentImage = this.images[imageIndex];
-
-    if(this._config.descriptionForImage) {
-      this.currentImageDescription = this._config.descriptionForImage(this.currentImage, this._config.descriptionForImageConfiguration);
-    } else {
-      this.currentImageDescription = '';
-    }
-  }
-
-  /**
-   * Gets the url for the current image using the function 'urlForImage'
-   * from the configuration.
-   * If 'urlForImage' is undefined, return the url of the 'broken image' image.
-   * @returns the url for the current image or for the 'brokenImage'
-   */
-  private urlOfCurrentImage(): string {
-    let url = '';
-
-    if(this._config.urlForImage) {
-      url = this._config.urlForImage(this.currentImage, this._config.baseUrl);
-    } else {
-      console.error('Cannot get url for image, because the configuration option "urlForImage" is undefined.');
-    }
-
-    return url;
-  }
-
   /**
    * Update state of flags that show, if current image is first or last
    * in list of images.
    */
   private updateImageState() {
     this.firstImage = (this.currentImageIndex <= 0);
-    this.lastImage = (this.currentImageIndex >= (this.images.length - 1));
+    this.lastImage = (this.currentImageIndex >= (this.imageDetails.numberOfImages - 1));
     this.imageChanged.emit({ imageIndex: this.currentImageIndex });
+  }
+
+  /**
+   * Merge 2 Records into a new Record.
+   * The merge makes shallow copies of the original data.
+   * @param record1 - first Record to be copied
+   * @param record2 - Record to be merged into copy of record1
+   * @returns new Record with record2 merged into copy of record1
+   */
+  private mergeRecords(record1: Record<string, unknown>, record2: Record<string, unknown>): Record<string, unknown> {
+    let result: Record<string, unknown> = {};
+    result = Object.assign(result, record1);
+    result = Object.assign(result, record2);
+    return result;
   }
 }

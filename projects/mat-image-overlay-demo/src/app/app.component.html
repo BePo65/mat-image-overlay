@@ -5,7 +5,7 @@
   <a href="https://github.com/BePo65/mat-image-overlay">BePo65/mat-image-overlay</a>
 </p>
 <div class="container">
-  <div clsss="images-container">
+  <div class="images-container">
     <div class="image-preview-container first-container">
       <h3 class="container-title">Demo for string array as image source</h3>
       <div class="image-selection">
@@ -22,7 +22,7 @@
       <div class="image-selection">
         <a href="#" (click)="startImageShow()" title="click to start show" data-cy="start-auto-mode">
           <span *ngFor="let imageData of objectImages; let imageIndex = index">
-            <img class="images-compact" height="100" [src]="urlForStringImagesSource(imageIndex)">
+            <img class="images-compact" height="100" [src]="urlForObjectImagesPreview(imageIndex)">
           </span>
         </a>
       </div>

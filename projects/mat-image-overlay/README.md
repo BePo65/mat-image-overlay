@@ -8,7 +8,7 @@ The component is based on Rafasantos [angular-material-image-overlay](https://gi
 ## Demo
  Try out the [demo page](https://bepo65.github.io/mat-image-overlay/).
 
-![Screenshot](assets/screenshot.jpg "Screenshot from demo page")
+![Screenshot](assets/screenshot.jpg "Screenshot of the demo page")
 
 ## Quick Start
 Install the package:
@@ -32,7 +32,7 @@ import { MatImageOverlayModule } from 'mat-image-overlay';
 export class AppModule { }
 ```
 
-Open the images via `MatImageOverlay.open`
+Define a class based on MatImageDetailsProvider to get information about the images and create an instance of it in the mat-image-overlay configuration. Examples for classes based on MatImageDetailsProvider can be found in the 'examples/provider' directory of the mat-image-overlay component.
 ```
 images = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
@@ -46,13 +46,26 @@ constructor(private imageOverlay: MatImageOverlay) {
 
 openImageOverlay(imageIndex?: number): void {
   const config = {
-    images: this.images,
+    imageDetails: new StringSourceImageDetailsProvider(this.images),
     startImageIndex: imageIndex,
     backdropClass: 'demo-backdrop-class'
   } as MatImageOverlayConfig;
   const imageOverlayRef = this.imageOverlay.open(config);
 }
 ```
+
+Open the overlay via a clickable element in your html template (e.g. `app.component.html`)
+```html
+  <p>
+    Click <a href="#" (click)="openImageOverlay()">here to open the overlay</a>
+  </p>
+```
+
+## Used assets
+The component is based on Angular Material and uses [Google Fonts](https://fonts.google.com/specimen/Roboto) and [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
+Both fonts are part of the project and not fetched via https.
+
+Some special icons are stored in the code as strings representing the icons as svg graphics.
 
 ## Mat-Image-Overlay Demo
 Demo project to show case how `mat-image-overlay` works.
@@ -97,41 +110,58 @@ Service to open Mat-Image-Overlay as a modal overlay.
 ### MatImageOverlayConfig
 Configuration for opening a modal image overlay with the MatImageOverlay service.
 
+**Properties**
+| Name  | Description |
+|---|---|
+| imageDetails | Instance of a class derived from MatImageDetailsProvider. |
+| startImageIndex | Index of the first image to be displayed (0 based). |
+| backdropClass | CSS class to add to the backdrop, replacing the default backdrop css.<br>Optional parameter. |
+| overlayButtonsStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover.<br>Optional parameter. |
+| descriptionDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a property named 'description' in data source.<br>Optional parameter. |
+| descriptionDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a property named 'description' in data source.<br>Optional parameter. |
+| imageClickedAdditionalData | Object with arbitrary data that will be returned by the imageClicked event (added to the data returned by the 'imageDetails.imageInformation' method).<br>Optional parameter. |
+
+### MatImageDetailsProvider
+Abstract base class to be derived by a real image details provider. This class is used to get all the required information about an image.
+
+**Properties**
+| Name  | Description |
+|---|---|
+| numberOfImages | Number of images that can be displayed (this property is readonly). |
+
 **Methods**
 | urlForImage | |
 |---|--|
-| Gets the url for an image for one entry of images array. | The default implementation expects 'images' to be an array of strings.<br>The use of this method is optional. |
+| Gets the url for an image. | |
 | *Parameters* | |
-| imageData | Data for the image. This parameter contains the entry for the requested image from the 'images' property of the configuration object. |
-| baseUrl | Url fragment to be used for building the image url. This parameter is taken from the configuration object. Optional parameter. |
+| imageIndex | Index of the image to be displayed (0 based). |
 | *Returns* | |
 | string | Url for the image to be displayed. |
 
 | descriptionForImage | |
 |---|--|
-| Gets the image description. | This function is optional. |
+| Gets the description for an image. | |
 | *Parameters* | |
-| imageData | Data for the image. This parameter contains the entry for the requested image from the 'images' property of the configuration object. |
-| configuration | Additional parameters defined as 'descriptionForImageConfiguration' in the MatImageOverlayConfig object. |
+| imageIndex | Index of the image to be displayed (0 based). |
 | *Returns* | |
 | string | Url for the image to be displayed. |
 
-**Properties**
-| Name  | Description |
-|---|---|
-| images | Array of the images to display. The expected default format is an array of image urls as strings.<br>If 'urlForImage' is provided, data from this array is provided as parameter 'imageData' to the 'urlForImage' method. In that case the array could also contain objects with arbitrary data. |
-| baseUrl | Base url to be used by method 'urlForImage'.<br>Optional parameter. |
-| startImageIndex | Index of the image to be displayed when initializing the image overlay.<br>Optional parameter. |
-| backdropClass | CSS class to add to the backdrop, replacing the default backdrop css.<br>Optional parameter. |
-| overlayButtonsStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover.<br>Optional parameter. |
-| descriptionDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a property named 'description' in data source.<br>Optional parameter. |
-| descriptionDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a property named 'description' in data source.<br>Optional parameter. |
-| imageClickHandlerConfiguration | Object with arbitrary data as parameter of the 'imageClickHandler' method.<br>Optional parameter. |
-| descriptionForImageConfiguration | Object with arbitrary data as parameter of the 'descriptionForImage' method.<br>Optional parameter. |
+| imageInformation | |
+|---|--|
+| Gets a record that contains information about an image. | The returned object is part of the data returned by the imageClicked event. |
+| *Parameters* | |
+| imageIndex | Index of the clicked image (0 based). |
+| *Returns* | |
+| Record<string, unknown> | Object with additional data about the image. |
 
 ## Classes
 ### MatImageOverlayRef
 Reference to an image overlay opened via the MatImageOverlay service.
+
+**Properties**
+| Name  | Description |
+|---|---|
+| numberOfImages | number of images that can be displayed. |
 
 **Methods**
 | close | |
@@ -172,6 +202,11 @@ Reference to an image overlay opened via the MatImageOverlay service.
 
 ### MatImageOverlayComponent
 Component used by MatImageOverlay to display the images in the modal overlay.
+
+**Properties**
+| Name  | Description |
+|---|---|
+| numberOfImages | number of images that can be displayed. |
 
 **Methods**
 | gotoNextImage | |
@@ -316,21 +351,16 @@ Test the library and the demo project:
 npm run test
 ```
 
+Run component tests for the library project with cypress once (e.g. for CI scenarios):
+```
+npm run ct
+```
+
 Run end to end tests for the demo project with cypress once (e.g. for CI scenarios):
 ```
 npm run e2e
 ```
-
-Start cypress interactively for the demo project to run e2e test:
-```
-npm run cypress:demo:open
-```
-
-## Used assets
-The component is based on Angular Material and uses [Google Fonts](https://fonts.google.com/specimen/Roboto) and [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
-Bith fonts are part of the project and not fetched via https.
-
-Some special icons are stored in the code as strings representing the icons as svg graphics.
+The script 'build:ghpages' is used by the github automation to publish the demo to github pages, when the master branch is updated.
 
 # Contributing
 ## Changelog

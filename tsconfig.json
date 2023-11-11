@@ -44,6 +44,7 @@
   },
   "include": [
     "**/src/**/*.ts",
+    "**/examples/**/*.ts",
     "node_modules/cypress"
   ],
   "exclude": [
