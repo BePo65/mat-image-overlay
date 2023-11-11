@@ -1,7 +1,16 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlay, MatImageOverlayConfig, MatImageOverlayRef } from 'mat-image-overlay';
+import { ObjectSourceImageDetailsProvider } from './object-image-details-provider.class';
+import { StringSourceImageDetailsProvider } from './string-image-details-provider.class';
+
+import {
+  ElementDisplayPosition,
+  ElementDisplayStyle,
+  MatImageOverlay,
+  MatImageOverlayConfig,
+  MatImageOverlayRef
+} from 'mat-image-overlay';
 
 @Component({
   selector: 'app-root',
@@ -46,25 +55,13 @@ export class AppComponent {
   openImageOverlay(imageIndex?: number): void {
     // Demo to show usage of most 'open' parameters and a string array as 'images'
     const config: MatImageOverlayConfig = {
-      images: this.stringImages,
+      imageDetails: new StringSourceImageDetailsProvider(this.stringImages),
       startImageIndex: imageIndex,
       backdropClass: 'demo-backdrop-class',
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
-      descriptionForImage: (imageData: unknown, configuration?: object) => {
-        let result = '';
-        if (typeof imageData === 'string') {
-          if (configuration) {
-            result = `${String(configuration['label' as keyof object])}: ${String(imageData)}`;
-          } else {
-            result = String(imageData);
-          }
-        }
-        return result;
-      },
-      descriptionForImageConfiguration: {label: 'file name'},
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
-      imageClickHandlerConfiguration: { sampleValue: 'demo parameter for overlay demo'}
+      imageClickedAdditionalData: { sampleValue: 'demo parameter for overlay demo'}
     } as MatImageOverlayConfig;
 
     const imageOverlayRef = this.imageOverlay.open(config);
@@ -73,7 +70,7 @@ export class AppComponent {
     imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
     imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${String(lastImageIndex)}`));
     imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${String(currentImageIndex)}`));
-    imageOverlayRef.imageClicked().subscribe(event => this.clickHandlerForOverlayDemo(event.imageData, event.configuration));
+    imageOverlayRef.imageClicked().subscribe(event => this.clickHandlerForOverlayDemo(event));
     imageOverlayRef.keydownEvents().subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
   }
 
@@ -84,33 +81,19 @@ export class AppComponent {
   startImageShow(): void {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
     const config: MatImageOverlayConfig = {
-      images: this.objectImages,
-      urlForImage: this.urlForObjectImagesSource,  // eslint-disable-line @typescript-eslint/unbound-method
-      baseUrl: this.baseUrlForObjectImages,
+      imageDetails: new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages),
       startImageIndex: 2,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
-      descriptionForImage: (imageData: unknown) => {
-        let result = '';
-        if (typeof imageData === 'object') {
-          result = (imageData as object)['description' as keyof object];
-        }
-        return result;
-      },
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
-      imageClickHandler: (imageData: unknown, configuration?: object) => {
-        let additionalParameter = {};
-        if (configuration) {
-          additionalParameter = configuration;
-        }
-        const image = imageData as object;
-        const imageId: string = image['id' as keyof object];
-        console.log(`Image clicked for image '${imageId}' with additional parameter '${String(additionalParameter['sampleValue' as keyof object])}'`);
-      },
-      imageClickHandlerConfiguration: { sampleValue: 'demo parameter for image show'}
+      imageClickedAdditionalData: { sampleValue: 'demo parameter for image show'}
     } as MatImageOverlayConfig;
 
     const imageOverlayRef = this.imageOverlay.open(config);
+    imageOverlayRef.imageClicked().subscribe(event => {
+      const imageId: string = String(event['id']);
+      console.log(`Image clicked for image '${imageId}' with additional parameter '${String(event['sampleValue'])}'`);
+    });
 
     // For typecast of timer see https://stackoverflow.com/questions/45802988/typescript-use-correct-version-of-settimeout-node-vs-window
     let loopIndex = 1;
@@ -129,20 +112,23 @@ export class AppComponent {
    */
   openMinimalConfigImageOverlay(): void {
     const config: MatImageOverlayConfig = {
-      images: this.stringImages
+      imageDetails: new StringSourceImageDetailsProvider(this.stringImages)
     } as MatImageOverlayConfig;
 
     this.imageOverlay.open(config);
   }
 
   /**
-   * Gets url of image for stringImages source from index of image.
+   * Gets url of a preview image for objectImages source from index of image.
    * Function is used in component template.
    * @param imageIndex - index of image to be displayed
    * @returns url of image to be displayed
    */
-  urlForStringImagesSource(imageIndex: number): string {
-    return this.urlForObjectImagesSource(this.objectImages[imageIndex], this.baseUrlForObjectImages);
+  urlForObjectImagesPreview(imageIndex: number): string {
+    const baseUrl = this.baseUrlForObjectImages;
+    const imageObject = this.objectImages[imageIndex];
+    const imageId = imageObject['id'];
+    return `${String(baseUrl)}${imageId}/${String(imageObject['width'])}/${String(imageObject['height'])}`;
   }
 
   /**
@@ -190,32 +176,10 @@ export class AppComponent {
   }
 
   /**
-   * Gets url of image for objectImages source from index of image and optional baseUrl.
-   * Function is used for configuration parameter 'urlForImage'.
-   * @param imageData - object with image data
-   * @param baseUrl - baseUrl of images
-   * @returns url of image to be displayed
-   */
-  private urlForObjectImagesSource(imageData: unknown, baseUrl?: string): string {
-    if (typeof imageData === 'object') {
-      const image = imageData as object;
-      const imageId: string = image['id' as keyof object];
-      return `${String(baseUrl)}${imageId}/${String(image['width' as keyof object])}/${String(image['height' as keyof object])}`;
-    } else {
-      throw new Error('Configuration element "images" must be an array of objects');
-    }
-  }
-
-  /**
    * Demo for overlay image click event handler using a named function.
    * @param imageData - object with image data
-   * @param configuration - object 'imageClickHandlerConfiguration' from 'config'
    */
-  private clickHandlerForOverlayDemo(imageData: unknown, configuration?: object): void {
-    let additionalParameter = {};
-    if (configuration) {
-      additionalParameter = configuration;
-    }
-    console.log(`Image clicked for image '${String(imageData)}' with additional parameter '${String(additionalParameter['sampleValue' as keyof object])}'`);
+  private clickHandlerForOverlayDemo(imageData: Record<string, unknown>): void {
+    console.log(`Image clicked for image '${String(imageData['url'])}' with additional parameter '${String(imageData['sampleValue'])}'`);
   }
 }

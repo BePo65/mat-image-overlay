@@ -2,21 +2,13 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
-import { ImageClickedEvent, ImageOverlayState, MatImageOverlayComponent } from './component/mat-image-overlay.component';
+import { ImageOverlayState, MatImageOverlayComponent } from './component/mat-image-overlay.component';
 
 /** Possible states of the lifecycle of an image overlay. */
 export const enum MatImageOverlayState {
   OPEN,
   CLOSED
 }
-
-/**
- * Properties of the event that triggers, when a new image gets clicked.
- *
- * imageData: entry from the 'images' array for the current image
- * configuration: object containing configuration data as defined in config.imageClickedConfiguration
- */
-export  { ImageClickedEvent } from './component/mat-image-overlay.component';
 
 /**
  * Reference to an image overlay opened via the MatImageOverlay service.
@@ -32,7 +24,7 @@ export class MatImageOverlayRef {
   private readonly _imageChanged = new BehaviorSubject<number | undefined>(undefined);
 
   //  Subject for notifying the user that an image has been clicked
-  private readonly _imageClicked = new Subject<ImageClickedEvent>();
+  private readonly _imageClicked = new Subject<Record<string, unknown>>();
 
   /** Index of last image shown to be passed to afterClosed. */
   private _lastImageIndex: number | undefined;
@@ -99,6 +91,10 @@ export class MatImageOverlayRef {
     });
   }
 
+  public get numberOfImages(): number {
+    return this._componentInstance?.numberOfImages || 0;
+  }
+
   /**
    * Close the image overlay.
    * @param lastImageIndex Optional result to return to the image overlay opener.
@@ -135,10 +131,9 @@ export class MatImageOverlayRef {
 
   /**
    * Gets an observable that is notified when an image has been clicked.
-   * @returns observable that sends the object of the selected image and the
-   * .        imageClickedConfiguration object from the config
+   * @returns observable that sends the information about the clicked image
    */
-  public imageClicked(): Observable<ImageClickedEvent> {
+  public imageClicked(): Observable<Record<string, unknown>> {
     return this._imageClicked;
   }
 

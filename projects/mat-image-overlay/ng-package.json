@@ -2,7 +2,8 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/mat-image-overlay",
   "assets": [
-    "assets"
+    "assets",
+    "examples"
   ],
   "lib": {
     "entryFile": "src/public-api.ts"
