@@ -12,29 +12,38 @@ import {
   MatImageOverlayRef
 } from 'mat-image-overlay';
 
+enum ElementBackdropClass {
+  none = '',
+  red ='backdrop-red',
+  blue = 'backdrop-blue',
+  green = 'backdrop-green'
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  elementDisplayStyle = ElementDisplayStyle;
-  elementDisplayPosition = ElementDisplayPosition;
+  protected elementDisplayStyle = ElementDisplayStyle;
+  protected elementDisplayPosition = ElementDisplayPosition;
+  protected elementBackdropClass = ElementBackdropClass;
 
-  optionsForm = this.formBuilder.group({
+  protected  optionsForm = this.formBuilder.group({
     buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
     descriptionStyle: [ElementDisplayStyle.never, [Validators.required]],
-    descriptionPosition: [ElementDisplayPosition.right, [Validators.required]]
+    descriptionPosition: [ElementDisplayPosition.right, [Validators.required]],
+    backdropClass: [ElementBackdropClass.none, []]
   });
 
-  stringImages = [
+  protected stringImages = [
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg',
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg',
     'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
   ];
 
-  objectImages = [
+  protected objectImages = [
     { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
     { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
     { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
@@ -57,12 +66,16 @@ export class AppComponent {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(this.stringImages),
       startImageIndex: imageIndex,
-      backdropClass: 'demo-backdrop-class',
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
       imageClickedAdditionalData: { sampleValue: 'demo parameter for overlay demo'}
     } as MatImageOverlayConfig;
+
+    const backdropClass = this.optionsForm.controls['backdropClass'].value as string;
+    if (backdropClass !== '') {
+      config.backdropClass = backdropClass;
+    }
 
     const imageOverlayRef = this.imageOverlay.open(config);
 

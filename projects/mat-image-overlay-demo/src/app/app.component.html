@@ -48,7 +48,7 @@
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>Show navigational buttons</mat-label>
         <mat-select formControlName="buttonStyle" required>
-          <mat-option *ngFor="let style of elementDisplayStyle | enumToArray" [value]="style.value">
+          <mat-option *ngFor="let style of elementDisplayStyle | numericEnumToArray" [value]="style.value">
             {{style.key}}
           </mat-option>
         </mat-select>
@@ -59,7 +59,7 @@
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>Show image description</mat-label>
         <mat-select formControlName="descriptionStyle" required>
-          <mat-option *ngFor="let style of elementDisplayStyle | enumToArray" [value]="style.value">
+          <mat-option *ngFor="let style of elementDisplayStyle | numericEnumToArray" [value]="style.value">
             {{style.key}}
           </mat-option>
         </mat-select>
@@ -70,13 +70,21 @@
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>Position of image description (when 'onHover')</mat-label>
         <mat-select formControlName="descriptionPosition" required>
-          <mat-option *ngFor="let position of elementDisplayPosition | enumToArray" [value]="position.value">
+          <mat-option *ngFor="let position of elementDisplayPosition | numericEnumToArray" [value]="position.value">
             {{position.key}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="optionsForm.controls['descriptionPosition'].touched && optionsForm.controls['descriptionPosition'].invalid">
           <span *ngIf="optionsForm.controls['descriptionPosition'].errors?.['required']">This field is mandatory.</span>
         </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>backdropClass of overlay</mat-label>
+        <mat-select formControlName="backdropClass">
+          <mat-option *ngFor="let backdropClass of elementBackdropClass | stringEnumToArray" [value]="backdropClass.value">
+            {{backdropClass.key}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
   </div>

@@ -6,14 +6,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { EnumToArrayPipe } from './shared/enum-to-array.pipe';
+import { NumericEnumToArrayPipe, StringEnumToArrayPipe } from './shared/enum-to-array.pipe';
 
 import { MatImageOverlayModule } from 'mat-image-overlay';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EnumToArrayPipe
+    NumericEnumToArrayPipe,
+    StringEnumToArrayPipe
   ],
   imports: [
     BrowserModule,

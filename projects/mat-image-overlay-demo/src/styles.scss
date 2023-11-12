@@ -18,6 +18,14 @@ body {
 
 /* Styles for MatImageOverlay must be placed in global
    styles.scss because of angular view encapsulation */
-.demo-backdrop-class {
-  background: rgba(0 0 0 / 32%);
+.backdrop-red {
+  background: rgb(255 0 0 / 32%);
+}
+
+.backdrop-green {
+  background: rgb(0 255 0 / 32%);
+}
+
+.backdrop-blue {
+  background: rgb(0 0 255 / 32%);
 }
