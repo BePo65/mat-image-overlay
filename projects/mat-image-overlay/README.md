@@ -115,7 +115,7 @@ Configuration for opening a modal image overlay with the MatImageOverlay service
 |---|---|
 | imageDetails | Instance of a class derived from MatImageDetailsProvider. |
 | startImageIndex | Index of the first image to be displayed (0 based). |
-| backdropClass | CSS class to add to the backdrop, replacing the default backdrop css.<br>Optional parameter. |
+| backdropClass | CSS class to add to the backdrop, replacing the default backdrop css. This CSS class must be in the global styles of the application.<br>Optional parameter. |
 | overlayButtonsStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover.<br>Optional parameter. |
 | descriptionDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a property named 'description' in data source.<br>Optional parameter. |
 | descriptionDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a property named 'description' in data source.<br>Optional parameter. |
@@ -333,68 +333,6 @@ Harness for interacting with a standard MatImageOverlay in tests.
 | classname | Name of the css class to be evaluated. |
 | *Returns* | |
 | Promise&lt;boolean&gt; | Promise fulfills to a flag that shows, if the backdrop contains the given css class.
-
-# Development
-Build the library and the demo project:
-```
-npm run build
-```
-
-Lint the library,  the demo project with eslint and the scss files with stylelint:
-```
-npm run lint
-npm run lint:scss
-```
-
-Test the library and the demo project:
-```
-npm run test
-```
-
-Run component tests for the library project with cypress once (e.g. for CI scenarios):
-```
-npm run ct
-```
-
-Run end to end tests for the demo project with cypress once (e.g. for CI scenarios):
-```
-npm run e2e
-```
-The script 'build:ghpages' is used by the github automation to publish the demo to github pages, when the master branch is updated.
-
-# Contributing
-## Changelog
-The project uses 'standard-version' to create the changelog. To enable this system, commit messages are linted before commits are executed by git.
-
-**The structure of commit messages is**:
-```
-  <header>
-  <BLANK LINE>
-  <body>
-  <BLANK LINE>
-  <footer>
-```
-
-**header**
-```
-  <type>(<scope>): <short summary>
-```
-  
-type and scope
-  - build: Changes that affect the build system or external dependencies (example scope: npm)
-  - docs: Documentation only changes
-  - feat: A new feature
-  - fix: A bug fix
-  - perf: A code change that improves performance
-  - refactor: A code change that neither fixes a bug nor adds a feature
-  - test: Adding missing tests or correcting existing tests (example scopes: demo, lib, e2e)
-
-**footer**
-```
-  BREAKING CHANGE: ... (requires MAJOR in Semantic Versioning)
-```
-
-For details of the commit messages format see [Contributing to Angular](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#commit).
 
 # License
 The code is released under the [MIT license](LICENSE)
