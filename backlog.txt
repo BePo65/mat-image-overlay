@@ -1,3 +1,1 @@
-* add input field for backDropClass to demo options, to test if that will modify backdropClass
-* replace backdropClass with css variables?
-* use backdrop class / css variables to make overlay image "fullScreen"
+* no open issues
