@@ -8,7 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { NumericEnumToArrayPipe } from './shared/enum-to-array.pipe';
+import { NumericEnumToArrayPipe, StringEnumToArrayPipe } from './shared/enum-to-array.pipe';
 
 import { MatImageOverlayModule } from 'mat-image-overlay';
 import { MatImageOverlayHarness } from 'mat-image-overlay/testing';
@@ -21,7 +21,8 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        NumericEnumToArrayPipe
+        NumericEnumToArrayPipe,
+        StringEnumToArrayPipe
       ],
       imports: [
         BrowserModule,
