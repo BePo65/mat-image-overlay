@@ -26,7 +26,7 @@ describe('Demo page', () => {
     cy.get('img')
       .first()
       .should('have.attr', 'src')
-      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg');
+      .should('include', 'https://picsum.photos/id/30/1024/768');
   });
 
   it('shows overlay clicking on first image', () => {
@@ -35,7 +35,7 @@ describe('Demo page', () => {
     cy.get('.cdk-overlay-container').should('be.visible');
     cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
-      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg');
+      .should('include', 'https://picsum.photos/id/30/1024/768');
   });
 
   it('shows overlay clicking on link', () => {
@@ -44,7 +44,7 @@ describe('Demo page', () => {
     cy.get('.cdk-overlay-container').should('be.visible');
     cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
-      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg');
+      .should('include', 'https://picsum.photos/id/30/1024/768');
   });
 
   it('switches to 3rd image in overlay with arrow keys', () => {
@@ -56,12 +56,12 @@ describe('Demo page', () => {
     cy.get('body').type('{rightarrow}');
     cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
-      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg');
+      .should('include', 'https://picsum.photos/id/201/800/600');
 
     cy.get('body').type('{rightarrow}');
     cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
-      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg');
+      .should('include', 'https://picsum.photos/id/63/1800/1600');
   });
 
   it('switches to 3rd image in overlay with buttons', () => {
@@ -81,7 +81,7 @@ describe('Demo page', () => {
     // Correct image should be visible
     cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
-      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg');
+      .should('include', 'https://picsum.photos/id/63/1800/1600');
   });
 
   it('closes overlay with close button', () => {
@@ -109,7 +109,7 @@ describe('Demo page', () => {
     cy.get('body').type('{rightarrow}');
     cy.get('img.mat-image-overlay-image')
       .should('have.attr', 'src')
-      .should('include', 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg');
+      .should('include', 'https://picsum.photos/id/201/800/600');
 
     // Type esc character
     cy.get('body').type('{esc}');

@@ -13,10 +13,10 @@ import { MatImageOverlayModule } from './mat-image-overlay.module';
 
 describe('MatImageOverlay with Harness and string array source', () => {
   const stringImages = [
-    'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
-    'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg',
-    'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg',
-    'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
+    'https://picsum.photos/id/30/1024/768',
+    'https://picsum.photos/id/201/800/600',
+    'https://picsum.photos/id/63/1800/1600',
+    'https://picsum.photos/id/525/1440/900'
   ];
 
   let fixture: ComponentFixture<MatImageOverlayTestComponent>;
@@ -415,7 +415,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     // test, if click handler got called once for the first image
     const imageClickedData = {
       imageIndex: 0,
-      url: 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg'
+      url: 'https://picsum.photos/id/30/1024/768'
     };
 
     expect(imageGotClickedData.length).toBe(1);
@@ -447,7 +447,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
 
     const imageClickedData = {
       imageIndex: 3,
-      url: 'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg',
+      url: 'https://picsum.photos/id/525/1440/900',
       additionalData: 42
     };
 
