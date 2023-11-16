@@ -1,3 +1,1 @@
-* add interface to extend abstract class with method for thumbnails and property for thumbnail size
-* get url of thumbnails in demo page from image provider
 * show preview image while loading image in overlay

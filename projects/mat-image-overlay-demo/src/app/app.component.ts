@@ -51,8 +51,9 @@ export class AppComponent {
   ];
 
   private baseUrlForObjectImages = 'https://picsum.photos/id/';
+  private thumbnailHeight = 100;
   private stringSourceImageDetailsProvider = new StringSourceImageDetailsProvider(this.stringImages);
-  private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages);
+  private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages, this.thumbnailHeight);
 
   constructor(private imageOverlay: MatImageOverlay, private formBuilder: UntypedFormBuilder) {
     this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
@@ -145,8 +146,7 @@ export class AppComponent {
    * @returns url of image to be displayed
    */
   urlForObjectImagesPreview(imageIndex: number): string {
-    // TODO add thumbnail url getter to provider via interface
-    return this.objectSourceImageDetailsProvider.urlForImage(imageIndex);
+    return this.objectSourceImageDetailsProvider.urlForThumbnail(imageIndex);
   }
 
   /**

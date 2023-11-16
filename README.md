@@ -166,6 +166,23 @@ Abstract base class to be derived by a real image details provider. This class i
 | *Returns* | |
 | Record<string, unknown> | Object with additional data about the image. |
 
+### ThumbnailProvider
+Interface to add the handling of thumbnail images to a class derived from MatImageDetailsProvider.
+
+**Properties**
+| Name  | Description |
+|---|---|
+| thumbnailHeight | Height of the thumbnail images in px. |
+
+**Methods**
+| urlForThumbnail | |
+|---|--|
+| Gets the url for a thumbnail image. | |
+| *Parameters* | |
+| imageIndex | Index of the thumbnail image to be displayed (0 based). |
+| *Returns* | |
+| string | Url for the thumbnail image to be displayed. |
+
 ## Classes
 ### MatImageOverlayRef
 Reference to an image overlay opened via the MatImageOverlay service.
