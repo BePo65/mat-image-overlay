@@ -102,6 +102,11 @@ export class AppComponent {
       imageClickedAdditionalData: { sampleValue: 'demo parameter for image show'}
     } as MatImageOverlayConfig;
 
+    const backdropClass = this.optionsForm.controls['backdropClass'].value as string;
+    if (backdropClass !== '') {
+      config.backdropClass = backdropClass;
+    }
+
     const imageOverlayRef = this.imageOverlay.open(config);
     imageOverlayRef.imageClicked().subscribe(event => {
       const imageId: string = String(event['id']);
