@@ -52,7 +52,7 @@ export class AppComponent {
 
   private baseUrlForObjectImages = 'https://picsum.photos/id/';
   private stringSourceImageDetailsProvider = new StringSourceImageDetailsProvider(this.stringImages);
-  private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages)
+  private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages);
 
   constructor(private imageOverlay: MatImageOverlay, private formBuilder: UntypedFormBuilder) {
     this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
