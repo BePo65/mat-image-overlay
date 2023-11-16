@@ -51,6 +51,8 @@ export class AppComponent {
   ];
 
   private baseUrlForObjectImages = 'https://picsum.photos/id/';
+  private stringSourceImageDetailsProvider = new StringSourceImageDetailsProvider(this.stringImages);
+  private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages)
 
   constructor(private imageOverlay: MatImageOverlay, private formBuilder: UntypedFormBuilder) {
     this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
@@ -64,7 +66,7 @@ export class AppComponent {
   openImageOverlay(imageIndex?: number): void {
     // Demo to show usage of most 'open' parameters and a string array as 'images'
     const config: MatImageOverlayConfig = {
-      imageDetails: new StringSourceImageDetailsProvider(this.stringImages),
+      imageDetails: this.stringSourceImageDetailsProvider,
       startImageIndex: imageIndex,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
@@ -94,7 +96,7 @@ export class AppComponent {
   startImageShow(): void {
     console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
     const config: MatImageOverlayConfig = {
-      imageDetails: new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages),
+      imageDetails: this.objectSourceImageDetailsProvider,
       startImageIndex: 2,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
@@ -143,10 +145,8 @@ export class AppComponent {
    * @returns url of image to be displayed
    */
   urlForObjectImagesPreview(imageIndex: number): string {
-    const baseUrl = this.baseUrlForObjectImages;
-    const imageObject = this.objectImages[imageIndex];
-    const imageId = imageObject['id'];
-    return `${String(baseUrl)}${imageId}/${String(imageObject['width'])}/${String(imageObject['height'])}`;
+    // TODO add thumbnail url getter to provider via interface
+    return this.objectSourceImageDetailsProvider.urlForImage(imageIndex);
   }
 
   /**
