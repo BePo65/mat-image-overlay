@@ -35,10 +35,10 @@ export class AppModule { }
 Define a class based on MatImageDetailsProvider to get information about the images and create an instance of it in the mat-image-overlay configuration. Examples for classes based on MatImageDetailsProvider can be found in the 'examples/provider' directory of the mat-image-overlay component.
 ```
 images = [
-    'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23618-1024x768.jpg',
-    'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23761-800x600.jpg',
-    'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23794-800x600.jpg',
-    'https://www.jpl.nasa.gov/spaceimages/images/wallpaper/PIA23214-1440x900.jpg'
+    'https://url/of/first/image.jpg',
+    'https://url/of/second/image.jpg',
+    'https://url/of/third/image.jpg',
+    'https://url/of/fourth/image.jpg'
 ];
 
 constructor(private imageOverlay: MatImageOverlay) {
