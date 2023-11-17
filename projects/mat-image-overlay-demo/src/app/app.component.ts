@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { ObjectSourceImageDetailsProvider } from './object-image-details-provider.class';
+import { ImageDetailsObject, ObjectSourceImageDetailsProvider } from './object-image-details-provider.class';
 import { StringSourceImageDetailsProvider } from './string-image-details-provider.class';
 
 import {
@@ -44,7 +44,7 @@ export class AppComponent {
     'https://picsum.photos/id/525/1440/900'
   ];
 
-  protected objectImages = [
+  protected objectImages: ImageDetailsObject[] = [
     { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
     { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
     { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
@@ -158,6 +158,14 @@ export class AppComponent {
   protected widthOfThumbnail(imageIndex: number): string {
     return this.objectSourceImageDetailsProvider.thumbnailWidth(imageIndex).toString();
   }
+
+  /**
+   * TrackBy function for template to get identity of objectImages entry.
+   * @param imageIndex - index of row to get identity value for
+   * @param imageData - row to get identity value for
+   * @returns id column of objectImages entry (identity value)
+   */
+  protected trackByImageId(imageIndex: number, imageData: ImageDetailsObject): string { return imageData.id; }
 
   /**
    * Definition of the sequence of commands to be executed
