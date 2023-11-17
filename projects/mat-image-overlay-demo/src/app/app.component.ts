@@ -28,6 +28,7 @@ export class AppComponent {
   protected elementDisplayStyle = ElementDisplayStyle;
   protected elementDisplayPosition = ElementDisplayPosition;
   protected elementBackdropClass = ElementBackdropClass;
+  protected thumbnailHeight = 100;
 
   protected  optionsForm = this.formBuilder.group({
     buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
@@ -51,7 +52,6 @@ export class AppComponent {
   ];
 
   private baseUrlForObjectImages = 'https://picsum.photos/id/';
-  private thumbnailHeight = 100;
   private stringSourceImageDetailsProvider = new StringSourceImageDetailsProvider(this.stringImages);
   private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages, this.thumbnailHeight);
 
@@ -147,6 +147,16 @@ export class AppComponent {
    */
   urlForObjectImagesPreview(imageIndex: number): string {
     return this.objectSourceImageDetailsProvider.urlForThumbnail(imageIndex);
+  }
+
+  /**
+   * Het the width of a thumbnail image.
+   * This method is used in the component template.
+   * @param imageIndex - index of image to be displayed
+   * @returns width of a thumbnail image
+   */
+  protected widthOfThumbnail(imageIndex: number): string {
+    return this.objectSourceImageDetailsProvider.thumbnailWidth(imageIndex).toString();
   }
 
   /**

@@ -22,7 +22,7 @@
       <div class="image-selection">
         <a href="#" (click)="startImageShow()" title="click to start show" data-cy="start-auto-mode">
           <span *ngFor="let imageData of objectImages; let imageIndex = index">
-            <img class="images-compact" height="100" [src]="urlForObjectImagesPreview(imageIndex)">
+            <img class="images-compact" [height]="thumbnailHeight" [width]="widthOfThumbnail(imageIndex)" [src]="urlForObjectImagesPreview(imageIndex)">
           </span>
         </a>
       </div>
