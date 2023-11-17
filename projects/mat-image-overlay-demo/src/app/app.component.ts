@@ -168,6 +168,15 @@ export class AppComponent {
   protected trackByImageId(imageIndex: number, imageData: ImageDetailsObject): string { return imageData.id; }
 
   /**
+   * Get description of objectImages entry.
+   * @param imageIndex - index of row to get description for
+   * @returns description of objectImages entry
+   */
+  protected imageDescription(imageIndex: number): string {
+    return this.objectSourceImageDetailsProvider.descriptionForImage(imageIndex);
+  }
+
+  /**
    * Definition of the sequence of commands to be executed
    * in the 'image show'.
    * @param loopIndex - index of the step to be executed
