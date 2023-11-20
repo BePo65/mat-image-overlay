@@ -22,12 +22,10 @@
     "outDir": "./dist/out-tsc",
     "paths": {
       "mat-image-overlay": [
-        "dist/mat-image-overlay/mat-image-overlay",
-        "dist/mat-image-overlay"
-      ],
+        "projects/mat-image-overlay/src"
+     ],
       "mat-image-overlay/testing": [
-        "dist/mat-image-overlay/testing",
-        "dist/mat-image-overlay/testing/mat-image-overlay-testing"
+        "projects/mat-image-overlay/testing/src"
       ]
     },
     "sourceMap": true,
