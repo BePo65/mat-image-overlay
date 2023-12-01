@@ -121,8 +121,9 @@ export class MatImageOverlayRef {
   }
 
   /**
-   * Close the image overlay.
-   * @param lastImageIndex Optional result to return to the image overlay opener.
+   * Close the image overlay. Optionally return the index of an image to the
+   * image overlay opener.
+   * @param lastImageIndex Optional: index of the last image displayed in the overlay.
    */
   public close(lastImageIndex?: number): void {
     this._lastImageIndex = lastImageIndex;
