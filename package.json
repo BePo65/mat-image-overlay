@@ -64,7 +64,7 @@
     "@angular-eslint/template-parser": "15.2.1",
     "@angular/cli": "^15.2.10",
     "@angular/compiler-cli": "^15.2.10",
-    "@commitlint/cli": "^18.4.2",
+    "@commitlint/cli": "^18.4.3",
     "@commitlint/config-angular": "^18.4.2",
     "@cypress/schematic": "^2.5.1",
     "@cypress/webpack-preprocessor": "^6.0.0",
