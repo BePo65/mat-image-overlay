@@ -69,6 +69,7 @@ export class AppComponent {
     const config: MatImageOverlayConfig = {
       imageDetails: this.stringSourceImageDetailsProvider,
       startImageIndex: imageIndex,
+      margin: 72,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
@@ -116,16 +117,15 @@ export class AppComponent {
       console.log(`Image clicked for image '${imageId}' with additional parameter '${String(event['sampleValue'])}'`);
     });
 
+    // HACK don't start automatic show to enable debugging
     // For typecast of timer see https://stackoverflow.com/questions/45802988/typescript-use-correct-version-of-settimeout-node-vs-window
-    let loopIndex = 1;
-    const timerId = setInterval(() => {
-      loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
-    }, 2000) as unknown as number;
+    // let loopIndex = 1;
+    // const timerId = setInterval(() => {
+    //   loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
+    // }, 2000) as unknown as number;
 
     // Kill loop when overlay is manually closed (e.g. by clicking the backdrop)
-    imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId)
-    );
-
+    // imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId));
   }
 
   /**

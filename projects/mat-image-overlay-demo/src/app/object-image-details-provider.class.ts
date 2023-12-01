@@ -1,4 +1,4 @@
-import { MatImageDetailsProvider, ThumbnailProvider } from 'mat-image-overlay';
+import { Dimensions, MatImageDetailsProvider, ThumbnailProvider } from 'mat-image-overlay';
 
 export type ImageDetailsObject = {
   id: string;
@@ -64,7 +64,7 @@ export class ObjectSourceImageDetailsProvider extends MatImageDetailsProvider im
 
   /**
    * Get the width for a thumbnail image from the array of images.
-   * @param {number} imageIndex - index of the thumbnail to get the width for (0-based)
+   * @param imageIndex - index of the thumbnail to get the width for (0-based)
    * @returns the width of the thumbnail image
    */
   thumbnailWidth(imageIndex: number): number {
@@ -92,7 +92,7 @@ export class ObjectSourceImageDetailsProvider extends MatImageDetailsProvider im
    * Get the url for a thumbnail image from the array of images.
    * This examples uses url for the site 'lorem picsum':
    * 'baseurl/id/imageId/width/height'
-   * @param {number} imageIndex - index of the thumbnail to get the url for (0-based)
+   * @param imageIndex - index of the thumbnail to get the url for (0-based)
    * @returns the url of the thumbnail image
    */
   urlForThumbnail(imageIndex: number): string {
@@ -105,10 +105,33 @@ export class ObjectSourceImageDetailsProvider extends MatImageDetailsProvider im
     }
   }
 
+  /**
+   * Get the description of an image from the array of images.
+   * @param imageIndex - index of the image to get the description for (0-based)
+   * @returns the description of the image
+   */
   override descriptionForImage(imageIndex: number): string {
     if (+imageIndex < this.numberOfImages) {
       const imageData = this.images[imageIndex];
       return imageData.description || '';
+    } else {
+      throw new Error(`Index for image ('${imageIndex}') out of range.`);
+    }
+  }
+
+  /**
+   * Get the dimensions of an image from the array of images.
+   * @param imageIndex - index of the image to get the dimensions for (0-based)
+   * @returns the dimensions of the image (width and height)
+   */
+  imageDimensions(imageIndex: number): Dimensions {
+    if (+imageIndex < this.numberOfImages) {
+      const imageData = this.images[imageIndex];
+      const dims: Dimensions = {
+        width: imageData.width,
+        height: imageData.height
+      };
+      return dims;
     } else {
       throw new Error(`Index for image ('${imageIndex}') out of range.`);
     }

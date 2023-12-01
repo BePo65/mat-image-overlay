@@ -1,5 +1,12 @@
-<figure class="mat-image-overlay-wrapper" (mouseenter)="figureHovering = true" (mouseleave)="figureHovering = false" [class.hovering]="figureHovering">
-  <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl" (click)="onImageClicked()">
+<figure #overlayWrapper class="overlay-wrapper" (mouseenter)="figureHovering = true" (mouseleave)="figureHovering = false" [class.hovering]="figureHovering">
+  <ng-container *ngIf="providerWithThumbnails; then progressiveLoading; else directLoading"></ng-container>
+  <ng-template #progressiveLoading>
+    <img #thumbnailMiddle class="thumbnail-image" [ngStyle]="thumbnailDimensionStyle" [src]="currentThumbnailUrl" data-loaded="" (load)="thumbnailIsLoaded()">
+    <img #imageMiddle class="overlay-image main-image" [src]="currentImageUrl" data-loaded="" (load)="mainImageIsLoaded()">
+  </ng-template>
+  <ng-template #directLoading>
+    <img #overlayImage class="overlay-image plain-image" [ngStyle]="plainImageDimensionStyle" [src]="currentImageUrl" (load)="plainImageIsLoaded()" (click)="onImageClicked()">
+  </ng-template>
   <figcaption *ngIf="!isUndefinedOrEmpty(currentImageDescription)" class="img-description"
     [ngClass]="{'show-on-hover': descriptionDisplayStyle === elementDisplayStyle.onHover,
     'show-always': descriptionDisplayStyle === elementDisplayStyle.always,
@@ -7,17 +14,17 @@
     'show-right': descriptionDisplayPosition === elementDisplayPosition.right}">
     {{currentImageDescription}}
   </figcaption>
-  <button type="button" class="mat-image-overlay-button mat-image-overlay-button-close"
+  <button type="button" class="overlay-button overlay-button-close"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
     (click)="btnClose()" aria-hidden="false" aria-label="close overlay">
     <mat-icon svgIcon="close"></mat-icon>
   </button>
-  <button type="button" *ngIf="!firstImage" class="mat-image-overlay-button mat-image-overlay-button-left"
+  <button type="button" *ngIf="!firstImage" class="overlay-button overlay-button-left"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
     (click)="btnPreviousImage()" aria-hidden="false" aria-label="previous image">
      <mat-icon svgIcon="arrow_back_ios"></mat-icon>
   </button>
-  <button type="button" *ngIf="!lastImage" class="mat-image-overlay-button mat-image-overlay-button-right"
+  <button type="button" *ngIf="!lastImage" class="overlay-button overlay-button-right"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
     (click)="btnNextImage()" aria-hidden="false" aria-label="next image">
     <mat-icon svgIcon="arrow_forward_ios"></mat-icon>

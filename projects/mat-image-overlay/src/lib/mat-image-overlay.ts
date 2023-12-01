@@ -27,7 +27,8 @@ export class MatImageOverlay {
   /** Default configuration. */
   private defaultConfig: MatImageOverlayConfig = {
     imageDetails: new DefaultImageDetailsProvider(),
-    startImageIndex: 0
+    startImageIndex: 0,
+    margin: 32
   };
 
   constructor(
