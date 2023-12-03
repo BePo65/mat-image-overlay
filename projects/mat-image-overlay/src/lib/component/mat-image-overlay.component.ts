@@ -184,6 +184,21 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     return (text === undefined) || (text.length === 0);
   }
 
+  protected btnNextImage() {
+    this.gotoNextImage();
+    return false;
+  }
+
+  protected btnPreviousImage() {
+    this.gotoPreviousImage();
+    return false;
+  }
+
+  protected btnClose() {
+    this.onClose();
+    return false;
+  }
+
   /**
    * Update state of flags that show, if current image is first or last
    * in list of images.
