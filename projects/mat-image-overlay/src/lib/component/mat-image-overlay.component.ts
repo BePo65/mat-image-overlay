@@ -145,8 +145,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     }
 
     // Don't send keystroke back to page containing overlay
-    event.preventDefault();
-    event.stopPropagation();
+    return false;
   }
 
   public gotoNextImage(): void {
