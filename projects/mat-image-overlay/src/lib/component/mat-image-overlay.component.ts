@@ -119,7 +119,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     return this.imageDetails.numberOfImages;
   }
 
-  public onClose(): void {
+  public closeOverlay(): void {
     this.stateChanged.emit({ state: ImageOverlayState.closingRequested, data: this.currentImageIndex });
   }
 
@@ -141,7 +141,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
         this.gotoLastImage();
         break;
       case('Escape'):
-        this.onClose();
+        this.closeOverlay();
     }
 
     // Don't send keystroke back to page containing overlay
@@ -195,7 +195,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   protected btnClose() {
-    this.onClose();
+    this.closeOverlay();
     return false;
   }
 
