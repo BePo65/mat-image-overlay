@@ -14,6 +14,9 @@ export const enum MatImageOverlayState {
  * Reference to an image overlay opened via the MatImageOverlay service.
  */
 export class MatImageOverlayRef {
+  public keydownEvents$: Observable<KeyboardEvent>;
+  private readonly keydownEvents = new Subject<KeyboardEvent>();
+
   /** Subject for notifying the user that the dialog has finished opening. */
   private readonly _afterOpened = new Subject<void>();
 
@@ -89,6 +92,12 @@ export class MatImageOverlayRef {
     _componentInstance.imageClicked.subscribe(event => {
       this._imageClicked.next(event);
     });
+
+    // Emit keydown events (except for the navigation buttons)
+    this.keydownEvents$ = this.keydownEvents.asObservable();
+    _componentInstance.keyDown.subscribe((event) => {
+      this.keydownEvents.next(event);
+    });
   }
 
   public get numberOfImages(): number {
@@ -135,14 +144,6 @@ export class MatImageOverlayRef {
    */
   public imageClicked(): Observable<Record<string, unknown>> {
     return this._imageClicked;
-  }
-
-  /**
-   * Gets an observable that is notified when keydown events are targeted on the overlay.
-   * @returns observable that sends Key down events targeted on the overlay
-   */
-  public keydownEvents(): Observable<KeyboardEvent> {
-    return this._overlayRef.keydownEvents();
   }
 
   public gotoNextImage(): void {

@@ -1,4 +1,16 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Inject, InjectionToken, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  InjectionToken,
+  OnDestroy,
+  Output,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -43,10 +55,12 @@ export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConf
 })
 export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   @ViewChild('overlayImage') overlayImage!: ElementRef;
+  @Output() newItemEvent = new EventEmitter<KeyboardEvent>();
 
   public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
   public imageChanged = new EventEmitter<ImageChangedEvent>();
   public imageClicked = new EventEmitter<Record<string, unknown>>();
+  public keyDown = new EventEmitter<KeyboardEvent>();
   public currentImageIndex = 0;
 
   // Property is needed for MatImageOverlayHarness
@@ -132,6 +146,9 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
         break;
       case('Escape'):
         this.closeOverlay();
+        break;
+      default:
+        this.keyDown.emit(event);
     }
 
     // Don't send keystroke back to page containing overlay
