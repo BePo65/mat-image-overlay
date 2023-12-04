@@ -285,7 +285,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Handle onload event of images.
+   * Handle onload event of image without thumbnail.
    * Make image visible, when finished loading.
    */
   protected plainImageIsLoaded() {
