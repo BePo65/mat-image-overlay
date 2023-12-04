@@ -153,6 +153,12 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     const nativeHost = (this.host as ElementRef<HTMLElement>).nativeElement;
     const cdkOverlayPane = this.renderer2.parentNode(nativeHost) as HTMLDivElement;
     this.cdkOverlayWrapper = this.renderer2.parentNode(cdkOverlayPane) as HTMLDivElement;
+
+    // Set initial dimensions of image
+    const clientRect = this.cdkOverlayWrapper.getBoundingClientRect();
+    this.setPlainImageDimensions(clientRect.width, clientRect.height);
+
+    // Watch for resize events to adjust the image dimensions
     this.createObserveWrapperResize();
 
     this.stateChanged.emit({ state: ImageOverlayState.opened });
