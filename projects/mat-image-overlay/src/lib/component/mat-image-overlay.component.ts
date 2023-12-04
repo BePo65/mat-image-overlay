@@ -65,7 +65,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   protected descriptionDisplayPosition = this.elementDisplayPosition.right;
 
   private imageDetails: MatImageDetailsProvider;
-  private imageClickUnlistener: (() => void) | undefined;
   private imagedClickedAdditionalData: Record<string, unknown> = {};
 
   constructor(
@@ -99,20 +98,11 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    this.imageClickUnlistener = this.renderer2.listen(this.overlayImage.nativeElement, 'click', () => {
-      const result = this.mergeRecords(this.imageDetails.imageInformation(this.currentImageIndex), this.imagedClickedAdditionalData || {});
-      this.imageClicked.emit(result);
-    });
-
     this.stateChanged.emit({ state: ImageOverlayState.opened });
   }
 
   public ngOnDestroy(): void {
     this.stateChanged.emit({ state: ImageOverlayState.closed });
-
-    if(this.imageClickUnlistener) {
-      this.imageClickUnlistener();
-    }
   }
 
   public get numberOfImages(): number {
@@ -197,6 +187,15 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.closeOverlay();
     return false;
   }
+
+  /**
+   * Handle click event of image.
+   * Emit image detail information + additionalData.
+   */
+  protected onImageClicked() {
+    const result = this.mergeRecords(this.imageDetails.imageInformation(this.currentImageIndex), this.imagedClickedAdditionalData || {});
+    this.imageClicked.emit(result);
+}
 
   /**
    * Update state of flags that show, if current image is first or last

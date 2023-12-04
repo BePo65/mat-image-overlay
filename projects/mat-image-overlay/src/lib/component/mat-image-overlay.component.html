@@ -1,5 +1,5 @@
 <figure class="mat-image-overlay-wrapper" (mouseenter)="figureHovering = true" (mouseleave)="figureHovering = false" [class.hovering]="figureHovering">
-  <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl">
+  <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl" (click)="onImageClicked()">
   <figcaption *ngIf="!isUndefinedOrEmpty(currentImageDescription)" class="img-description"
     [ngClass]="{'show-on-hover': descriptionDisplayStyle === elementDisplayStyle.onHover,
     'show-always': descriptionDisplayStyle === elementDisplayStyle.always,
