@@ -19,4 +19,4 @@ updates:
     - dependency-name: "typescript"
       versions: ["5.x"]
     - dependency-name: "zone"
-      versions: ["0.14.1", "0.14.2"]
+      versions: ["0.14.1", "0.14.2", "0.14.3"]
