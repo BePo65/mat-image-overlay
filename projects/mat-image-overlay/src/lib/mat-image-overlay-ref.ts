@@ -1,6 +1,6 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter, take, takeUntil } from 'rxjs/operators';
 
 import { ImageOverlayState, MatImageOverlayComponent } from './component/mat-image-overlay.component';
 
@@ -14,6 +14,9 @@ export const enum MatImageOverlayState {
  * Reference to an image overlay opened via the MatImageOverlay service.
  */
 export class MatImageOverlayRef {
+  public keydownEvents$: Observable<KeyboardEvent>;
+  private readonly keydownEvents = new Subject<KeyboardEvent>();
+
   /** Subject for notifying the user that the dialog has finished opening. */
   private readonly _afterOpened = new Subject<void>();
 
@@ -28,6 +31,8 @@ export class MatImageOverlayRef {
 
   /** Index of last image shown to be passed to afterClosed. */
   private _lastImageIndex: number | undefined;
+
+  private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
     private _overlayRef: OverlayRef,
@@ -66,9 +71,15 @@ export class MatImageOverlayRef {
       });
 
     // Dispose overlay when closing is complete
-    _overlayRef.detachments().subscribe(() => {
-      this._overlayRef.dispose();
-    });
+    _overlayRef.detachments()
+      .pipe(
+        take(1)
+      )
+      .subscribe(() => {
+        this._overlayRef.dispose();
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+      });
 
     _overlayRef.backdropClick().subscribe(() => {
       this.close(this._componentInstance?.currentImageIndex);
@@ -86,9 +97,23 @@ export class MatImageOverlayRef {
     this._imageChanged.next(_componentInstance.currentImageIndex);
 
     // Emit when an image has been clicked
-    _componentInstance.imageClicked.subscribe(event => {
-      this._imageClicked.next(event);
-    });
+    _componentInstance.imageClicked
+      .pipe(
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(event => {
+        this._imageClicked.next(event);
+      });
+
+    // Emit keydown events (except for the navigation buttons)
+    this.keydownEvents$ = this.keydownEvents.asObservable();
+    _componentInstance.keyDown
+      .pipe(
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe((event) => {
+        this.keydownEvents.next(event);
+      });
   }
 
   public get numberOfImages(): number {
@@ -135,14 +160,6 @@ export class MatImageOverlayRef {
    */
   public imageClicked(): Observable<Record<string, unknown>> {
     return this._imageClicked;
-  }
-
-  /**
-   * Gets an observable that is notified when keydown events are targeted on the overlay.
-   * @returns observable that sends Key down events targeted on the overlay
-   */
-  public keydownEvents(): Observable<KeyboardEvent> {
-    return this._overlayRef.keydownEvents();
   }
 
   public gotoNextImage(): void {

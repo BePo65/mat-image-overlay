@@ -1,4 +1,16 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Inject, InjectionToken, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Inject,
+  InjectionToken,
+  OnDestroy,
+  Output,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -43,10 +55,12 @@ export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConf
 })
 export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   @ViewChild('overlayImage') overlayImage!: ElementRef;
+  @Output() newItemEvent = new EventEmitter<KeyboardEvent>();
 
   public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
   public imageChanged = new EventEmitter<ImageChangedEvent>();
   public imageClicked = new EventEmitter<Record<string, unknown>>();
+  public keyDown = new EventEmitter<KeyboardEvent>();
   public currentImageIndex = 0;
 
   // Property is needed for MatImageOverlayHarness
@@ -65,7 +79,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   protected descriptionDisplayPosition = this.elementDisplayPosition.right;
 
   private imageDetails: MatImageDetailsProvider;
-  private imageClickUnlistener: (() => void) | undefined;
   private imagedClickedAdditionalData: Record<string, unknown> = {};
 
   constructor(
@@ -99,27 +112,18 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    this.imageClickUnlistener = this.renderer2.listen(this.overlayImage.nativeElement, 'click', () => {
-      const result = this.mergeRecords(this.imageDetails.imageInformation(this.currentImageIndex), this.imagedClickedAdditionalData || {});
-      this.imageClicked.emit(result);
-    });
-
     this.stateChanged.emit({ state: ImageOverlayState.opened });
   }
 
   public ngOnDestroy(): void {
     this.stateChanged.emit({ state: ImageOverlayState.closed });
-
-    if(this.imageClickUnlistener) {
-      this.imageClickUnlistener();
-    }
   }
 
   public get numberOfImages(): number {
     return this.imageDetails.numberOfImages;
   }
 
-  public onClose(): void {
+  public closeOverlay(): void {
     this.stateChanged.emit({ state: ImageOverlayState.closingRequested, data: this.currentImageIndex });
   }
 
@@ -141,12 +145,14 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
         this.gotoLastImage();
         break;
       case('Escape'):
-        this.onClose();
+        this.closeOverlay();
+        break;
+      default:
+        this.keyDown.emit(event);
     }
 
     // Don't send keystroke back to page containing overlay
-    event.preventDefault();
-    event.stopPropagation();
+    return false;
   }
 
   public gotoNextImage(): void {
@@ -183,6 +189,30 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   protected isUndefinedOrEmpty(text: string | undefined): boolean {
     return (text === undefined) || (text.length === 0);
   }
+
+  protected btnNextImage() {
+    this.gotoNextImage();
+    return false;
+  }
+
+  protected btnPreviousImage() {
+    this.gotoPreviousImage();
+    return false;
+  }
+
+  protected btnClose() {
+    this.closeOverlay();
+    return false;
+  }
+
+  /**
+   * Handle click event of image.
+   * Emit image detail information + additionalData.
+   */
+  protected onImageClicked() {
+    const result = this.mergeRecords(this.imageDetails.imageInformation(this.currentImageIndex), this.imagedClickedAdditionalData || {});
+    this.imageClicked.emit(result);
+}
 
   /**
    * Update state of flags that show, if current image is first or last

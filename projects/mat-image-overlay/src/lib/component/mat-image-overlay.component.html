@@ -1,5 +1,5 @@
 <figure class="mat-image-overlay-wrapper" (mouseenter)="figureHovering = true" (mouseleave)="figureHovering = false" [class.hovering]="figureHovering">
-  <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl">
+  <img #overlayImage class="mat-image-overlay-image" [src]="currentImageUrl" (click)="onImageClicked()">
   <figcaption *ngIf="!isUndefinedOrEmpty(currentImageDescription)" class="img-description"
     [ngClass]="{'show-on-hover': descriptionDisplayStyle === elementDisplayStyle.onHover,
     'show-always': descriptionDisplayStyle === elementDisplayStyle.always,
@@ -9,17 +9,17 @@
   </figcaption>
   <button type="button" class="mat-image-overlay-button mat-image-overlay-button-close"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
-    (click)="onClose()" aria-hidden="false" aria-label="close overlay">
+    (click)="btnClose()" aria-hidden="false" aria-label="close overlay">
     <mat-icon svgIcon="close"></mat-icon>
   </button>
   <button type="button" *ngIf="!firstImage" class="mat-image-overlay-button mat-image-overlay-button-left"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
-    (click)="gotoPreviousImage()" aria-hidden="false" aria-label="previous image">
+    (click)="btnPreviousImage()" aria-hidden="false" aria-label="previous image">
      <mat-icon svgIcon="arrow_back_ios"></mat-icon>
   </button>
   <button type="button" *ngIf="!lastImage" class="mat-image-overlay-button mat-image-overlay-button-right"
     [ngClass]="{'show-on-hover': overlayButtonsStyle === elementDisplayStyle.onHover, 'show-always': overlayButtonsStyle === elementDisplayStyle.always}"
-    (click)="gotoNextImage()" aria-hidden="false" aria-label="next image">
+    (click)="btnNextImage()" aria-hidden="false" aria-label="next image">
     <mat-icon svgIcon="arrow_forward_ios"></mat-icon>
   </button>
 </figure>

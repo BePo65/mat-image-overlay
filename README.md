@@ -60,6 +60,18 @@ Open the overlay via a clickable element in your html template (e.g. `app.compon
     Click <a href="#" (click)="openImageOverlay()">here to open the overlay</a>
   </p>
 ```
+## Navigation
+When the overlay is shown, the keyboard can be used to navigate between the images (even when no navigational buttons are displayed on the image). The following keys are available:
+
+| key | function |
+|-----|----------|
+| Arrow Right | show next image |
+| Arrow Down | show next image |
+| Arrow Left | show previous image |
+| Arrow Up | show previous image |
+| Home | show first image |
+| End | show last image |
+| Escape | close overlay |
 
 ## Used assets
 The component is based on Angular Material and uses [Google Fonts](https://fonts.google.com/specimen/Roboto) and [Google Material Icons](https://google.github.io/material-design-icons/#icon-font-for-the-web).
@@ -162,6 +174,7 @@ Reference to an image overlay opened via the MatImageOverlay service.
 | Name  | Description |
 |---|---|
 | numberOfImages | number of images that can be displayed. |
+| keydownEvents$ | Observable that is notified by keydown events on the overlay. Navigation buttons don't get emitted. |
 
 **Methods**
 | close | |
@@ -193,12 +206,6 @@ Reference to an image overlay opened via the MatImageOverlay service.
 | Gets an observable that is notified when an image has been clicked. | |
 | *Returns* | |
 | Observable&lt;ImageClickedEvent&gt; | Observable that returns the object with data of the clicked image and the imageClickedConfiguration object from the config object. |
-
-| keydownEvents | |
-|---|--|
-| Gets an observable that is notified when keydown events are targeted on the overlay. | |
-| *Returns* | |
-| Observable&lt;number&gt; | Observable returns index of the image displayed. |
 
 ### MatImageOverlayComponent
 Component used by MatImageOverlay to display the images in the modal overlay.

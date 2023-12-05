@@ -86,7 +86,7 @@ export class AppComponent {
     imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${String(lastImageIndex)}`));
     imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${String(currentImageIndex)}`));
     imageOverlayRef.imageClicked().subscribe(event => this.clickHandlerForOverlayDemo(event));
-    imageOverlayRef.keydownEvents().subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
+    imageOverlayRef.keydownEvents$.subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
   }
 
   /**
