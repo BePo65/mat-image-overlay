@@ -333,8 +333,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.resizedDimensions$
     .pipe(
       takeUntil(this.unsubscribe$),
-      // TODO try 150ms
-      debounceTime(250)
+      debounceTime(150)
     )
     .subscribe((newDimensions: Dimensions) => {
       this.setPlainImageDimensions(newDimensions.width, newDimensions.height);
