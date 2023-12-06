@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BehaviorSubject, Subject, debounceTime, takeUntil } from 'rxjs';
+import { BehaviorSubject, Subject, asyncScheduler, takeUntil, throttleTime } from 'rxjs';
 
 import { MatImageDetailsProvider } from '../interfaces/mat-image-details-provider.class';
 import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlayConfig } from '../interfaces/mat-image-overlay-config.interface';
@@ -333,7 +333,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.resizedDimensions$
     .pipe(
       takeUntil(this.unsubscribe$),
-      debounceTime(150)
+      throttleTime(150, asyncScheduler, { leading: true, trailing: true })
     )
     .subscribe((newDimensions: Dimensions) => {
       this.setPlainImageDimensions(newDimensions.width, newDimensions.height);
