@@ -56,9 +56,7 @@ export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConf
 /** Maximum dimensions styles for an image - resulting variables used in the template */
 type ImageMaxDimensionsStyle = {
   'max-width.px'?: number,
-  'max-height.px'?: number,
-  'max-height.vh'?: number,
-  'max-width.vw'?: number
+  'max-height.px'?: number
 }
 
 /** Dimensions style for an thumbnail - resulting variables used in the template */
@@ -68,9 +66,7 @@ type ThumbnailDimensionsStyle = {
   'width.px'?: number,
   width?: 'auto',
   'max-width.px'?: number,
-  'max-height.px'?: number,
-  'max-height.vh'?: number,
-  'max-width.vw'?: number
+  'max-height.px'?: number
 }
 
 @Component({
@@ -109,16 +105,16 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   protected thumbnailDimensionStyle: ThumbnailDimensionsStyle = {
     'width.px': 0,
     height: 'auto',
-    'max-height.vh': 10,
-    'max-width.vw': 10
+    'max-height.px': 0,
+    'max-width.px': 0
   };
   protected mainImageMaxDimensionStyle: ImageMaxDimensionsStyle = {
-    'max-height.vh': 10,
-    'max-width.vw': 10
+    'max-height.px': 0,
+    'max-width.px': 0
   };
   protected plainImageMaxDimensionStyle: ImageMaxDimensionsStyle = {
-    'max-height.vh': 10,
-    'max-width.vw': 10
+    'max-height.px': 0,
+    'max-width.px': 0
   };
   protected imageMargin: number;
 
@@ -415,14 +411,8 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     if (this.thumbnailDimensionStyle['max-height.px']) {
       maxDimensions['max-height.px'] = this.thumbnailDimensionStyle['max-height.px'];
     }
-    if (this.thumbnailDimensionStyle['max-height.vh']) {
-      maxDimensions['max-height.vh'] = this.thumbnailDimensionStyle['max-height.vh'];
-    }
     if (this.thumbnailDimensionStyle['max-width.px']) {
       maxDimensions['max-width.px'] = this.thumbnailDimensionStyle['max-width.px'];
-    }
-    if (this.thumbnailDimensionStyle['max-width.vw']) {
-      maxDimensions['max-width.vw'] = this.thumbnailDimensionStyle['max-width.vw'];
     }
     return maxDimensions;
   }
