@@ -53,19 +53,24 @@ export interface ImageChangedEvent {
 
 export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
 
-/** Dimensions styles for an image - used in the template */
-type PlainImageDimensionsStyle = {
+/** Maximum dimensions styles for an image - resulting variables used in the template */
+type ImageMaxDimensionsStyle = {
   'max-width.px'?: number,
   'max-height.px'?: number,
   'max-height.vh'?: number,
   'max-width.vw'?: number
 }
 
-/** Dimensions style for an thumbnail - used in the template */
+/** Dimensions style for an thumbnail - resulting variables used in the template */
 type ThumbnailDimensionsStyle = {
+  'height.px'?: number,
+  height?: 'auto',
   'width.px'?: number,
   width?: 'auto',
-  height?: 'auto'
+  'max-width.px'?: number,
+  'max-height.px'?: number,
+  'max-height.vh'?: number,
+  'max-width.vw'?: number
 }
 
 @Component({
@@ -74,9 +79,9 @@ type ThumbnailDimensionsStyle = {
 })
 export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   @ViewChild('overlayWrapper') overlayWrapper!: ElementRef;
-  @ViewChild('overlayImage') overlayImage!: ElementRef;
-  @ViewChild('thumbnailMiddle') thumbnailMiddle!: ElementRef;
-  @ViewChild('imageMiddle') imageMiddle!: ElementRef;
+  @ViewChild('plainImage') overlayImage!: ElementRef;
+  @ViewChild('thumbnailImage') thumbnailMiddle!: ElementRef;
+  @ViewChild('mainImage') imageMiddle!: ElementRef;
   @Output() newItemEvent = new EventEmitter<KeyboardEvent>();
 
   public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
@@ -103,9 +108,15 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   protected providerWithThumbnails = false;
   protected thumbnailDimensionStyle: ThumbnailDimensionsStyle = {
     'width.px': 0,
-    height: 'auto'
+    height: 'auto',
+    'max-height.vh': 10,
+    'max-width.vw': 10
   };
-  protected plainImageDimensionStyle: PlainImageDimensionsStyle = {
+  protected mainImageMaxDimensionStyle: ImageMaxDimensionsStyle = {
+    'max-height.vh': 10,
+    'max-width.vw': 10
+  };
+  protected plainImageMaxDimensionStyle: ImageMaxDimensionsStyle = {
     'max-height.vh': 10,
     'max-width.vw': 10
   };
@@ -134,13 +145,13 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
     this.providerWithThumbnails = this.isThumbnailProvider(this.imageDetails);
     this.currentImageIndex = _config.startImageIndex ?? 0;
+    this.imageMargin = _config.margin || 0;
     if (this.imageDetails.numberOfImages > 0) {
       this.currentImageDescription = this.imageDetails.descriptionForImage(this.currentImageIndex);
       this.updateImageUrls();
-      this.updateImageDimensionsStyle();
+      this.setThumbnailDimensions();
     }
 
-    this.imageMargin = _config.margin || 0;
     this.imagedClickedAdditionalData = _config.imageClickedAdditionalData ?? {};
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
@@ -156,7 +167,9 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 
     // Set initial dimensions of image
     const clientRect = this.cdkOverlayWrapper.getBoundingClientRect();
-    this.setPlainImageDimensions(clientRect.width, clientRect.height);
+    this.setThumbnailMaxDimensions(clientRect.width, clientRect.height);
+    this.setMainImageMaxDimensions(clientRect.width, clientRect.height);
+    this.setPlainImageMaxDimensions(clientRect.width, clientRect.height);
 
     // Watch for resize events to adjust the image dimensions
     this.createObserveWrapperResize();
@@ -228,7 +241,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
       this.currentImageIndex = imageIndex;
       this.currentImageDescription = this.imageDetails.descriptionForImage(imageIndex);
       this.updateImageUrls();
-      this.updateImageDimensionsStyle();
+      this.setThumbnailDimensions();
       this.updateImageState();
     }
   }
@@ -302,19 +315,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Set the max-width and max-height of the plainImageDimensionStyle object
-   * to the size of the container of this component without the margin.
-   * @param width - width of the container element
-   * @param height - height of the container element
-   */
-  private setPlainImageDimensions(width: number, height: number) {
-    this.plainImageDimensionStyle = {
-      'max-height.px': Math.max(height - (2 * this.imageMargin), 0),
-      'max-width.px': Math.max(width - (2 * this.imageMargin), 0)
-    } as PlainImageDimensionsStyle;
-  }
-
-  /**
    * Create observer for this.cdkOverlayWrapper to update the
    * PlainImageDimensions.
    */
@@ -336,7 +336,9 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
       throttleTime(150, asyncScheduler, { leading: true, trailing: true })
     )
     .subscribe((newDimensions: Dimensions) => {
-      this.setPlainImageDimensions(newDimensions.width, newDimensions.height);
+      this.setThumbnailMaxDimensions(newDimensions.width, newDimensions.height);
+      this.setMainImageMaxDimensions(newDimensions.width, newDimensions.height);
+      this.setPlainImageMaxDimensions(newDimensions.width, newDimensions.height);
     });
   }
 
@@ -380,18 +382,110 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   /**
    * Update the style used to set the dimensions of the thumbnail image.
    */
-  private updateImageDimensionsStyle() {
+  private setThumbnailDimensions() {
+    const newDimensions = this.mergeRecords({}, this.getThumbnailMaxDimensions()) as ThumbnailDimensionsStyle;
+
     if (this.providerWithThumbnails) {
       const provider = this.imageDetails as unknown as ThumbnailProvider;
       const currentDimensions = provider.imageDimensions(this.currentImageIndex);
-      this.thumbnailDimensionStyle = {
-        'width.px': currentDimensions.width,
-        height: 'auto'
-      } as ThumbnailDimensionsStyle;
-    } else {
-      this.thumbnailDimensionStyle = {
-      } as ThumbnailDimensionsStyle;
+
+      // 1 of the thumbnail dimensions must be 'auto' to keep the aspect ratio of the
+      // thumbnail; the aspect ratio of the wrapper decides which one.
+      const wrapperDimensions = this.resizedDimensions$.value;
+      const aspectRatioWrapper = wrapperDimensions.width / wrapperDimensions.height;
+      const aspectRatioThumbnail = currentDimensions.width / currentDimensions.height;
+      if (aspectRatioThumbnail > aspectRatioWrapper) {
+        newDimensions['width.px'] = currentDimensions.width;
+        newDimensions.height = 'auto';
+      } else {
+        newDimensions['height.px'] = currentDimensions.height;
+        newDimensions.width = 'auto';
+      }
     }
+
+    this.thumbnailDimensionStyle = newDimensions;
+  }
+
+  /**
+   * Get the max-x entries of the thumbnailDimensionStyle property of this class.
+   * @returns new object with the max-x entries of the thumbnailDimensionStyle
+   */
+  private getThumbnailMaxDimensions(): ThumbnailDimensionsStyle {
+    const maxDimensions: ThumbnailDimensionsStyle = {};
+    if (this.thumbnailDimensionStyle['max-height.px']) {
+      maxDimensions['max-height.px'] = this.thumbnailDimensionStyle['max-height.px'];
+    }
+    if (this.thumbnailDimensionStyle['max-height.vh']) {
+      maxDimensions['max-height.vh'] = this.thumbnailDimensionStyle['max-height.vh'];
+    }
+    if (this.thumbnailDimensionStyle['max-width.px']) {
+      maxDimensions['max-width.px'] = this.thumbnailDimensionStyle['max-width.px'];
+    }
+    if (this.thumbnailDimensionStyle['max-width.vw']) {
+      maxDimensions['max-width.vw'] = this.thumbnailDimensionStyle['max-width.vw'];
+    }
+    return maxDimensions;
+  }
+
+  /**
+   * Set the max-width and max-height of the thumbnailDimensionStyle object
+   * to the size of the container of this component without the margin.
+   * @param width - width of the container element
+   * @param height - height of the container element
+   */
+  private setThumbnailMaxDimensions(width: number, height: number) {
+    const newDimensions = this.mergeRecords({}, this.getThumbnailDimensions()) as ThumbnailDimensionsStyle;
+    newDimensions['max-height.px'] = Math.max(height - (2 * this.imageMargin), 0);
+    newDimensions['max-width.px'] = Math.max(width - (2 * this.imageMargin), 0);
+
+    this.thumbnailDimensionStyle = newDimensions;
+  }
+
+  /**
+   * Get the height and width entries of the thumbnailDimensionStyle property of this class.
+   * @returns new object with the height and width entries of the thumbnailDimensionStyle
+   */
+  private getThumbnailDimensions(): ThumbnailDimensionsStyle {
+    const thumbnailDimensions: ThumbnailDimensionsStyle = {};
+    if (this.thumbnailDimensionStyle['height.px']) {
+      thumbnailDimensions['height.px'] = this.thumbnailDimensionStyle['height.px'];
+    }
+    if (this.thumbnailDimensionStyle.height) {
+      thumbnailDimensions.height = this.thumbnailDimensionStyle.height;
+    }
+    if (this.thumbnailDimensionStyle['width.px']) {
+      thumbnailDimensions['width.px'] = this.thumbnailDimensionStyle['width.px'];
+    }
+    if (this.thumbnailDimensionStyle.width) {
+      thumbnailDimensions.width = this.thumbnailDimensionStyle.width;
+    }
+    return thumbnailDimensions;
+  }
+
+  /**
+   * Set the max-width and max-height of the mainImageMaxDimensionStyle object
+   * to the size of the container of this component without the margin.
+   * @param width - width of the container element
+   * @param height - height of the container element
+   */
+  private setMainImageMaxDimensions(width: number, height: number) {
+    this.mainImageMaxDimensionStyle = {
+      'max-height.px': Math.max(height - (2 * this.imageMargin), 0),
+      'max-width.px': Math.max(width - (2 * this.imageMargin), 0)
+    } as ImageMaxDimensionsStyle;
+  }
+
+  /**
+   * Set the max-width and max-height of the plainImageMaxDimensionStyle object
+   * to the size of the container of this component without the margin.
+   * @param width - width of the container element
+   * @param height - height of the container element
+   */
+  private setPlainImageMaxDimensions(width: number, height: number) {
+    this.plainImageMaxDimensionStyle = {
+      'max-height.px': Math.max(height - (2 * this.imageMargin), 0),
+      'max-width.px': Math.max(width - (2 * this.imageMargin), 0)
+    } as ImageMaxDimensionsStyle;
   }
 
   /**
