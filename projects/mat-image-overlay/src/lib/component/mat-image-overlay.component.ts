@@ -236,6 +236,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     if ((imageIndex >= 0) && (imageIndex < this.imageDetails.numberOfImages)) {
       this.currentImageIndex = imageIndex;
       this.currentImageDescription = this.imageDetails.descriptionForImage(imageIndex);
+      this.resetIsLoaded();
       this.updateImageUrls();
       this.setThumbnailDimensions();
       this.updateImageState();
@@ -360,6 +361,18 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     result = Object.assign(result, record1);
     result = Object.assign(result, record2);
     return result;
+  }
+
+  /**
+   * Reset data-loaded attribute of images to make images invisible again.
+   */
+  private resetIsLoaded() {
+    if (this.providerWithThumbnails) {
+      this.renderer2.setAttribute(this.thumbnailMiddle.nativeElement, 'data-loaded', 'false');
+      this.renderer2.setAttribute(this.imageMiddle.nativeElement, 'data-loaded', 'false');
+    } else {
+      this.renderer2.setAttribute(this.overlayImage.nativeElement, 'data-loaded', 'false');
+    }
   }
 
   /**
