@@ -1,11 +1,11 @@
 <figure #overlayWrapper class="overlay-wrapper" (mouseenter)="figureHovering = true" (mouseleave)="figureHovering = false" [class.hovering]="figureHovering">
   <ng-container *ngIf="providerWithThumbnails; then progressiveLoading; else directLoading"></ng-container>
   <ng-template #progressiveLoading>
-    <img #thumbnailImage class="thumbnail-image" [ngStyle]="thumbnailDimensionStyle" [src]="currentThumbnailUrl" data-loaded="" (load)="thumbnailIsLoaded()" (click)="onImageClicked()">
-    <img #mainImage class="overlay-image main-image" [ngStyle]="mainImageMaxDimensionStyle" [src]="currentImageUrl" data-loaded="" (load)="mainImageIsLoaded()" (click)="onImageClicked()">
+    <img #thumbnailImage class="thumbnail-image" [ngStyle]="thumbnailDimensionStyle" [src]="currentThumbnailUrl" data-loaded="false" (load)="thumbnailIsLoaded()" (click)="onImageClicked()">
+    <img #mainImage class="overlay-image main-image" [ngStyle]="mainImageMaxDimensionStyle" [src]="currentImageUrl" data-loaded="false" (load)="mainImageIsLoaded()" (click)="onImageClicked()">
   </ng-template>
   <ng-template #directLoading>
-    <img #plainImage class="overlay-image plain-image" [ngStyle]="plainImageMaxDimensionStyle" [src]="currentImageUrl" data-loaded="" (load)="plainImageIsLoaded()" (click)="onImageClicked()">
+    <img #plainImage class="overlay-image plain-image" [ngStyle]="plainImageMaxDimensionStyle" [src]="currentImageUrl" data-loaded="false" (load)="plainImageIsLoaded()" (click)="onImageClicked()">
   </ng-template>
   <figcaption *ngIf="!isUndefinedOrEmpty(currentImageDescription)" class="img-description"
     [ngClass]="{'show-on-hover': descriptionDisplayStyle === elementDisplayStyle.onHover,
