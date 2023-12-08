@@ -359,6 +359,9 @@ Harness for interacting with a standard MatImageOverlay in tests.
 | *Returns* | |
 | Promise&lt;boolean&gt; | Promise fulfills to a flag that shows, if the backdrop contains the given css class.
 
+# Dependencies
+* Waiting for a version of `stylelint-config-recommended-scss` that supports `stylelint` v16; as soon as this version is available `stylelint` and `stylelint-config-standard` can be updated to latest versions.
+
 # Development
 Build the library and the demo project:
 ```
