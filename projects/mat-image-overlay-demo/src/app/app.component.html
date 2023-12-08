@@ -21,8 +21,10 @@
       <h3 class="container-title">Demo for object array as image source</h3>
       <div class="image-selection">
         <a href="#" (click)="startImageShow()" title="click to start show" data-cy="start-auto-mode">
-          <span *ngFor="let imageData of objectImages; let imageIndex = index">
-            <img class="images-compact" height="100" [src]="urlForObjectImagesPreview(imageIndex)">
+          <span *ngFor="let imageData of objectImages; let imageIndex = index; trackBy: trackByImageId">
+            <img class="images-compact" [src]="urlForObjectImagesPreview(imageIndex)"
+                 [height]="thumbnailHeight" [width]="widthOfThumbnail(imageIndex)"
+                 [alt]="imageDescription(imageIndex)" [title]="imageDescription(imageIndex)">
           </span>
         </a>
       </div>

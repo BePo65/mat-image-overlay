@@ -1,7 +1,7 @@
 import { HarnessLoader, TestKey } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatImageOverlayHarness } from '../../testing/src/mat-image-overlay-harness';
@@ -393,7 +393,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     await expectAsync(overlayHarness.overlayIsLoaded()).withContext('Image overlay is no more available').toBeResolvedTo(false);
   });
 
-  it('should click 1st image', fakeAsync(async () => {
+  it('should click 1st image', async () => {
     const imageGotClickedData: Record<string, unknown>[] = [];
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
@@ -410,7 +410,6 @@ describe('MatImageOverlay with Harness and string array source', () => {
 
     // Click image
     await overlayHarness.clickImage();
-    flush();
 
     // test, if click handler got called once for the first image
     const imageClickedData = {
@@ -420,9 +419,9 @@ describe('MatImageOverlay with Harness and string array source', () => {
 
     expect(imageGotClickedData.length).toBe(1);
     expect(imageGotClickedData[0]).toEqual(imageClickedData);
-  }));
+  });
 
-  it('should click last image with custom data returned', fakeAsync(async () => {
+  it('should click last image with custom data returned', async () => {
     const imageGotClickedData: Record<string, unknown>[] = [];
     const imageProvider = new StringSourceImageDetailsProvider(stringImages);
     const config: MatImageOverlayConfig = {
@@ -443,7 +442,6 @@ describe('MatImageOverlay with Harness and string array source', () => {
 
     // Click image
     await overlayHarness.clickImage();
-    flush();
 
     const imageClickedData = {
       imageIndex: 3,
@@ -454,7 +452,42 @@ describe('MatImageOverlay with Harness and string array source', () => {
     // test, if click handler got called once for the last image
     expect(imageGotClickedData.length).toBe(1);
     expect(imageGotClickedData[0]).toEqual(imageClickedData);
-  }));
+  });
+
+  it('should click 2 images', async () => {
+    const imageGotClickedData: Record<string, unknown>[] = [];
+    const config: MatImageOverlayConfig = {
+      imageDetails: new StringSourceImageDetailsProvider(stringImages)
+    } as MatImageOverlayConfig;
+
+    const imageOverlayRef = fixture.componentInstance.open(config);
+    const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
+    imageOverlayRef.imageClicked().subscribe(event => imageGotClickedData.push(event));
+
+    expect(overlayHarness).not.toBeUndefined();
+
+    // Start with 1st image
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[0]);
+
+    // Click image
+    await overlayHarness.clickImage();
+
+    // Goto next image
+    imageOverlayRef.gotoNextImage();
+    await expectAsync(overlayHarness.imageUrl()).toBeResolvedTo(stringImages[1]);
+
+    // Click image
+    await overlayHarness.clickImage();
+
+    // test, if click handler got called twice
+    const imageClickedData = [
+      { imageIndex: 0, url: 'https://picsum.photos/id/30/1024/768' },
+      { imageIndex: 1, url: 'https://picsum.photos/id/201/800/600' }
+    ];
+
+    expect(imageGotClickedData.length).toBe(2);
+    expect(imageGotClickedData).toEqual(imageClickedData);
+  });
 
   it('should send keys', async () => {
     const config: MatImageOverlayConfig = {

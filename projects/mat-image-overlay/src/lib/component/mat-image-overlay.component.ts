@@ -6,6 +6,7 @@ import {
   HostListener,
   Inject,
   InjectionToken,
+  NgZone,
   OnDestroy,
   Output,
   Renderer2,
@@ -13,10 +14,13 @@ import {
 } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { BehaviorSubject, Subject, asyncScheduler, takeUntil, throttleTime } from 'rxjs';
 
 import { MatImageDetailsProvider } from '../interfaces/mat-image-details-provider.class';
 import { ElementDisplayPosition, ElementDisplayStyle, MatImageOverlayConfig } from '../interfaces/mat-image-overlay-config.interface';
+import { ThumbnailProvider } from '../interfaces/mat-image-overlay-thumbnail.interface';
 import { ARROW_BACKWARD_ICON, ARROW_FORWARD_ICON, CLOSE_ICON } from '../mat-image-overlay.svg';
+import { Dimensions } from '../types/image-dimensions.type';
 
 /**
  * States of the component.
@@ -49,12 +53,31 @@ export interface ImageChangedEvent {
 
 export const IMAGE_OVERLAY_CONFIG_TOKEN = new InjectionToken<MatImageOverlayConfig>('IMAGE_OVERLAY_CONFIG');
 
+/** Maximum dimensions styles for an image - resulting variables used in the template */
+type ImageMaxDimensionsStyle = {
+  'max-width.px'?: number,
+  'max-height.px'?: number
+}
+
+/** Dimensions style for an thumbnail - resulting variables used in the template */
+type ThumbnailDimensionsStyle = {
+  'height.px'?: number,
+  height?: 'auto',
+  'width.px'?: number,
+  width?: 'auto',
+  'max-width.px'?: number,
+  'max-height.px'?: number
+}
+
 @Component({
   templateUrl: './mat-image-overlay.component.html',
   styleUrls: ['./mat-image-overlay.component.scss']
 })
 export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('overlayImage') overlayImage!: ElementRef;
+  @ViewChild('overlayWrapper') overlayWrapper!: ElementRef;
+  @ViewChild('plainImage') overlayImage!: ElementRef;
+  @ViewChild('thumbnailImage') thumbnailMiddle!: ElementRef;
+  @ViewChild('mainImage') imageMiddle!: ElementRef;
   @Output() newItemEvent = new EventEmitter<KeyboardEvent>();
 
   public stateChanged = new EventEmitter<ImageOverlayStateEvent>();
@@ -69,6 +92,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   // These properties are internal only (for use in the template)
   protected currentImageDescription = '';
   protected currentImageUrl = '';
+  protected currentThumbnailUrl = '';
   protected firstImage = false;
   protected lastImage = false;
 
@@ -77,15 +101,37 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   protected descriptionDisplayStyle: ElementDisplayStyle;
   protected elementDisplayPosition = ElementDisplayPosition;
   protected descriptionDisplayPosition = this.elementDisplayPosition.right;
+  protected providerWithThumbnails = false;
+  protected thumbnailDimensionStyle: ThumbnailDimensionsStyle = {
+    'width.px': 0,
+    height: 'auto',
+    'max-height.px': 0,
+    'max-width.px': 0
+  };
+  protected mainImageMaxDimensionStyle: ImageMaxDimensionsStyle = {
+    'max-height.px': 0,
+    'max-width.px': 0
+  };
+  protected plainImageMaxDimensionStyle: ImageMaxDimensionsStyle = {
+    'max-height.px': 0,
+    'max-width.px': 0
+  };
+  protected imageMargin: number;
 
   private imageDetails: MatImageDetailsProvider;
   private imagedClickedAdditionalData: Record<string, unknown> = {};
+  private cdkOverlayWrapper: HTMLDivElement | undefined;
+  private observer: ResizeObserver | undefined;
+  private resizedDimensions$ = new BehaviorSubject<Dimensions>({height:0, width:0});
+  private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
     @Inject(IMAGE_OVERLAY_CONFIG_TOKEN) public _config: MatImageOverlayConfig,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private renderer2: Renderer2
+    private renderer2: Renderer2,
+    private host: ElementRef,
+    private zone: NgZone
   ) {
     if (_config.imageDetails && (typeof _config.imageDetails === 'object')) {
       this.imageDetails = _config.imageDetails;
@@ -93,10 +139,13 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
       throw new Error('The configuration for MatImageOverlay must contain a field named "imageDetails');
     }
 
+    this.providerWithThumbnails = this.isThumbnailProvider(this.imageDetails);
     this.currentImageIndex = _config.startImageIndex ?? 0;
+    this.imageMargin = _config.margin || 0;
     if (this.imageDetails.numberOfImages > 0) {
       this.currentImageDescription = this.imageDetails.descriptionForImage(this.currentImageIndex);
-      this.currentImageUrl = this.imageDetails.urlForImage(this.currentImageIndex);
+      this.updateImageUrls();
+      this.setThumbnailDimensions();
     }
 
     this.imagedClickedAdditionalData = _config.imageClickedAdditionalData ?? {};
@@ -104,19 +153,31 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
     this.descriptionDisplayStyle = _config.descriptionDisplayStyle ?? ElementDisplayStyle.onHover;
     this.descriptionDisplayPosition = _config.descriptionDisplayPosition ?? ElementDisplayPosition.right;
-
-    // Get material icons as svg icons
-    this.matIconRegistry.addSvgIconLiteral('close', this.domSanitizer.bypassSecurityTrustHtml(CLOSE_ICON));
-    this.matIconRegistry.addSvgIconLiteral('arrow_back_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_BACKWARD_ICON));
-    this.matIconRegistry.addSvgIconLiteral('arrow_forward_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_FORWARD_ICON));
+    this.getIcons();
   }
 
   public ngAfterViewInit(): void {
+    const nativeHost = (this.host as ElementRef<HTMLElement>).nativeElement;
+    const cdkOverlayPane = this.renderer2.parentNode(nativeHost) as HTMLDivElement;
+    this.cdkOverlayWrapper = this.renderer2.parentNode(cdkOverlayPane) as HTMLDivElement;
+
+    // Set initial dimensions of image
+    const clientRect = this.cdkOverlayWrapper.getBoundingClientRect();
+    this.setThumbnailMaxDimensions(clientRect.width, clientRect.height);
+    this.setMainImageMaxDimensions(clientRect.width, clientRect.height);
+    this.setPlainImageMaxDimensions(clientRect.width, clientRect.height);
+
+    // Watch for resize events to adjust the image dimensions
+    this.createObserveWrapperResize();
+
     this.stateChanged.emit({ state: ImageOverlayState.opened });
   }
 
   public ngOnDestroy(): void {
     this.stateChanged.emit({ state: ImageOverlayState.closed });
+
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   public get numberOfImages(): number {
@@ -175,7 +236,9 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     if ((imageIndex >= 0) && (imageIndex < this.imageDetails.numberOfImages)) {
       this.currentImageIndex = imageIndex;
       this.currentImageDescription = this.imageDetails.descriptionForImage(imageIndex);
-      this.currentImageUrl = this.imageDetails.urlForImage(imageIndex);
+      this.resetIsLoaded();
+      this.updateImageUrls();
+      this.setThumbnailDimensions();
       this.updateImageState();
     }
   }
@@ -215,6 +278,68 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
 }
 
   /**
+   * Handle onload event of thumbnail image.
+   * Make thumbnail image visible, when finished loading.
+   */
+  protected thumbnailIsLoaded() {
+    this.renderer2.setAttribute(this.thumbnailMiddle.nativeElement, 'data-loaded', 'true');
+  }
+
+  /**
+   * Handle onload event of the main image.
+   * Make image visible, when finished loading.
+   */
+  protected mainImageIsLoaded() {
+    // TODO remove / hide thumbnail, when image is loaded, as it is covered by image anyway
+    this.renderer2.setAttribute(this.imageMiddle.nativeElement, 'data-loaded', 'true');
+  }
+
+  /**
+   * Handle onload event of image without thumbnail.
+   * Make image visible, when finished loading.
+   */
+  protected plainImageIsLoaded() {
+    this.renderer2.setAttribute(this.overlayImage.nativeElement, 'data-loaded', 'true');
+  }
+
+  /**
+   * Get material icons as svg icons.
+   */
+  private getIcons() {
+    this.matIconRegistry.addSvgIconLiteral('close', this.domSanitizer.bypassSecurityTrustHtml(CLOSE_ICON));
+    this.matIconRegistry.addSvgIconLiteral('arrow_back_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_BACKWARD_ICON));
+    this.matIconRegistry.addSvgIconLiteral('arrow_forward_ios', this.domSanitizer.bypassSecurityTrustHtml(ARROW_FORWARD_ICON));
+  }
+
+  /**
+   * Create observer for this.cdkOverlayWrapper to update the
+   * PlainImageDimensions.
+   */
+  private createObserveWrapperResize() {
+    this.observer = new ResizeObserver(entries => {
+      this.zone.run(() => {
+        const newDimensions: Dimensions = {
+          height: entries[0].contentRect.height,
+          width: entries[0].contentRect.width
+        };
+        this.resizedDimensions$.next(newDimensions);
+      });
+    });
+    this.cdkOverlayWrapper && this.observer.observe(this.cdkOverlayWrapper);
+
+    this.resizedDimensions$
+    .pipe(
+      takeUntil(this.unsubscribe$),
+      throttleTime(150, asyncScheduler, { leading: true, trailing: true })
+    )
+    .subscribe((newDimensions: Dimensions) => {
+      this.setThumbnailMaxDimensions(newDimensions.width, newDimensions.height);
+      this.setMainImageMaxDimensions(newDimensions.width, newDimensions.height);
+      this.setPlainImageMaxDimensions(newDimensions.width, newDimensions.height);
+    });
+  }
+
+  /**
    * Update state of flags that show, if current image is first or last
    * in list of images.
    */
@@ -236,5 +361,143 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     result = Object.assign(result, record1);
     result = Object.assign(result, record2);
     return result;
+  }
+
+  /**
+   * Reset data-loaded attribute of images to make images invisible again.
+   */
+  private resetIsLoaded() {
+    if (this.providerWithThumbnails) {
+      this.renderer2.setAttribute(this.thumbnailMiddle.nativeElement, 'data-loaded', 'false');
+      this.renderer2.setAttribute(this.imageMiddle.nativeElement, 'data-loaded', 'false');
+    } else {
+      this.renderer2.setAttribute(this.overlayImage.nativeElement, 'data-loaded', 'false');
+    }
+  }
+
+  /**
+   * Update the url and the thumbnail url for current image.
+   */
+  private updateImageUrls() {
+    this.currentImageUrl = this.imageDetails.urlForImage(this.currentImageIndex);
+    if (this.providerWithThumbnails) {
+      const provider = this.imageDetails as unknown as ThumbnailProvider;
+      this.currentThumbnailUrl = provider.urlForThumbnail(this.currentImageIndex);
+    } else {
+      this.currentThumbnailUrl = '';
+    }
+  }
+
+  /**
+   * Update the style used to set the dimensions of the thumbnail image.
+   */
+  private setThumbnailDimensions() {
+    const newDimensions = this.mergeRecords({}, this.getThumbnailMaxDimensions()) as ThumbnailDimensionsStyle;
+
+    if (this.providerWithThumbnails) {
+      const provider = this.imageDetails as unknown as ThumbnailProvider;
+      const currentDimensions = provider.imageDimensions(this.currentImageIndex);
+
+      // 1 of the thumbnail dimensions must be 'auto' to keep the aspect ratio of the
+      // thumbnail; the aspect ratio of the wrapper decides which one.
+      const wrapperDimensions = this.resizedDimensions$.value;
+      const aspectRatioWrapper = wrapperDimensions.width / wrapperDimensions.height;
+      const aspectRatioThumbnail = currentDimensions.width / currentDimensions.height;
+      if (aspectRatioThumbnail > aspectRatioWrapper) {
+        newDimensions['width.px'] = currentDimensions.width;
+        newDimensions.height = 'auto';
+      } else {
+        newDimensions['height.px'] = currentDimensions.height;
+        newDimensions.width = 'auto';
+      }
+    }
+
+    this.thumbnailDimensionStyle = newDimensions;
+  }
+
+  /**
+   * Get the max-x entries of the thumbnailDimensionStyle property of this class.
+   * @returns new object with the max-x entries of the thumbnailDimensionStyle
+   */
+  private getThumbnailMaxDimensions(): ThumbnailDimensionsStyle {
+    const maxDimensions: ThumbnailDimensionsStyle = {};
+    if (this.thumbnailDimensionStyle['max-height.px']) {
+      maxDimensions['max-height.px'] = this.thumbnailDimensionStyle['max-height.px'];
+    }
+    if (this.thumbnailDimensionStyle['max-width.px']) {
+      maxDimensions['max-width.px'] = this.thumbnailDimensionStyle['max-width.px'];
+    }
+    return maxDimensions;
+  }
+
+  /**
+   * Set the max-width and max-height of the thumbnailDimensionStyle object
+   * to the size of the container of this component without the margin.
+   * @param width - width of the container element
+   * @param height - height of the container element
+   */
+  private setThumbnailMaxDimensions(width: number, height: number) {
+    const newDimensions = this.mergeRecords({}, this.getThumbnailDimensions()) as ThumbnailDimensionsStyle;
+    newDimensions['max-height.px'] = Math.max(height - (2 * this.imageMargin), 0);
+    newDimensions['max-width.px'] = Math.max(width - (2 * this.imageMargin), 0);
+
+    this.thumbnailDimensionStyle = newDimensions;
+  }
+
+  /**
+   * Get the height and width entries of the thumbnailDimensionStyle property of this class.
+   * @returns new object with the height and width entries of the thumbnailDimensionStyle
+   */
+  private getThumbnailDimensions(): ThumbnailDimensionsStyle {
+    const thumbnailDimensions: ThumbnailDimensionsStyle = {};
+    if (this.thumbnailDimensionStyle['height.px']) {
+      thumbnailDimensions['height.px'] = this.thumbnailDimensionStyle['height.px'];
+    }
+    if (this.thumbnailDimensionStyle.height) {
+      thumbnailDimensions.height = this.thumbnailDimensionStyle.height;
+    }
+    if (this.thumbnailDimensionStyle['width.px']) {
+      thumbnailDimensions['width.px'] = this.thumbnailDimensionStyle['width.px'];
+    }
+    if (this.thumbnailDimensionStyle.width) {
+      thumbnailDimensions.width = this.thumbnailDimensionStyle.width;
+    }
+    return thumbnailDimensions;
+  }
+
+  /**
+   * Set the max-width and max-height of the mainImageMaxDimensionStyle object
+   * to the size of the container of this component without the margin.
+   * @param width - width of the container element
+   * @param height - height of the container element
+   */
+  private setMainImageMaxDimensions(width: number, height: number) {
+    this.mainImageMaxDimensionStyle = {
+      'max-height.px': Math.max(height - (2 * this.imageMargin), 0),
+      'max-width.px': Math.max(width - (2 * this.imageMargin), 0)
+    } as ImageMaxDimensionsStyle;
+  }
+
+  /**
+   * Set the max-width and max-height of the plainImageMaxDimensionStyle object
+   * to the size of the container of this component without the margin.
+   * @param width - width of the container element
+   * @param height - height of the container element
+   */
+  private setPlainImageMaxDimensions(width: number, height: number) {
+    this.plainImageMaxDimensionStyle = {
+      'max-height.px': Math.max(height - (2 * this.imageMargin), 0),
+      'max-width.px': Math.max(width - (2 * this.imageMargin), 0)
+    } as ImageMaxDimensionsStyle;
+  }
+
+  /**
+   * Check if a provider implements the ThumbnailProvider interface.
+   * @param value - object under inspection
+   * @returns true, if value is ThumbnailProvider
+   */
+  private isThumbnailProvider(value: unknown): value is ThumbnailProvider {
+    const typedValue = value as ThumbnailProvider;
+    return (!!typedValue?.thumbnailHeight) && !!typedValue?.urlForThumbnail;
   }
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 
-import { ObjectSourceImageDetailsProvider } from './object-image-details-provider.class';
+import { ImageDetailsObject, ObjectSourceImageDetailsProvider } from './object-image-details-provider.class';
 import { StringSourceImageDetailsProvider } from './string-image-details-provider.class';
 
 import {
@@ -28,6 +28,7 @@ export class AppComponent {
   protected elementDisplayStyle = ElementDisplayStyle;
   protected elementDisplayPosition = ElementDisplayPosition;
   protected elementBackdropClass = ElementBackdropClass;
+  protected thumbnailHeight = 100;
 
   protected  optionsForm = this.formBuilder.group({
     buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
@@ -43,7 +44,7 @@ export class AppComponent {
     'https://picsum.photos/id/525/1440/900'
   ];
 
-  protected objectImages = [
+  protected objectImages: ImageDetailsObject[] = [
     { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
     { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
     { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
@@ -52,7 +53,7 @@ export class AppComponent {
 
   private baseUrlForObjectImages = 'https://picsum.photos/id/';
   private stringSourceImageDetailsProvider = new StringSourceImageDetailsProvider(this.stringImages);
-  private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages);
+  private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages, this.thumbnailHeight);
 
   constructor(private imageOverlay: MatImageOverlay, private formBuilder: UntypedFormBuilder) {
     this.imageOverlay.afterOpened.subscribe(() => console.log('MatImageOverlay opened'));
@@ -68,6 +69,7 @@ export class AppComponent {
     const config: MatImageOverlayConfig = {
       imageDetails: this.stringSourceImageDetailsProvider,
       startImageIndex: imageIndex,
+      margin: 72,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
@@ -98,6 +100,7 @@ export class AppComponent {
     const config: MatImageOverlayConfig = {
       imageDetails: this.objectSourceImageDetailsProvider,
       startImageIndex: 2,
+      margin: 72,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
@@ -115,16 +118,15 @@ export class AppComponent {
       console.log(`Image clicked for image '${imageId}' with additional parameter '${String(event['sampleValue'])}'`);
     });
 
+    // HACK don't start automatic show to enable debugging
     // For typecast of timer see https://stackoverflow.com/questions/45802988/typescript-use-correct-version-of-settimeout-node-vs-window
-    let loopIndex = 1;
-    const timerId = setInterval(() => {
-      loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
-    }, 2000) as unknown as number;
+    // let loopIndex = 1;
+    // const timerId = setInterval(() => {
+    //   loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
+    // }, 2000) as unknown as number;
 
     // Kill loop when overlay is manually closed (e.g. by clicking the backdrop)
-    imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId)
-    );
-
+    // imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId));
   }
 
   /**
@@ -145,8 +147,34 @@ export class AppComponent {
    * @returns url of image to be displayed
    */
   urlForObjectImagesPreview(imageIndex: number): string {
-    // TODO add thumbnail url getter to provider via interface
-    return this.objectSourceImageDetailsProvider.urlForImage(imageIndex);
+    return this.objectSourceImageDetailsProvider.urlForThumbnail(imageIndex);
+  }
+
+  /**
+   * Het the width of a thumbnail image.
+   * This method is used in the component template.
+   * @param imageIndex - index of image to be displayed
+   * @returns width of a thumbnail image
+   */
+  protected widthOfThumbnail(imageIndex: number): string {
+    return this.objectSourceImageDetailsProvider.thumbnailWidth(imageIndex).toString();
+  }
+
+  /**
+   * TrackBy function for template to get identity of objectImages entry.
+   * @param imageIndex - index of row to get identity value for
+   * @param imageData - row to get identity value for
+   * @returns id column of objectImages entry (identity value)
+   */
+  protected trackByImageId(imageIndex: number, imageData: ImageDetailsObject): string { return imageData.id; }
+
+  /**
+   * Get description of objectImages entry.
+   * @param imageIndex - index of row to get description for
+   * @returns description of objectImages entry
+   */
+  protected imageDescription(imageIndex: number): string {
+    return this.objectSourceImageDetailsProvider.descriptionForImage(imageIndex);
   }
 
   /**

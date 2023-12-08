@@ -33,16 +33,16 @@ describe('Demo page', () => {
     // Show first image as overlay
     cy.get('img').first().click();
     cy.get('.cdk-overlay-container').should('be.visible');
-    cy.get('img.mat-image-overlay-image')
+    cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
       .should('include', 'https://picsum.photos/id/30/1024/768');
   });
 
-  it('shows overlay clicking on link', () => {
+  it('shows overlay clicking on link below the images', () => {
     // Show first image as overlay
     cy.get('[data-cy=open-overlay]').click();
     cy.get('.cdk-overlay-container').should('be.visible');
-    cy.get('img.mat-image-overlay-image')
+    cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
       .should('include', 'https://picsum.photos/id/30/1024/768');
   });
@@ -54,12 +54,12 @@ describe('Demo page', () => {
 
     // show next 2 images
     cy.get('body').type('{rightarrow}');
-    cy.get('img.mat-image-overlay-image')
+    cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
       .should('include', 'https://picsum.photos/id/201/800/600');
 
     cy.get('body').type('{rightarrow}');
-    cy.get('img.mat-image-overlay-image')
+    cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
       .should('include', 'https://picsum.photos/id/63/1800/1600');
   });
@@ -70,16 +70,16 @@ describe('Demo page', () => {
     cy.get('.cdk-overlay-container').should('be.visible');
 
     // Hover to image to show buttons
-    cy.get('img.mat-image-overlay-image')
+    cy.get('img.overlay-image.plain-image')
       .realHover();
-    cy.get('.mat-image-overlay-button-right').should('be.visible');
+    cy.get('.overlay-button.overlay-button-right').should('be.visible');
 
     // Click 'next' button twice
-    cy.get('.mat-image-overlay-button-right').click();
-    cy.get('.mat-image-overlay-button-right').click();
+    cy.get('.overlay-button.overlay-button-right').click();
+    cy.get('.overlay-button.overlay-button-right').click();
 
     // Correct image should be visible
-    cy.get('img.mat-image-overlay-image')
+    cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
       .should('include', 'https://picsum.photos/id/63/1800/1600');
   });
@@ -90,11 +90,11 @@ describe('Demo page', () => {
     cy.get('.cdk-overlay-container').should('be.visible');
 
     // Hover to image to show buttons
-    cy.get('img.mat-image-overlay-image')
+    cy.get('img.overlay-image.plain-image')
       .realHover();
 
     // click 'close' button to hide overlay
-    cy.get('.mat-image-overlay-button-close')
+    cy.get('.overlay-button.overlay-button-close')
       .should('be.visible')
       .click();
     cy.get('.cdk-overlay-container').should('not.be.visible');
@@ -107,7 +107,7 @@ describe('Demo page', () => {
 
     // show next image
     cy.get('body').type('{rightarrow}');
-    cy.get('img.mat-image-overlay-image')
+    cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
       .should('include', 'https://picsum.photos/id/201/800/600');
 

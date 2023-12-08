@@ -150,6 +150,29 @@
         "*.html"
       ],
       "rules": {}
+    },
+    {
+      "files": [
+        "examples/**/*.ts"
+      ],
+      "parserOptions": {
+        "project": "projects/mat-image-overlay/tsconfig.examples.json",
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+      },
+      "settings": {
+        "import/parsers": {
+          "@typescript-eslint/parser": [".ts"]
+        },
+        "import/resolver": {
+          "node": true,
+          "typescript": {
+            "project": [
+              "projects/mat-image-overlay/tsconfig.examples.json"
+            ]
+          }
+        }
+      }
     }
   ]
 }

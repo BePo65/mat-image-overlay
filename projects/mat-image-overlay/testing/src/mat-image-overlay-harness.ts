@@ -5,14 +5,14 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
   /** The selector for the host element of a `MatImageOverlay` instance. */
   static hostSelector = '.mat-image-overlay-container';
 
-  protected buttonClose: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-close');
-  protected buttonPrevious: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-left');
-  protected buttonNext: AsyncFactoryFn<TestElement> = this.locatorFor('button.mat-image-overlay-button-right');
+  protected buttonClose: AsyncFactoryFn<TestElement> = this.locatorFor('button.overlay-button-close');
+  protected buttonPrevious: AsyncFactoryFn<TestElement> = this.locatorFor('button.overlay-button-left');
+  protected buttonNext: AsyncFactoryFn<TestElement> = this.locatorFor('button.overlay-button-right');
   protected figure: AsyncFactoryFn<TestElement> = this.locatorFor('figure');
   protected description: AsyncFactoryFn<TestElement> = this.locatorFor('figcaption');
   protected image: AsyncFactoryFn<TestElement> = this.locatorFor('img');
   protected backdrop: AsyncFactoryFn<TestElement> = this.locatorFor('.cdk-overlay-backdrop');
-  protected wrapper: AsyncFactoryFn<TestElement> = this.locatorFor('.mat-image-overlay-wrapper');
+  protected wrapper: AsyncFactoryFn<TestElement> = this.locatorFor('.overlay-wrapper');
 
   /**
    * Gets a flag that is true, when the image overlay is visible.

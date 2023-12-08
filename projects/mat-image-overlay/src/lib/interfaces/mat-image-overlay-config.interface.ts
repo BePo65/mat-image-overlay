@@ -25,6 +25,9 @@ export interface MatImageOverlayConfig {
    */
   backdropClass?: string;
 
+  /** Minimal margin (in px) around image */
+  margin?: number;
+
   /** How to show the navigational buttons in the image overlay. */
   overlayButtonsStyle?: ElementDisplayStyle;
 

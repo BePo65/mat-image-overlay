@@ -128,6 +128,7 @@ Configuration for opening a modal image overlay with the MatImageOverlay service
 | imageDetails | Instance of a class derived from MatImageDetailsProvider. |
 | startImageIndex | Index of the first image to be displayed (0 based). |
 | backdropClass | CSS class to add to the backdrop, replacing the default backdrop css. This CSS class must be in the global styles of the application.<br>Default style is '`background: rgba(0 0 0 / 32%);`'<br>Optional parameter. |
+| margin | Minimal margin in px around the loaded image.<br>Default value: 32<br>Optional parameter. |
 | overlayButtonsStyle | Style of the buttons in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: onHover.<br>Optional parameter. |
 | descriptionDisplayStyle | Style of the display of the image description in the image overlay (using enum ElementDisplayStyle: never, onHover, always). Default value: never. Requires a property named 'description' in data source.<br>Optional parameter. |
 | descriptionDisplayPosition | Position of the display of the image description in the image overlay (using enum ElementDisplayPosition: left, right) when 'descriptionDisplayStyle' is set to 'onHover'. Default value: right. Requires a property named 'description' in data source.<br>Optional parameter. |
@@ -165,6 +166,23 @@ Abstract base class to be derived by a real image details provider. This class i
 | imageIndex | Index of the clicked image (0 based). |
 | *Returns* | |
 | Record<string, unknown> | Object with additional data about the image. |
+
+### ThumbnailProvider
+Interface to add the handling of thumbnail images to a class derived from MatImageDetailsProvider.
+
+**Properties**
+| Name  | Description |
+|---|---|
+| thumbnailHeight | Height of the thumbnail images in px. |
+
+**Methods**
+| urlForThumbnail | |
+|---|--|
+| Gets the url for a thumbnail image. | |
+| *Parameters* | |
+| imageIndex | Index of the thumbnail image to be displayed (0 based). |
+| *Returns* | |
+| string | Url for the thumbnail image to be displayed. |
 
 ## Classes
 ### MatImageOverlayRef
