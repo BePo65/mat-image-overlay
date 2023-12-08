@@ -1,1 +1,1 @@
-* show preview image while loading image in overlay
+no open points
