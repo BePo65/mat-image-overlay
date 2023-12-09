@@ -290,7 +290,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
    * Make image visible, when finished loading.
    */
   protected mainImageIsLoaded() {
-    // TODO remove / hide thumbnail, when image is loaded, as it is covered by image anyway
     this.renderer2.setAttribute(this.imageMiddle.nativeElement, 'data-loaded', 'true');
   }
 
@@ -398,7 +397,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
       const provider = this.imageDetails as unknown as ThumbnailProvider;
       const currentDimensions = provider.imageDimensions(this.currentImageIndex);
 
-      // 1 of the thumbnail dimensions must be 'auto' to keep the aspect ratio of the
+      // One of the thumbnail dimensions must be 'auto' to keep the aspect ratio of the
       // thumbnail; the aspect ratio of the wrapper decides which one.
       const wrapperDimensions = this.resizedDimensions$.value;
       const aspectRatioWrapper = wrapperDimensions.width / wrapperDimensions.height;
