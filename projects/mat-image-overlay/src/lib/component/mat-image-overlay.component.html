@@ -1,7 +1,7 @@
 <figure #overlayWrapper class="overlay-wrapper" (mouseenter)="figureHovering = true" (mouseleave)="figureHovering = false" [class.hovering]="figureHovering">
   <ng-container *ngIf="providerWithThumbnails; then progressiveLoading; else directLoading"></ng-container>
   <ng-template #progressiveLoading>
-    <img #thumbnailImage class="thumbnail-image" [ngStyle]="thumbnailDimensionStyle" [src]="currentThumbnailUrl" data-loaded="false" (load)="thumbnailIsLoaded()" (click)="onImageClicked()">
+    <img #thumbnailImage class="overlay-image thumbnail-image" [ngStyle]="thumbnailDimensionStyle" [src]="currentThumbnailUrl" data-loaded="false" (load)="thumbnailIsLoaded()" (click)="onImageClicked()">
     <img #mainImage class="overlay-image main-image" [ngStyle]="mainImageMaxDimensionStyle" [src]="currentImageUrl" data-loaded="false" (load)="mainImageIsLoaded()" (click)="onImageClicked()">
   </ng-template>
   <ng-template #directLoading>
