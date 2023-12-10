@@ -179,6 +179,10 @@ export class MatImageOverlayRef {
     this._componentInstance?.gotoLastImage();
   }
 
+  /**
+   * Go to image with the given image (0-based).
+   * @param imageIndex - index of the image to go to (0-based)
+   */
   public gotoImage(imageIndex: number): void {
     this._componentInstance?.gotoImage(imageIndex);
   }
