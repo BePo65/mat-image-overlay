@@ -62,12 +62,17 @@
 }
 
 img {
-  border: 2px solid silver;
-  margin: 5px;
+  margin: 5px 0;
 }
 
-.images-compact {
-  margin: 5px 0;
+.image-preview {
+  border-bottom: 2px solid darkgray;
+  border-right: 2px solid darkgray;
+  border-top: 2px solid darkgray;
+}
+
+.image-preview:first-child {
+  border-left: 2px solid darkgray;
 }
 
 .image-link {

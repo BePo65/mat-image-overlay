@@ -9,9 +9,9 @@
     <div class="image-preview-container first-container">
       <h3 class="container-title">Demo 1 - string array as image source</h3>
       <div class="image-selection">
-        <div *ngFor="let imageUrl of stringImages; let imageIndex = index">
-          <img class="image-link" height="100" [src]="imageUrl" (click)="openOverlayDemo1Image(imageIndex)">
-        </div>
+        <ng-template ngFor let-imageUrl [ngForOf]="stringImages" let-imageIndex="index">
+          <img class="image-link image-preview" height="100" [src]="imageUrl" (click)="openOverlayDemo1Image(imageIndex)">
+        </ng-template>
       </div>
       <p class="actions" data-cy="demo-1-action">
         <span>Click on one of the images above to open overlay or here to </span>
@@ -21,12 +21,12 @@
     <div class="image-preview-container next-container">
       <h3 class="container-title">Demo 2 - object array as image source</h3>
       <div class="image-selection">
-        <div *ngFor="let imageData of objectImages; let imageIndex = index; trackBy: trackByImageId">
-          <img class="images-compact" [src]="urlForObjectImagesPreview(imageIndex)"
+        <ng-template ngFor let-imageData [ngForOf]="objectImages" let-imageIndex="index" [ngForTrackBy]="trackByImageId">
+          <img class="image-link image-preview" [src]="urlForObjectImagesPreview(imageIndex)"
                [height]="thumbnailHeight" [width]="thumbnailWidth(imageIndex)"
                [alt]="imageDescription(imageIndex)" [title]="imageDescription(imageIndex)"
                (click)="openOverlayDemo2Image(imageIndex)">
-        </div>
+        </ng-template>
       </div>
       <p class="actions" data-cy="demo-2-action">
         <span>Click on one of the images above to open overlay or here to </span>
@@ -40,7 +40,7 @@
           <img class="image-link" height="100" src="assets/minimalConfigDemo.jpg">
         </a>
       </div>
-      <p class="actions" data-cy="start-show">
+      <p class="actions" data-cy="demo-3-action">
         <a href="#" (click)="openMinimalConfigImageOverlay()" data-cy="open-demo-3">Open first image in overlay</a>
       </p>
     </div>
