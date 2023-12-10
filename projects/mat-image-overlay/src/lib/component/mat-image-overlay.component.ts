@@ -232,8 +232,12 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.gotoImage(this.imageDetails.numberOfImages - 1);
   }
 
+  /**
+   * Go to image with the given image (0-based).
+   * @param imageIndex - index of the image to go to (0-based)
+   */
   public gotoImage(imageIndex: number): void {
-    if ((imageIndex >= 0) && (imageIndex < this.imageDetails.numberOfImages)) {
+    if ((imageIndex >= 0) && (imageIndex < this.imageDetails.numberOfImages) && (this.currentImageIndex !== imageIndex)) {
       this.currentImageIndex = imageIndex;
       this.currentImageDescription = this.imageDetails.descriptionForImage(imageIndex);
       this.resetIsLoaded();
