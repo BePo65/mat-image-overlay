@@ -7,6 +7,7 @@ import { StringSourceImageDetailsProvider } from './string-image-details-provide
 import {
   ElementDisplayPosition,
   ElementDisplayStyle,
+  MatImageDetailsProvider,
   MatImageOverlay,
   MatImageOverlayConfig,
   MatImageOverlayRef
@@ -61,61 +62,60 @@ export class AppComponent {
   }
 
   /**
-   * Demo to show most functions of overlay images.
+   * Demo 1 - open the image with the given index.
+   * This demo shows most of the functions of MatImageOverlay with a
+   * stringSourceImageDetailsProvider.
    * @param imageIndex - index of the first image to be displayed in overlay
    */
-  openImageOverlay(imageIndex?: number): void {
-    // Demo to show usage of most 'open' parameters and a string array as 'images'
-    const config: MatImageOverlayConfig = {
-      imageDetails: this.stringSourceImageDetailsProvider,
-      startImageIndex: imageIndex,
-      margin: 72,
-      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
-      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
-      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
-      imageClickedAdditionalData: { sampleValue: 'demo parameter for overlay demo'}
-    } as MatImageOverlayConfig;
-
-    const backdropClass = this.optionsForm.controls['backdropClass'].value as string;
-    if (backdropClass !== '') {
-      config.backdropClass = backdropClass;
-    }
-
-    const imageOverlayRef = this.imageOverlay.open(config);
-
-    // Demo to show usage of published events
-    imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
-    imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${String(lastImageIndex)}`));
-    imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${String(currentImageIndex)}`));
-    imageOverlayRef.imageClicked().subscribe(event => this.clickHandlerForOverlayDemo(event));
-    imageOverlayRef.keydownEvents$.subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
+  openOverlayDemo1Image(imageIndex?: number): void {
+    const imageOverlayRef = this.openOverlayDemo(this.stringSourceImageDetailsProvider, imageIndex);
+    imageOverlayRef.imageClicked().subscribe(event => this.clickHandlerForOverlayDemo1(event));
   }
 
   /**
-   * Demo to show external switching of images.
-   * Demo uses anonymous function as overlay image click handler.
+   * Demo 1 - shows a sequence of images and then closes the overlay.
+   * This demo shows most of the functions of MatImageOverlay with a
+   * stringSourceImageDetailsProvider.
    */
-  startImageShow(): void {
-    console.log(`${(new Date()).toLocaleTimeString()} - open overlay with 3rd image`);
-    const config: MatImageOverlayConfig = {
-      imageDetails: this.objectSourceImageDetailsProvider,
-      startImageIndex: 2,
-      margin: 72,
-      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
-      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
-      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
-      imageClickedAdditionalData: { sampleValue: 'demo parameter for image show'}
-    } as MatImageOverlayConfig;
+  startOverlayDemo1Show() {
+    const imageOverlayRef = this.openOverlayDemo(this.stringSourceImageDetailsProvider);
+    imageOverlayRef.imageClicked().subscribe(event => this.clickHandlerForOverlayDemo1(event));
 
-    const backdropClass = this.optionsForm.controls['backdropClass'].value as string;
-    if (backdropClass !== '') {
-      config.backdropClass = backdropClass;
-    }
+    // For typecast of timer see https://stackoverflow.com/questions/45802988/typescript-use-correct-version-of-settimeout-node-vs-window
+    let loopIndex = 1;
+    const timerId = setInterval(() => {
+      loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
+    }, 2000) as unknown as number;
 
-    const imageOverlayRef = this.imageOverlay.open(config);
+    // Kill loop, when overlay is manually closed (e.g. by clicking the backdrop)
+    imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId));
+  }
+
+  /**
+   * Demo 2 - open the image with the given index.
+   * This demo shows most of the functions of MatImageOverlay with a
+   * objectSourceImageDetailsProvider.
+   * @param imageIndex - index of the first image to be displayed in overlay
+   */
+  openOverlayDemo2Image(imageIndex?: number): void {
+    const imageOverlayRef = this.openOverlayDemo(this.objectSourceImageDetailsProvider, imageIndex);
     imageOverlayRef.imageClicked().subscribe(event => {
       const imageId: string = String(event['id']);
-      console.log(`Image clicked for image '${imageId}' with additional parameter '${String(event['sampleValue'])}'`);
+      console.log(`Demo 2 image clicked for image '${imageId}' with additional parameter '${String(event['sampleValue'])}'`);
+    });
+  }
+
+  /**
+   * Demo 2 - shows a sequence of images and then closes the overlay.
+   * This demo shows most of the functions of MatImageOverlay with a
+   * objectSourceImageDetailsProvider.
+   * Demo uses anonymous function as overlay image click handler.
+   */
+  startOverlayDemo2Show(): void {
+    const imageOverlayRef = this.openOverlayDemo(this.objectSourceImageDetailsProvider);
+    imageOverlayRef.imageClicked().subscribe(event => {
+      const imageId: string = String(event['id']);
+      console.log(`Demo 2 image clicked for image '${imageId}' with additional parameter '${String(event['sampleValue'])}'`);
     });
 
     // For typecast of timer see https://stackoverflow.com/questions/45802988/typescript-use-correct-version-of-settimeout-node-vs-window
@@ -129,14 +129,15 @@ export class AppComponent {
   }
 
   /**
-   * Demo to show overlay images with minimal configuration.
+   * Demo 3 - open the image with the given index.
+   * This demo shows most of the functions of MatImageOverlay with a
+   * stringSourceImageDetailsProvider and minimal configuration.
    */
   openMinimalConfigImageOverlay(): void {
-    const config: MatImageOverlayConfig = {
-      imageDetails: new StringSourceImageDetailsProvider(this.stringImages)
-    } as MatImageOverlayConfig;
-
-    this.imageOverlay.open(config);
+    const imageOverlayRef = this.openOverlayDemo(this.stringSourceImageDetailsProvider);
+    imageOverlayRef.imageClicked().subscribe(event => {
+      console.log(`Demo 3 image clicked for image '${String(event['url'])}' with additional parameter '${String(event['sampleValue'])}'`);
+    });
   }
 
   /**
@@ -155,7 +156,7 @@ export class AppComponent {
    * @param imageIndex - index of image to be displayed
    * @returns width of a thumbnail image
    */
-  protected widthOfThumbnail(imageIndex: number): string {
+  protected thumbnailWidth(imageIndex: number): string {
     return this.objectSourceImageDetailsProvider.thumbnailWidth(imageIndex).toString();
   }
 
@@ -174,6 +175,39 @@ export class AppComponent {
    */
   protected imageDescription(imageIndex: number): string {
     return this.objectSourceImageDetailsProvider.descriptionForImage(imageIndex);
+  }
+
+  /**
+   * Open an image overlay with the given configuration.
+   * Add common options as defined in the start page and
+   * event handlers to show the functionality.
+   * @param imageDetailsProvider - ImageDetailProvider to use
+   * @param startIndex - index of first image to show (default: 1)
+   * @returns MatImageOverlayRef of the opened overlay
+   */
+  private openOverlayDemo(imageDetailsProvider: MatImageDetailsProvider, startIndex = 0): MatImageOverlayRef {
+    const config: MatImageOverlayConfig = {
+      imageDetails: imageDetailsProvider,
+      startImageIndex: startIndex,
+      margin: 72,
+      overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
+      descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
+      descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
+      imageClickedAdditionalData: { sampleValue: 'demo parameter for overlay demo'}
+    };
+    const backdropClass = this.optionsForm.controls['backdropClass'].value as string;
+    if (backdropClass !== '') {
+      config.backdropClass = backdropClass;
+    }
+
+    const imageOverlayRef = this.imageOverlay.open(config);
+
+    // Demo to show usage of published events
+    imageOverlayRef.afterOpened().subscribe(() => console.log('imageOverlayRef: overlay opened'));
+    imageOverlayRef.afterClosed().subscribe(lastImageIndex => console.log(`imageOverlayRef: overlay closed; last index=${String(lastImageIndex)}`));
+    imageOverlayRef.imageChanged().subscribe(currentImageIndex => console.log(`image changed; new index=${String(currentImageIndex)}`));
+    imageOverlayRef.keydownEvents$.subscribe(keyboardEvent => console.log(`button pressed; event.key=${keyboardEvent.key}`));
+    return imageOverlayRef;
   }
 
   /**
@@ -222,9 +256,9 @@ export class AppComponent {
 
   /**
    * Demo for overlay image click event handler using a named function.
-   * @param imageData - object with image data
+   * @param imageData - object with additional image data
    */
-  private clickHandlerForOverlayDemo(imageData: Record<string, unknown>): void {
-    console.log(`Image clicked for image '${String(imageData['url'])}' with additional parameter '${String(imageData['sampleValue'])}'`);
+  private clickHandlerForOverlayDemo1(imageData: Record<string, unknown>): void {
+    console.log(`Demo 1 image clicked for image '${String(imageData['url'])}' with additional parameter '${String(imageData['sampleValue'])}'`);
   }
 }

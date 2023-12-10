@@ -7,40 +7,41 @@
 <div class="container">
   <div class="images-container">
     <div class="image-preview-container first-container">
-      <h3 class="container-title">Demo for string array as image source</h3>
+      <h3 class="container-title">Demo 1 - string array as image source</h3>
       <div class="image-selection">
         <div *ngFor="let imageUrl of stringImages; let imageIndex = index">
-          <img class="image-link" height="100" [src]="imageUrl" (click)="openImageOverlay(imageIndex)">
+          <img class="image-link" height="100" [src]="imageUrl" (click)="openOverlayDemo1Image(imageIndex)">
         </div>
       </div>
-      <p class="actions" data-cy="basic-action">
-        Click on one of the images above or <a href="#" (click)="openImageOverlay()" data-cy="open-overlay">open the overlay here</a>
+      <p class="actions" data-cy="demo-1-action">
+        <span>Click on one of the images above to open overlay or here to </span>
+        <a href="#" (click)="startOverlayDemo1Show()" data-cy="open-demo-1-show">show external navigation</a>
       </p>
     </div>
     <div class="image-preview-container next-container">
-      <h3 class="container-title">Demo for object array as image source</h3>
+      <h3 class="container-title">Demo 2 - object array as image source</h3>
       <div class="image-selection">
-        <a href="#" (click)="startImageShow()" title="click to start show" data-cy="start-auto-mode">
-          <span *ngFor="let imageData of objectImages; let imageIndex = index; trackBy: trackByImageId">
-            <img class="images-compact" [src]="urlForObjectImagesPreview(imageIndex)"
-                 [height]="thumbnailHeight" [width]="widthOfThumbnail(imageIndex)"
-                 [alt]="imageDescription(imageIndex)" [title]="imageDescription(imageIndex)">
-          </span>
-        </a>
+        <div *ngFor="let imageData of objectImages; let imageIndex = index; trackBy: trackByImageId">
+          <img class="images-compact" [src]="urlForObjectImagesPreview(imageIndex)"
+               [height]="thumbnailHeight" [width]="thumbnailWidth(imageIndex)"
+               [alt]="imageDescription(imageIndex)" [title]="imageDescription(imageIndex)"
+               (click)="openOverlayDemo2Image(imageIndex)">
+        </div>
       </div>
-      <p class="actions" data-cy="start-show">
-        <a href="#" (click)="startImageShow()" data-cy="start-auto-mode">Show external navigation</a>
+      <p class="actions" data-cy="demo-2-action">
+        <span>Click on one of the images above to open overlay or here to </span>
+        <a href="#" (click)="startOverlayDemo2Show()" data-cy="open-demo-2-show">show external navigation</a>
       </p>
     </div>
     <div class="image-preview-container next-container">
-      <h3 class="container-title">Demo for overlay image with minimal configuration</h3>
+      <h3 class="container-title">Demo 3 - overlay image with minimal configuration</h3>
       <div class="image-selection">
         <a href="#" (click)="openMinimalConfigImageOverlay()" title="click to open first image" data-cy="open-min-config">
           <img class="image-link" height="100" src="assets/minimalConfigDemo.jpg">
         </a>
       </div>
       <p class="actions" data-cy="start-show">
-        <a href="#" (click)="openMinimalConfigImageOverlay()" data-cy="start-min-config">Open image overlay</a>
+        <a href="#" (click)="openMinimalConfigImageOverlay()" data-cy="open-demo-3">Open first image in overlay</a>
       </p>
     </div>
   </div>
