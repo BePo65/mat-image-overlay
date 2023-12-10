@@ -221,30 +221,38 @@ export class AppComponent {
   private switchImages(loopIndex: number, imageOverlayRef: MatImageOverlayRef, timerId: number): number {
     switch (loopIndex) {
       case 1:
-        console.log(`${(new Date()).toLocaleTimeString()} - goto first image`);
-        imageOverlayRef.gotoFirstImage();
+        console.log(`${(new Date()).toLocaleTimeString()} - goto next image (2nd)`);
+        imageOverlayRef.gotoNextImage();
         break;
       case 2:
-        console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
+        console.log(`${(new Date()).toLocaleTimeString()} - goto next image (3rd)`);
         imageOverlayRef.gotoNextImage();
         break;
       case 3:
-        console.log(`${(new Date()).toLocaleTimeString()} - goto next image`);
+        console.log(`${(new Date()).toLocaleTimeString()} - goto next image (4th)`);
         imageOverlayRef.gotoNextImage();
         break;
       case 4:
-        console.log(`${(new Date()).toLocaleTimeString()} - goto previous image`);
+        console.log(`${(new Date()).toLocaleTimeString()} - goto previous image (3rd)`);
         imageOverlayRef.gotoPreviousImage();
         break;
       case 5:
-        console.log(`${(new Date()).toLocaleTimeString()} - goto last image`);
-        imageOverlayRef.gotoLastImage();
+        console.log(`${(new Date()).toLocaleTimeString()} - goto 3rd image`);
+        imageOverlayRef.gotoImage(2);
         break;
       case 6:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto last image (4th)`);
+        imageOverlayRef.gotoLastImage();
+        break;
+      case 7:
         console.log(`${(new Date()).toLocaleTimeString()} - goto 2nd image`);
         imageOverlayRef.gotoImage(1);
         break;
-      case 7:
+      case 8:
+        console.log(`${(new Date()).toLocaleTimeString()} - goto first image`);
+        imageOverlayRef.gotoFirstImage();
+        break;
+      case 9:
         console.log(`${(new Date()).toLocaleTimeString()} - close overlay`);
         imageOverlayRef.close();
         clearInterval(timerId);
