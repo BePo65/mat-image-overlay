@@ -143,7 +143,7 @@ export class MatImageOverlayRef {
    * Observable returns the index of the last image displayed.
    * @returns observable that sends the index of the last image displayed when image overlay is closed
    */
-   public afterClosed(): Observable<number | undefined> {
+  public afterClosed(): Observable<number | undefined> {
     return this._afterClosed;
   }
 
