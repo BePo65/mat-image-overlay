@@ -393,7 +393,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     await expectAsync(overlayHarness.overlayIsLoaded()).withContext('Image overlay is no more available').toBeResolvedTo(false);
   });
 
-  it('should click 1st image', async () => {
+  it('should call imageClicked when clicking 1st image', async () => {
     const imageGotClickedData: Record<string, unknown>[] = [];
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
@@ -421,7 +421,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     expect(imageGotClickedData[0]).toEqual(imageClickedData);
   });
 
-  it('should click last image with custom data returned', async () => {
+  it('should call imageClicked with custom data when clicking last image', async () => {
     const imageGotClickedData: Record<string, unknown>[] = [];
     const imageProvider = new StringSourceImageDetailsProvider(stringImages);
     const config: MatImageOverlayConfig = {
@@ -454,7 +454,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     expect(imageGotClickedData[0]).toEqual(imageClickedData);
   });
 
-  it('should click 2 images', async () => {
+  it('should call imageClicked twice when clicking 2 images', async () => {
     const imageGotClickedData: Record<string, unknown>[] = [];
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
