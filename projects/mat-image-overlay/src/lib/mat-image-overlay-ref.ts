@@ -36,7 +36,7 @@ export class MatImageOverlayRef {
 
   constructor(
     private _overlayRef: OverlayRef,
-    public _componentInstance: MatImageOverlayComponent
+    protected _componentInstance: MatImageOverlayComponent
   ) {
     // Emit when opening is complete
     _componentInstance.stateChanged
