@@ -56,7 +56,7 @@ export class MatImageOverlayRef {
         take(1)
       )
       .subscribe(event => {
-        this.close(event?.data as number);
+        this.internalClose(event?.data as number);
       });
 
     // Emit when overlay is closed and return index of last image
@@ -82,7 +82,7 @@ export class MatImageOverlayRef {
       });
 
     _overlayRef.backdropClick().subscribe(() => {
-      this.close(this._componentInstance?.currentImageIndex);
+      this.internalClose(this._componentInstance?.currentImageIndex);
     });
 
     // Emit when new image has been selected
@@ -118,16 +118,6 @@ export class MatImageOverlayRef {
 
   public get numberOfImages(): number {
     return this._componentInstance?.numberOfImages || 0;
-  }
-
-  /**
-   * Close the image overlay. Optionally return the index of an image to the
-   * image overlay opener.
-   * @param lastImageIndex Optional: index of the last image displayed in the overlay.
-   */
-  public close(lastImageIndex?: number): void {
-    this._lastImageIndex = lastImageIndex;
-    this._overlayRef.dispose();
   }
 
   /**
@@ -187,4 +177,21 @@ export class MatImageOverlayRef {
     this._componentInstance?.gotoImage(imageIndex);
   }
 
+  /**
+   * Close the image overlay and return the index of the last image
+   * displayed via the afterClosed observable.
+   */
+  public close(): void {
+    this.internalClose(this._componentInstance?.currentImageIndex);
+  }
+
+  /**
+   * Close the image overlay.
+   * Emit the optionally given index of an image via the afterClosed observable.
+   * @param lastImageIndex Optional: index of the last image displayed in the overlay.
+   */
+  private internalClose(lastImageIndex?: number): void {
+    this._lastImageIndex = lastImageIndex;
+    this._overlayRef.dispose();
+  }
 }
