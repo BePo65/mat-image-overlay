@@ -195,12 +195,6 @@ Reference to an image overlay opened via the MatImageOverlay service.
 | keydownEvents$ | Observable that is notified by keydown events on the overlay. Navigation buttons don't get emitted. |
 
 **Methods**
-| close | |
-|---|--|
-| Closes the image overlay. | |
-| *Parameters* | |
-| lastImageIndex | Index of the last image displayed in the overlay. |
-
 | afterOpened | |
 |---|--|
 | Gets an observable that is notified when the image overlay is finished opening. | |
@@ -225,15 +219,6 @@ Reference to an image overlay opened via the MatImageOverlay service.
 | *Returns* | |
 | Observable&lt;ImageClickedEvent&gt; | Observable that returns the object with data of the clicked image and the imageClickedConfiguration object from the config object. |
 
-### MatImageOverlayComponent
-Component used by MatImageOverlay to display the images in the modal overlay.
-
-**Properties**
-| Name  | Description |
-|---|---|
-| numberOfImages | number of images that can be displayed. |
-
-**Methods**
 | gotoNextImage | |
 |---|--|
 | Display the next image in the datasource. | |
@@ -255,6 +240,10 @@ Component used by MatImageOverlay to display the images in the modal overlay.
 | Display the image in the datasource selected by the imageIndex. | |
 | *Parameters* | |
 | imageIndex | Index of the image to be displayed. |
+
+| close | |
+|---|--|
+| Close the image overlay. | |
 
 # API reference for Mat-Image-Overlay testing
 
