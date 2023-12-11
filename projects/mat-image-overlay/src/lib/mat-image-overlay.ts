@@ -1,7 +1,7 @@
 import { Overlay, OverlayConfig, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injectable, Injector } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, take } from 'rxjs';
 
 import { IMAGE_OVERLAY_CONFIG_TOKEN, MatImageOverlayComponent } from './component/mat-image-overlay.component';
 import { DefaultImageDetailsProvider } from './default-image-details-provider';
@@ -37,7 +37,7 @@ export class MatImageOverlay {
     private overlayContainer: OverlayContainer
   ) {
     // Add class to container to make container identifiable by MatImageOverlayHarness
-    const container = overlayContainer.getContainerElement();
+    const container = this.overlayContainer.getContainerElement();
     container.classList.add('mat-image-overlay-container');
   }
 
@@ -61,10 +61,14 @@ export class MatImageOverlay {
       const imageOverlayComponentRef = overlayRef.attach(imagePortal);
 
       this.imageOverlayRef = new MatImageOverlayRef(overlayRef, imageOverlayComponentRef.instance);
-      this.imageOverlayRef.afterClosed().subscribe(lastImageIndex => {
-        this.imageOverlayRef = undefined;
-        this.afterClosed.next(lastImageIndex);
-      });
+      this.imageOverlayRef.afterClosed()
+        .pipe(
+          take(1)
+        )
+        .subscribe(lastImageIndex => {
+          this.imageOverlayRef = undefined;
+          this.afterClosed.next(lastImageIndex);
+        });
       this.afterOpened.next(this.imageOverlayRef);
 
       return this.imageOverlayRef;

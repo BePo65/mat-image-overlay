@@ -81,14 +81,22 @@ export class MatImageOverlayRef {
         this.unsubscribe$.complete();
       });
 
-    _overlayRef.backdropClick().subscribe(() => {
-      this.internalClose(this._componentInstance?.currentImageIndex);
-    });
+    _overlayRef.backdropClick()
+      .pipe(
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(() => {
+        this.internalClose(this._componentInstance?.currentImageIndex);
+      });
 
     // Emit when new image has been selected
-    _componentInstance.imageChanged.subscribe(event => {
-      this._imageChanged.next(event.imageIndex);
-    });
+    _componentInstance.imageChanged
+      .pipe(
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(event => {
+        this._imageChanged.next(event.imageIndex);
+      });
 
     /**
      * As MatImageOverlayComponent emits the start index before MatImageOverlayRef
