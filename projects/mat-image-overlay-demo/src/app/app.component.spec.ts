@@ -48,11 +48,11 @@ describe('AppComponent', () => {
   it('should render title', () => {
     const dom = fixture.nativeElement as HTMLElement;
 
-    expect(dom.querySelector('.actions')?.textContent?.substring(0, 33)).toContain('Click on one of the images above');
+    expect(dom.querySelector('.actions')?.textContent).toContain('Click on one of the images above to open overlay or here to ');
   });
 
   it('should load image overlay', async () => {
-    fixture.componentInstance.openImageOverlay();
+    fixture.componentInstance.openOverlayDemo1Image();
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
 
     expect(overlayHarness).not.toBeUndefined();
