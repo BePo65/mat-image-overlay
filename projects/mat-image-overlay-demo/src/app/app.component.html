@@ -8,7 +8,7 @@
   <div class="images-container">
     <div class="image-preview-container first-container">
       <h3 class="container-title">Demo 1 - string array as image source</h3>
-      <div class="image-selection">
+      <div class="image-selection" data-cy="demo-1">
         <ng-template ngFor let-imageUrl [ngForOf]="stringImages" let-imageIndex="index">
           <img class="image-link image-preview" height="100" [src]="imageUrl" (click)="openOverlayDemo1Image(imageIndex)">
         </ng-template>
@@ -20,7 +20,7 @@
     </div>
     <div class="image-preview-container next-container">
       <h3 class="container-title">Demo 2 - object array as image source</h3>
-      <div class="image-selection">
+      <div class="image-selection" data-cy="demo-2">
         <ng-template ngFor let-imageData [ngForOf]="objectImages" let-imageIndex="index" [ngForTrackBy]="trackByImageId">
           <img class="image-link image-preview" [src]="urlForObjectImagesPreview(imageIndex)"
                [height]="thumbnailHeight" [width]="thumbnailWidth(imageIndex)"
