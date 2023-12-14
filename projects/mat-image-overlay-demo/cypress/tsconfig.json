@@ -7,7 +7,10 @@
   "compilerOptions": {
     "inlineSources": false,
     "sourceMap": false,
-    "types": ["cypress-real-events"]
+    "types": [
+      "cypress",
+      "cypress-real-events"
+    ]
   },
   "include": [
     "**/*.ts",
