@@ -1,5 +1,4 @@
 import 'cypress-real-events/support';
-// HACK do we need: import type { SinonSpy } from 'cypress/types/sinon';
 
 describe('Demo page - base page', () => {
   beforeEach(() => {
@@ -175,12 +174,10 @@ describe('Demo page - demo 2', () => {
       .should('include', 'https://picsum.photos/id/1000/1548/1000');
   });
 
-  it.only('shows external navigation in overlay clicking on link below the images', () => {
-    // HACK should be: let spy: Cypress.Agent<SinonSpy<Console[], Console>>;
-    let spy;
+  it('shows external navigation in overlay clicking on link below the images', () => {
+    let spy: Cypress.Omit<sinon.SinonSpy<Console[], Console>, 'withArgs'> & Cypress.SinonSpyAgent<sinon.SinonSpy<Console[], Console>> & sinon.SinonSpy<Console[], Console>;
 
     Cypress.on('window:before:load', (win) => {
-      // HACK does not run: spy = cy.spy(win.console, 'log') as unknown as SinonAgent;
       spy = cy.spy(win.console, 'log');
     });
 
@@ -194,19 +191,18 @@ describe('Demo page - demo 2', () => {
     // Wait for overlay to close
     cy.get('.cdk-overlay-container', {timeout: 20000}).should('not.be.visible');
 
-  // Check console output
+    // Check console output
     cy.then(() => {
       const calls = spy.getCalls();
       expect(calls.length).to.eq(22);
       expect(calls[1].args).to.deep.eq(['MatImageOverlay opened']);
 
+      // Extract the strings logged by 'image changed' events
       const imageChangeLogs = calls
         .map(sinonEntry => String(sinonEntry.lastArg))
         .filter(stringEntry => stringEntry.startsWith('image changed;') || stringEntry.startsWith('MatImageOverlay closed;'));
       expect(imageChangeLogs.length).to.eq(9);
-      expect(imageChangeLogs[0]).to.eq('image changed; new index=0');
-      expect(imageChangeLogs[6]).to.eq('image changed; new index=1');
-      expect(imageChangeLogs[8]).to.eq('MatImageOverlay closed; last index=0');
+      expect(imageChangeLogs).to.eql(demo2ExpectedExternalNavigationLogs);
     });
   });
 });
@@ -271,3 +267,15 @@ describe('Demo page - demo 3', () => {
     cy.get('.cdk-overlay-container').should('not.be.visible');
   });
 });
+
+const demo2ExpectedExternalNavigationLogs = [
+  'image changed; new index=0',
+  'image changed; new index=1',
+  'image changed; new index=2',
+  'image changed; new index=3',
+  'image changed; new index=2',
+  'image changed; new index=3',
+  'image changed; new index=1',
+  'image changed; new index=0',
+  'MatImageOverlay closed; last index=0'
+];
