@@ -3,10 +3,6 @@
   "ignorePatterns": [
     "**/*"
   ],
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
   "overrides": [
     {
       "files": [
@@ -44,7 +40,7 @@
           "node": true,
           "typescript": {
             "project": [
-              "./tsconfig.json"
+              "tsconfig.json"
             ]
           }
         }
@@ -58,6 +54,22 @@
           "error",
           {
             "ignoreStatic": true
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
           }
         ],
         "comma-dangle": "error",
@@ -135,9 +147,6 @@
       "files": [
         "*.spec.ts"
       ],
-      "env":{
-        "jasmine": true
-      },
       "plugins": [
         "jasmine"
       ],
