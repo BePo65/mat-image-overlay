@@ -1,4 +1,4 @@
- // readme-updater.js
+// readme-updater.js
 // standard-version updater for readme files with iconified semantic version string.
 
 module.exports.readVersion = function(contents) {
