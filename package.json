@@ -11,9 +11,9 @@
   "scripts": {
     "ng": "ng",
     "lint": "npm run lint:root && npm run lint:lib && npm run lint:demo && npm run lint:scss",
-    "lint:root": "eslint --report-unused-disable-directives --config=./.eslintrc.root.json .",
-    "lint:lib": "eslint --report-unused-disable-directives \"projects/mat-image-overlay\"",
-    "lint:demo": "eslint --report-unused-disable-directives \"projects/mat-image-overlay-demo\"",
+    "lint:root": "eslint --config=./.eslintrc.root.json .",
+    "lint:lib": "eslint \"projects/mat-image-overlay\"",
+    "lint:demo": "eslint \"projects/mat-image-overlay-demo\"",
     "lint:scss": "npx stylelint \"**/*.scss\"",
     "lint:commits": "commitlint --from 81ad0b8fb70526 --to HEAD --verbose",
     "test": "npm run test:lib -- --watch=false --browsers=ChromeHeadless && npm run test:demo -- --watch=false --browsers=ChromeHeadless",

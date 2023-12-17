@@ -3,6 +3,7 @@
   "ignorePatterns": [
     "**/*"
   ],
+  "reportUnusedDisableDirectives": true,
   "overrides": [
     {
       "files": [
