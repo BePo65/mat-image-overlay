@@ -159,6 +159,91 @@
     },
     {
       "files": [
+        "*.{js,cjs}"
+      ],
+      "env": {
+        "node": true
+      },
+      "plugins": [
+        "jsdoc"
+      ],
+      "extends": [
+        "eslint:recommended",
+        "plugin:jsdoc/recommended"
+      ],
+      "parserOptions": {
+        "ecmaVersion": 2021,
+        "ecmaFeatures": {
+          "impliedStrict": true
+        }
+      },
+      "rules": {
+        "comma-dangle": "error",
+        "jsdoc/require-param-type": "off",
+        "jsdoc/require-returns-type": [
+          "off",
+          {"contexts": [
+            "any"
+            ]
+          }
+        ],
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1,
+            "maxBOF": 1,
+            "maxEOF": 1
+          }
+        ],
+        "no-trailing-spaces": "warn",
+        "semi": ["error", "always"]
+      }
+    },
+    {
+      "files": [
+        "*.mjs"
+      ],
+      "env": {
+        "node": true
+      },
+      "plugins": [
+        "jsdoc"
+      ],
+      "extends": [
+        "eslint:recommended",
+        "plugin:jsdoc/recommended"
+      ],
+      "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2021,
+        "ecmaFeatures": {
+          "impliedStrict": true
+        }
+      },
+      "rules": {
+        "comma-dangle": "error",
+        "jsdoc/require-param-type": "off",
+        "jsdoc/require-returns-type": [
+          "off",
+          {"contexts": [
+            "any"
+            ]
+          }
+        ],
+        "no-multiple-empty-lines": [
+          "error",
+          {
+            "max": 1,
+            "maxBOF": 1,
+            "maxEOF": 1
+          }
+        ],
+        "no-trailing-spaces": "warn",
+        "semi": ["error", "always"]
+      }
+    },
+    {
+      "files": [
         "*.json"
       ],
       "extends": [
