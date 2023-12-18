@@ -121,7 +121,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
   private imageDetails: MatImageDetailsProvider;
   private imagedClickedAdditionalData: Record<string, unknown> = {};
   private cdkOverlayWrapper: HTMLDivElement | undefined;
-  private observer: ResizeObserver | undefined;
+  private resizeEvent: ResizeObserver | undefined;
   private resizedDimensions$ = new BehaviorSubject<Dimensions>({height:0, width:0});
   private readonly unsubscribe$ = new Subject<void>();
 
@@ -319,7 +319,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
    * PlainImageDimensions.
    */
   private createObserveWrapperResize() {
-    this.observer = new ResizeObserver(entries => {
+    this.resizeEvent = new ResizeObserver(entries => {
       this.zone.run(() => {
         const newDimensions: Dimensions = {
           height: entries[0].contentRect.height,
@@ -328,7 +328,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
         this.resizedDimensions$.next(newDimensions);
       });
     });
-    this.cdkOverlayWrapper && this.observer.observe(this.cdkOverlayWrapper);
+    this.cdkOverlayWrapper && this.resizeEvent.observe(this.cdkOverlayWrapper);
 
     this.resizedDimensions$
     .pipe(
@@ -406,6 +406,7 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
       const wrapperDimensions = this.resizedDimensions$.value;
       const aspectRatioWrapper = wrapperDimensions.width / wrapperDimensions.height;
       const aspectRatioThumbnail = currentDimensions.width / currentDimensions.height;
+
       if (aspectRatioThumbnail > aspectRatioWrapper) {
         newDimensions['width.px'] = currentDimensions.width;
         newDimensions.height = 'auto';
