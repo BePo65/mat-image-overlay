@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   Component,
   ElementRef,
@@ -73,7 +74,7 @@ type ThumbnailDimensionsStyle = {
   templateUrl: './mat-image-overlay.component.html',
   styleUrls: ['./mat-image-overlay.component.scss']
 })
-export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
+export class MatImageOverlayComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   @ViewChild('overlayWrapper') overlayWrapper!: ElementRef;
   @ViewChild('plainImage') overlayImage!: ElementRef;
   @ViewChild('thumbnailImage') thumbnailMiddle!: ElementRef;
@@ -142,12 +143,6 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.providerWithThumbnails = this.isThumbnailProvider(this.imageDetails);
     this.currentImageIndex = _config.startImageIndex ?? 0;
     this.imageMargin = _config.margin || 0;
-    if (this.imageDetails.numberOfImages > 0) {
-      this.currentImageDescription = this.imageDetails.descriptionForImage(this.currentImageIndex);
-      this.updateImageUrls();
-      this.setThumbnailDimensions();
-    }
-
     this.imagedClickedAdditionalData = _config.imageClickedAdditionalData ?? {};
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
@@ -156,17 +151,26 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
     this.getIcons();
   }
 
-  public ngAfterViewInit(): void {
+  public ngAfterContentInit(): void {
     const nativeHost = (this.host as ElementRef<HTMLElement>).nativeElement;
     const cdkOverlayPane = this.renderer2.parentNode(nativeHost) as HTMLDivElement;
     this.cdkOverlayWrapper = this.renderer2.parentNode(cdkOverlayPane) as HTMLDivElement;
 
     // Set initial dimensions of image
     const clientRect = this.cdkOverlayWrapper.getBoundingClientRect();
+    this.updateResizeDimensions(clientRect.width, clientRect.height);
     this.setThumbnailMaxDimensions(clientRect.width, clientRect.height);
     this.setMainImageMaxDimensions(clientRect.width, clientRect.height);
     this.setPlainImageMaxDimensions(clientRect.width, clientRect.height);
 
+    if (this.imageDetails.numberOfImages > 0) {
+      this.currentImageDescription = this.imageDetails.descriptionForImage(this.currentImageIndex);
+      this.setThumbnailDimensions();
+      this.updateImageUrls();
+    }
+  }
+
+  public ngAfterViewInit(): void {
     // Watch for resize events to adjust the image dimensions
     this.createObserveWrapperResize();
 
@@ -494,6 +498,20 @@ export class MatImageOverlayComponent implements AfterViewInit, OnDestroy {
       'max-width.px': Math.max(width - (2 * this.imageMargin), 0)
     } as ImageMaxDimensionsStyle;
   }
+
+  /**
+   * Emit the dimensions of the overlay wrapper with resizedDimensions$.
+   * @param width - width of the container element
+   * @param height - height of the container element
+   */
+  private updateResizeDimensions(width: number, height: number) {
+    const newDimensions: Dimensions = {
+      height: height,
+      width: width
+    };
+
+    this.resizedDimensions$.next(newDimensions);
+}
 
   /**
    * Check if a provider implements the ThumbnailProvider interface.
