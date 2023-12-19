@@ -99,9 +99,7 @@ export class MatImageOverlayComponent implements AfterContentInit, AfterViewInit
 
   protected elementDisplayStyle = ElementDisplayStyle;
   protected overlayButtonsStyle: ElementDisplayStyle;
-  protected descriptionDisplayStyle: ElementDisplayStyle;
-  protected elementDisplayPosition = ElementDisplayPosition;
-  protected descriptionDisplayPosition = this.elementDisplayPosition.right;
+  protected descriptionClasses: string[] = [];
   protected providerWithThumbnails = false;
   protected thumbnailDimensionStyle: ThumbnailDimensionsStyle = {
     'width.px': 0,
@@ -146,8 +144,7 @@ export class MatImageOverlayComponent implements AfterContentInit, AfterViewInit
     this.imagedClickedAdditionalData = _config.imageClickedAdditionalData ?? {};
     this.updateImageState();
     this.overlayButtonsStyle = _config.overlayButtonsStyle ?? ElementDisplayStyle.onHover;
-    this.descriptionDisplayStyle = _config.descriptionDisplayStyle ?? ElementDisplayStyle.onHover;
-    this.descriptionDisplayPosition = _config.descriptionDisplayPosition ?? ElementDisplayPosition.right;
+    this.imageDescriptionClasses(_config);
     this.getIcons();
   }
 
@@ -307,6 +304,48 @@ export class MatImageOverlayComponent implements AfterContentInit, AfterViewInit
    */
   protected plainImageIsLoaded() {
     this.renderer2.setAttribute(this.overlayImage.nativeElement, 'data-loaded', 'true');
+  }
+
+  /**
+   * Get array with classes used to display the image description.
+   * @param _config - configuration object for the overlay
+   */
+  private imageDescriptionClasses(_config: MatImageOverlayConfig) {
+    const descriptionDisplayStyle = _config.descriptionDisplayStyle ?? ElementDisplayStyle.onHover;
+    const descriptionDisplayPosition = _config.descriptionDisplayPosition ?? ElementDisplayPosition.bottomRight;
+    this.descriptionClasses = [];
+    if (descriptionDisplayStyle === ElementDisplayStyle.onHover) {
+      this.descriptionClasses.push('show-on-hover');
+    }
+    if (descriptionDisplayStyle === ElementDisplayStyle.always) {
+      this.descriptionClasses.push('show-always');
+    }
+    switch (descriptionDisplayPosition) {
+      case ElementDisplayPosition.bottomLeft:
+        this.descriptionClasses.push('show-bottom');
+        this.descriptionClasses.push('show-left');
+        break;
+      case ElementDisplayPosition.topLeft:
+        this.descriptionClasses.push('show-top');
+        this.descriptionClasses.push('show-left');
+        break;
+      case ElementDisplayPosition.bottomCenter:
+        this.descriptionClasses.push('show-bottom');
+        this.descriptionClasses.push('show-center');
+        break;
+      case ElementDisplayPosition.topCenter:
+        this.descriptionClasses.push('show-top');
+        this.descriptionClasses.push('show-center');
+        break;
+      case ElementDisplayPosition.bottomRight:
+        this.descriptionClasses.push('show-bottom');
+        this.descriptionClasses.push('show-right');
+        break;
+      case ElementDisplayPosition.topRight:
+        this.descriptionClasses.push('show-top');
+        this.descriptionClasses.push('show-right');
+        break;
+    }
   }
 
   /**

@@ -7,11 +7,7 @@
   <ng-template #directLoading>
     <img #plainImage class="overlay-image plain-image" [ngStyle]="plainImageMaxDimensionStyle" [src]="currentImageUrl" data-loaded="false" (load)="plainImageIsLoaded()" (click)="onImageClicked()">
   </ng-template>
-  <figcaption *ngIf="!isUndefinedOrEmpty(currentImageDescription)" class="img-description"
-    [ngClass]="{'show-on-hover': descriptionDisplayStyle === elementDisplayStyle.onHover,
-    'show-always': descriptionDisplayStyle === elementDisplayStyle.always,
-    'show-left': descriptionDisplayPosition === elementDisplayPosition.left,
-    'show-right': descriptionDisplayPosition === elementDisplayPosition.right}">
+  <figcaption *ngIf="!isUndefinedOrEmpty(currentImageDescription)" class="img-description" [ngClass]="descriptionClasses">
     {{currentImageDescription}}
   </figcaption>
   <button type="button" class="overlay-button overlay-button-close"

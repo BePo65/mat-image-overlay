@@ -34,7 +34,7 @@ export class AppComponent {
   protected  optionsForm = this.formBuilder.group({
     buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
     descriptionStyle: [ElementDisplayStyle.never, [Validators.required]],
-    descriptionPosition: [ElementDisplayPosition.right, [Validators.required]],
+    descriptionPosition: [ElementDisplayPosition.bottomRight, [Validators.required]],
     backdropClass: [ElementBackdropClass.none, []]
   });
 

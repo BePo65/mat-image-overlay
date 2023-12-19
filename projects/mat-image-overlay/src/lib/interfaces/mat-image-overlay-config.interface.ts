@@ -7,8 +7,12 @@ export enum ElementDisplayStyle {
 }
 
 export enum ElementDisplayPosition {
-  left,
-  right
+  bottomLeft,
+  bottomCenter,
+  bottomRight,
+  topLeft,
+  topCenter,
+  topRight
 }
 
 export interface MatImageOverlayConfig {
