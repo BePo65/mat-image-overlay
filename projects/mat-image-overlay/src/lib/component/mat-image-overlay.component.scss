@@ -36,12 +36,16 @@
   border-radius: 4px;
   display: none;
   font-size: 0.8rem;
-  max-width: 100%;
+  max-width: calc(100% - (2 * 0.45em ) - 24px);
   overflow: hidden;
   padding: 0.15em 0.45em;
   position: absolute;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.img-description.show-center {
+  max-width: calc(100% - (2 * 0.45em ) - (2 * 24px));
 }
 
 .img-description.show-always {
