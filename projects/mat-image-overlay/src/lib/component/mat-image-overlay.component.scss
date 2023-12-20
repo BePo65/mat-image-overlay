@@ -48,7 +48,13 @@
   display: block;
 }
 
-.img-description.show-on-hover {
+.img-description.show-on-hover.show-top {
+  display: block;
+  transform: translateY(-100%);
+  transition: transform 150ms ease-in;
+}
+
+.img-description.show-on-hover.show-bottom {
   display: block;
   transform: translateY(100%);
   transition: transform 150ms ease-in;
