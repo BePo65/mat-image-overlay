@@ -16,20 +16,20 @@
         "cypress.config.ts"
       ],
       "parserOptions": {
-        // Path is relative to the workspace as this file extends the root .eslintrc.json!
         "project": "projects/mat-image-overlay/cypress/tsconfig.json",
         "ecmaVersion": 2021,
         "sourceType": "module"
       },
       "settings": {
         "import/parsers": {
-          "@typescript-eslint/parser": [".ts"]
+          "@typescript-eslint/parser": [
+            ".ts"
+          ]
         },
         "import/resolver": {
           "node": true,
           "typescript": {
             "project": [
-              // Path is relative to the workspace as this file extends the root .eslintrc.json!
               "projects/mat-image-overlay/cypress/tsconfig.json"
             ]
           }
@@ -41,20 +41,20 @@
         "examples/**/*.ts"
       ],
       "parserOptions": {
-        // Path is relative to the workspace as this file extends the root .eslintrc.json!
         "project": "projects/mat-image-overlay/tsconfig.examples.json",
         "ecmaVersion": 2021,
         "sourceType": "module"
       },
       "settings": {
         "import/parsers": {
-          "@typescript-eslint/parser": [".ts"]
+          "@typescript-eslint/parser": [
+            ".ts"
+          ]
         },
         "import/resolver": {
           "node": true,
           "typescript": {
             "project": [
-              // Path is relative to the workspace as this file extends the root .eslintrc.json!
               "projects/mat-image-overlay/tsconfig.examples.json"
             ]
           }

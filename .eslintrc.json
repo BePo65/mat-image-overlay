@@ -35,7 +35,9 @@
       },
       "settings": {
         "import/parsers": {
-          "@typescript-eslint/parser": [".ts"]
+          "@typescript-eslint/parser": [
+            ".ts"
+          ]
         },
         "import/resolver": {
           "node": true,
@@ -75,9 +77,13 @@
         ],
         "comma-dangle": "error",
         "import/order": [
-          "error", {
+          "error",
+          {
             "groups": [
-              ["builtin", "external"],
+              [
+                "builtin",
+                "external"
+              ],
               "parent",
               "sibling",
               "internal"
@@ -119,8 +125,9 @@
         "jsdoc/require-param-type": "off",
         "jsdoc/require-returns-type": [
           "off",
-          {"contexts": [
-            "any"
+          {
+            "contexts": [
+              "any"
             ]
           }
         ],
@@ -141,7 +148,10 @@
             "classPropertiesAllowed": false
           }
         ],
-        "semi": ["error", "always"]
+        "semi": [
+          "error",
+          "always"
+        ]
       }
     },
     {
@@ -183,8 +193,9 @@
         "jsdoc/require-param-type": "off",
         "jsdoc/require-returns-type": [
           "off",
-          {"contexts": [
-            "any"
+          {
+            "contexts": [
+              "any"
             ]
           }
         ],
@@ -197,7 +208,10 @@
           }
         ],
         "no-trailing-spaces": "warn",
-        "semi": ["error", "always"]
+        "semi": [
+          "error",
+          "always"
+        ]
       }
     },
     {
@@ -226,8 +240,9 @@
         "jsdoc/require-param-type": "off",
         "jsdoc/require-returns-type": [
           "off",
-          {"contexts": [
-            "any"
+          {
+            "contexts": [
+              "any"
             ]
           }
         ],
@@ -240,7 +255,10 @@
           }
         ],
         "no-trailing-spaces": "warn",
-        "semi": ["error", "always"]
+        "semi": [
+          "error",
+          "always"
+        ]
       }
     },
     {
