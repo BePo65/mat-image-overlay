@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.0](https://github.com/BePo65/mat-image-overlay/compare/v15.1.4...v16.0.0) (2023-12-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* tha project now requires angular v16
+* ElementDisplayPosition entries changed to 6 positions
+* keydownEvents() changed to keydownEvents$ observable
+* config object changed - use provider to get image data
+
+### Features
+
+* add data provider object as a config element - solve issue [#225](https://github.com/BePo65/mat-image-overlay/issues/225) ([3529929](https://github.com/BePo65/mat-image-overlay/commit/35299295d877718fd8e160fd9b3311f3929ce9d0))
+* add interface 'ThumbnailProvider' to add thumbnails to provider ([2b7baa7](https://github.com/BePo65/mat-image-overlay/commit/2b7baa7ec7462d1854cb95d304cda1e4dff27f0b))
+* define new positions for image description ([c0245b6](https://github.com/BePo65/mat-image-overlay/commit/c0245b66643a160acd28ba46b8abc4cd59d70c07))
+* **demo:** add alt and title tag to images of objectImages ([a4a2f99](https://github.com/BePo65/mat-image-overlay/commit/a4a2f99e5b840e4364d4bd5ca1e52c408bab2f9e))
+* **demo:** add option to select css class for backdrop ([aa89de1](https://github.com/BePo65/mat-image-overlay/commit/aa89de17ca771ddea9402796fceff23238c2a6e2))
+* **demo:** add trackBy function to ngFor of objectImages thumbnails ([d9aed51](https://github.com/BePo65/mat-image-overlay/commit/d9aed51a446aec5c04a3e097fb21d59560560853))
+* **demo:** dynamically set height and width of thumnail image ([25e1daa](https://github.com/BePo65/mat-image-overlay/commit/25e1daac1f1f5b0c438ed16d39d85ecd41dc3101))
+* **demo:** get thumbnails for object datasource from provider ([a31a9a4](https://github.com/BePo65/mat-image-overlay/commit/a31a9a455d31206e81379ab98c53e2f83da0eed8))
+* **demo:** image show and single image selection on all image sources ([4a63c51](https://github.com/BePo65/mat-image-overlay/commit/4a63c5191b8ca875d5dc33d197a6ccf2138382ac))
+* **demo:** make 'external navigation' show more variants ([bdc1503](https://github.com/BePo65/mat-image-overlay/commit/bdc15035b0eaaf8c82d6d01bcad0de679ccd6e21))
+* limit width of image description to width of image ([6b78deb](https://github.com/BePo65/mat-image-overlay/commit/6b78deb478962ae657a36bce8c6ef2259de2e025))
+* prepare to show thumbnail while loading - thumbnail still missing ([84680da](https://github.com/BePo65/mat-image-overlay/commit/84680daf5b54e16374adc5cc35fd97043aca965b))
+* show image description as tooltip of description element ([8199515](https://github.com/BePo65/mat-image-overlay/commit/8199515ea47c3c5e72e17c7540c418bbbd865f6c))
+* update to angular v16 ([a8446de](https://github.com/BePo65/mat-image-overlay/commit/a8446de327170aab1c5782e3d265f481a7f4fa1f))
+
+
+### Bug Fixes
+
+* change default value of data-loaded attribute from '' to 'false' ([795367b](https://github.com/BePo65/mat-image-overlay/commit/795367b8080104e93bee430acf7c846d7adbff35))
+* **demo:** use option for backdrop for second example too ([3ec357a](https://github.com/BePo65/mat-image-overlay/commit/3ec357a9a63c57fd4ee6a13e799e3f2f1829323a))
+* don't emit 'imageClicked' when clicking the navigation buttons ([aef33b5](https://github.com/BePo65/mat-image-overlay/commit/aef33b509b43d47a050358c1fe6bdaf98568a78a))
+* externally closing the overlay does not emit lastImageIndex ([8069ccf](https://github.com/BePo65/mat-image-overlay/commit/8069ccffc55415085815d9f1fcbfab559233b727))
+* give thumbnail the right dimensions ([dd10f61](https://github.com/BePo65/mat-image-overlay/commit/dd10f617b3732205172b3e2cf026d99bccd00f84))
+* initial size of thumbnail image ([8d1c08e](https://github.com/BePo65/mat-image-overlay/commit/8d1c08e2171b32a57e0650e8fdc7fd198dfb2414))
+* **lib:** mske MatImageOverlayRef._componentInstance protected ([094bd96](https://github.com/BePo65/mat-image-overlay/commit/094bd9660ba6ff5d7a9e5a8c6ded2e2394a10ffc))
+* **lib:** prevent hiding images, when going to image already shown ([5e7f396](https://github.com/BePo65/mat-image-overlay/commit/5e7f396b769c1f84f30e8ef45546c6895ec0388c))
+* make dafault max-x of images 0px instead of 0vw/0vh ([18f2a19](https://github.com/BePo65/mat-image-overlay/commit/18f2a1923c7dfbb4b0c09c6a600844acf8e37afd))
+* make description (position=top) move in from above ([ec7cb9d](https://github.com/BePo65/mat-image-overlay/commit/ec7cb9d3970fd8cbb2015ca6b107969d8a5139a0))
+* make description shown on top not to cover close button ([6d21487](https://github.com/BePo65/mat-image-overlay/commit/6d21487795a98c18a17d8d95fdd1b2f6b5c6ac40))
+* make image disappear without animation ([29d63c8](https://github.com/BePo65/mat-image-overlay/commit/29d63c83fdb83144b715ba535f10c852fa98a1b8))
+* make margin in objectSource same as in stringSource ([8168280](https://github.com/BePo65/mat-image-overlay/commit/8168280f112a8177262133e116117fc90010993a))
+* make resize events update image while resizing ([65d7528](https://github.com/BePo65/mat-image-overlay/commit/65d75287d9144624719d8823ee2fdeffc5fb5745))
+* make sure that all internal subscriptions get unsubscribed ([3dcdcbc](https://github.com/BePo65/mat-image-overlay/commit/3dcdcbca3fcd9548e844306823eb0ef15c6108f3))
+* make thumbnail hide on 'gotoImage' ([9360a6b](https://github.com/BePo65/mat-image-overlay/commit/9360a6ba7e4e8c39d2a8d9d799e7e92ad839f1ee))
+* prevent click event of navigation buttons to bubble up ([4c2a47b](https://github.com/BePo65/mat-image-overlay/commit/4c2a47b6bbca661aaae7fac768c2ef2564079140))
+* reactivate automatic image show in demo project ([1a53ff4](https://github.com/BePo65/mat-image-overlay/commit/1a53ff4d3961d7a4a6b0cc2129b9e0c58dff1ec3))
+* reduce decbounce time for resize events ([9a0a20c](https://github.com/BePo65/mat-image-overlay/commit/9a0a20c44e3bccd22caa9e8495f4110476edd620))
+* replace 'event.stopPropagation()' with angular way of doing it ([759cff1](https://github.com/BePo65/mat-image-overlay/commit/759cff15f4f1373d233ee0529b973a5146547dc7))
+* replace the global handler of click events by click handler of img ([a548d26](https://github.com/BePo65/mat-image-overlay/commit/a548d2699d88ced0d901ac88be1bea066376fe74))
+* reset data-loaded attributes when going to new image ([8dc01d7](https://github.com/BePo65/mat-image-overlay/commit/8dc01d7b511b2f1223e4c0a2670642c7c0e9ac0b))
+* set initial / default size of image ([1245df6](https://github.com/BePo65/mat-image-overlay/commit/1245df631b762ba4cc3c605c1cbe4ce30b41266f))
+* unsubscribe from subscriptions, when overlay is destroyed ([012fb5d](https://github.com/BePo65/mat-image-overlay/commit/012fb5d12238af0665ba269fe244c1bc059e5b77))
+* update declarations list in test of demo project ([a0742bc](https://github.com/BePo65/mat-image-overlay/commit/a0742bc248119de8cfdc325be14ced2fa4e4c33b))
+* update used images in demo project ([51621be](https://github.com/BePo65/mat-image-overlay/commit/51621be1b46d05fcbbb9d26722c7997c6eae3a46))
+
 ### [15.1.4](https://github.com/BePo65/mat-image-overlay/compare/v15.1.3...v15.1.4) (2023-11-02)
 
 ### [15.1.3](https://github.com/BePo65/mat-image-overlay/compare/v15.1.2...v15.1.3) (2023-05-24)
