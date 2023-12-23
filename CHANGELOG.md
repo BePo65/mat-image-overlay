@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [17.0.1](https://github.com/BePo65/mat-image-overlay/compare/v17.0.0...v17.0.1) (2023-12-23)
+
+
+### Bug Fixes
+
+* update peerDependencies in library project ([541e1da](https://github.com/BePo65/mat-image-overlay/commit/541e1dabdbadcbb2eab6f0ac8b4f5b4abd48e515))
+
 ## [17.0.0](https://github.com/BePo65/mat-image-overlay/compare/v16.0.0...v17.0.0) (2023-12-23)
 
 
