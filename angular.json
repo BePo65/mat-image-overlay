@@ -95,14 +95,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "mat-image-overlay-demo:build"
+            "buildTarget": "mat-image-overlay-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "mat-image-overlay-demo:build:production"
+              "buildTarget": "mat-image-overlay-demo:build:production"
             },
             "development": {
-              "browserTarget": "mat-image-overlay-demo:build:development"
+              "buildTarget": "mat-image-overlay-demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -110,7 +110,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mat-image-overlay-demo:build"
+            "buildTarget": "mat-image-overlay-demo:build"
           }
         },
         "test": {
