@@ -6,17 +6,7 @@ updates:
     interval: monthly
   open-pull-requests-limit: 10
   ignore:
-    - dependency-name: "@angular/*"
-      versions: ["17.x"]
-    - dependency-name: "@angular-devkit/build-angular"
-      versions: ["17.x"]
-    - dependency-name: "@angular-eslint/*"
-      versions: ["17.x"]
     - dependency-name: "@types/jasmine"
       versions: ["5.x"]
-    - dependency-name: "ng-packagr"
-      versions: ["17.x"]
     - dependency-name: "typescript"
-      versions: ["5.2.x"]
-    - dependency-name: "zone"
-      versions: ["0.14.1", "0.14.2", "0.14.3"]
+      versions: ["5.3.x"]
