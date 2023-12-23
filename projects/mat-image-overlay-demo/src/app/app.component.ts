@@ -1,7 +1,12 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 import { ImageDetailsObject, ObjectSourceImageDetailsProvider } from './object-image-details-provider.class';
+import { NumericEnumToArrayPipe, StringEnumToArrayPipe } from './shared/enum-to-array.pipe';
 import { StringSourceImageDetailsProvider } from './string-image-details-provider.class';
 
 import {
@@ -23,7 +28,9 @@ enum ElementBackdropClass {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [NgFor, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, NgIf, NumericEnumToArrayPipe, StringEnumToArrayPipe]
 })
 export class AppComponent {
   protected elementDisplayStyle = ElementDisplayStyle;

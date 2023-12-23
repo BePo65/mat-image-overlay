@@ -9,15 +9,13 @@ import { MatImageOverlayComponent } from './component/mat-image-overlay.componen
 import { MatImageOverlay } from './mat-image-overlay';
 
 @NgModule({
-  declarations: [
-    MatImageOverlayComponent
-  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     MatIconModule,
-    OverlayModule
+    OverlayModule,
+    MatImageOverlayComponent
   ],
   providers: [
     MatImageOverlay

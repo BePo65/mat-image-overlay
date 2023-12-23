@@ -11,7 +11,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Pipe to convert a 'regular' enum (with numeric values) to an array.
  */
 @Pipe({
-  name: 'numericEnumToArray'
+  name: 'numericEnumToArray',
+  standalone: true
 })
 export class NumericEnumToArrayPipe implements PipeTransform {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,7 +30,8 @@ export class NumericEnumToArrayPipe implements PipeTransform {
  * Pipe to convert an enum with string values to an array.
  */
 @Pipe({
-  name: 'stringEnumToArray'
+  name: 'stringEnumToArray',
+  standalone: true
 })
 export class StringEnumToArrayPipe implements PipeTransform {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

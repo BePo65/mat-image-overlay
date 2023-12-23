@@ -2,7 +2,7 @@
 ![Version](https://img.shields.io/badge/version-16.0.0-blue.svg?cacheSeconds=2592000)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kefranabg/readme-md-generator/blob/master/LICENSE)
 
-An [Angular Material](https://material.angular.io/) based component that shows images in an overlay.
+An [Angular Material](https://material.angular.io/) based standalone component that shows images in an overlay.
 The component is based on Rafasantos [angular-material-image-overlay](https://github.com/rafasantos/angular-material-image-overlay).
 
 ## Demo

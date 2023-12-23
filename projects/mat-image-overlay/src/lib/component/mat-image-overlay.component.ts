@@ -1,3 +1,4 @@
+import { NgIf, NgStyle, NgClass } from '@angular/common';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -13,7 +14,7 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
+import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BehaviorSubject, Subject, asyncScheduler, takeUntil, throttleTime } from 'rxjs';
 
@@ -71,8 +72,10 @@ type ThumbnailDimensionsStyle = {
 }
 
 @Component({
-  templateUrl: './mat-image-overlay.component.html',
-  styleUrls: ['./mat-image-overlay.component.scss']
+    templateUrl: './mat-image-overlay.component.html',
+    styleUrls: ['./mat-image-overlay.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgStyle, NgClass, MatIconModule]
 })
 export class MatImageOverlayComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   @ViewChild('overlayWrapper') overlayWrapper!: ElementRef;

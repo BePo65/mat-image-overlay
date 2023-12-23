@@ -4,7 +4,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -19,20 +18,17 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        NumericEnumToArrayPipe,
-        StringEnumToArrayPipe
-      ],
-      imports: [
-        BrowserModule,
+    imports: [
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MatImageOverlayModule,
         MatFormFieldModule,
-        MatSelectModule
-      ]
-    });
+        MatSelectModule,
+        NumericEnumToArrayPipe,
+        StringEnumToArrayPipe,
+        AppComponent
+    ]
+});
 
     fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
