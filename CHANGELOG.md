@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [17.0.0](https://github.com/BePo65/mat-image-overlay/compare/v16.0.0...v17.0.0) (2023-12-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* update to angular v17
+
+### Features
+
+* change mat-tristate-checkbox to standalone components ([091c7c6](https://github.com/BePo65/mat-image-overlay/commit/091c7c624ddafeba219aac1c907626cc885a365f))
+* update to angular v17 ([5ce699b](https://github.com/BePo65/mat-image-overlay/commit/5ce699b44bcae2ebef8e22bc71610d4b93ac5dc1))
+
 ## [16.0.0](https://github.com/BePo65/mat-image-overlay/compare/v15.1.4...v16.0.0) (2023-12-21)
 
 
