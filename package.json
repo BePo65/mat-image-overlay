@@ -94,7 +94,7 @@
     "start-server-and-test": "^2.0.3",
     "stylelint": "^16.0.2",
     "stylelint-config-recommended-scss": "^14.0.0",
-    "stylelint-config-standard": "^35.0.0",
+    "stylelint-config-standard": "^36.0.0",
     "typescript": "^5.2.2"
   },
   "standard-version": {
