@@ -80,7 +80,7 @@ Both fonts are part of the project and not fetched via https.
 Some special icons are stored in the code as strings representing the icons as svg graphics.
 
 ## Mat-Image-Overlay Demo
-Demo project to show case how `mat-image-overlay` works.
+Demo project to show how `mat-image-overlay` works.
 
 ```
 git clone git@github.com:BePo65/mat-image-overlay.git
