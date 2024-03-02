@@ -30,8 +30,8 @@
     "start:dev": "ng build mat-image-overlay --watch",
     "unimported": "npx unimported",
     "deprecated": "npx check-is-deprecated -f ./package.json",
-    "init-changelog": "standard-version -i CHANGELOG.md --same-file --prerelease pre --first-release",
-    "release": "standard-version -i CHANGELOG.md --same-file",
+    "init-changelog": "commit-and-tag-version -i CHANGELOG.md --same-file --prerelease pre --first-release",
+    "release": "commit-and-tag-version -i CHANGELOG.md --same-file",
     "e2e": "npm run cypress:demo:run:e2e",
     "ct": "npm run cypress:lib:run:ct",
     "cypress:demo:open": "start-server-and-test \"ng serve\" http://localhost:4200 \"cypress open --project=projects/mat-image-overlay-demo\"",
@@ -53,6 +53,7 @@
     "material-icons": "^1.13.12",
     "roboto-fontface": "^0.10.0",
     "rxjs": "^7.8.1",
+    "tslib": "^2.6.2",
     "zone.js": "^0.14.4"
   },
   "devDependencies": {
@@ -71,6 +72,7 @@
     "@types/node": "^20.11.24",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
+    "commit-and-tag-version": "^12.2.0",
     "cpy-cli": "^5.0.0",
     "cypress": "^13.6.6",
     "cypress-real-events": "^1.12.0",
@@ -90,14 +92,13 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
     "ng-packagr": "^17.2.0",
-    "standard-version": "^9.5.0",
     "start-server-and-test": "^2.0.3",
     "stylelint": "^16.2.1",
     "stylelint-config-recommended-scss": "^14.0.0",
     "stylelint-config-standard": "^36.0.0",
     "typescript": "^5.3.3"
   },
-  "standard-version": {
+  "commit-and-tag-version": {
     "packageFiles": [
       {
         "filename": "package.json",
