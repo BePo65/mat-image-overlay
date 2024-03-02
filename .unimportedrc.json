@@ -1,7 +1,7 @@
 {
   "entry": [
-    "projects/mat-image-overlay/src/public-api.ts",
-    "projects/mat-image-overlay/testing/src/public-api.ts",
+    "projects/mat-image-overlay/src/index.ts",
+    "projects/mat-image-overlay/testing/src/index.ts",
     "projects/mat-image-overlay-demo/src/main.ts"
   ],
   "ignorePatterns": [
@@ -18,24 +18,26 @@
     "**/cypress.config.ts"
   ],
   "ignoreUnimported": [
-    "projects/mat-image-overlay-demo/src/main.ts",
-    "projects/mat-image-overlay-demo/cypress/e2e/app.e2e.cy.ts",
-    "projects/mat-image-overlay/cypress/ct/mat-image-overlay.cy.ts",
-    "projects/mat-image-overlay/src/public-api.ts",
-    "projects/mat-image-overlay/testing/src/public-api.ts",
     "tools/npm-scripts/readme-updater.js",
+    "projects/mat-image-overlay-demo/src/main.ts",
+    "projects/mat-image-overlay-demo/src/environments/environment.prod.ts",
+    "projects/mat-image-overlay-demo/cypress/e2e/app.e2e.cy.ts",
     "projects/mat-image-overlay-demo/cypress/support/commands.ts",
     "projects/mat-image-overlay-demo/cypress/support/component.ts",
     "projects/mat-image-overlay-demo/cypress/support/e2e.ts",
+    "projects/mat-image-overlay/examples/provider/object-image-details-provider.class.ts",
+    "projects/mat-image-overlay/examples/provider/string-image-details-provider.class.ts",
+    "projects/mat-image-overlay/src/lib/mat-image-overlay.module.ts",
+    "projects/mat-image-overlay/cypress/ct/mat-image-overlay.cy.ts",
     "projects/mat-image-overlay/cypress/support/commands.ts",
     "projects/mat-image-overlay/cypress/support/component.ts",
-    "projects/mat-image-overlay/cypress/support/e2e.ts",
-    "projects/mat-image-overlay/src/lib/mat-image-overlay.module.ts",
-    "projects/mat-image-overlay-demo/src/environments/environment.prod.ts"
+    "projects/mat-image-overlay/cypress/support/e2e.ts"
   ],
   "ignoreUnused": [
     "material-icons",
-    "roboto-fontface"
+    "roboto-fontface",
+    "tslib",
+    "@angular/platform-browser-dynamic"
   ],
   "ignoreUnresolved": [
     "mat-image-overlay"
