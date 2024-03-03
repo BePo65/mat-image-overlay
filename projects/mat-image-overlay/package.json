@@ -14,5 +14,8 @@
     "@angular/core": "^17.0.0",
     "@angular/platform-browser": "^17.0.0",
     "rxjs": "^7.4.0"
+  },
+  "dependencies": {
+    "tslib": "^2.6.0"
   }
 }
