@@ -18,7 +18,7 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [
+      imports: [
         BrowserAnimationsModule,
         ReactiveFormsModule,
         MatImageOverlayModule,
@@ -27,8 +27,8 @@ describe('AppComponent', () => {
         NumericEnumToArrayPipe,
         StringEnumToArrayPipe,
         AppComponent
-    ]
-});
+      ]
+    });
 
     fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
