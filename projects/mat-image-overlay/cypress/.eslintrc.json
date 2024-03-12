@@ -1,13 +1,14 @@
 {
   "extends": "../.eslintrc.json",
-  "ignorePatterns": [
-    "!**/*"
-  ],
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
+      "plugins": ["cypress"],
+      "env": {
+        "cypress/globals": true
+      },
+      "extends": ["plugin:cypress/recommended"],
       "parserOptions": {
         "project": "projects/mat-image-overlay/cypress/tsconfig.json",
         "ecmaVersion": 2021,
@@ -15,16 +16,12 @@
       },
       "settings": {
         "import/parsers": {
-          "@typescript-eslint/parser": [
-            ".ts"
-          ]
+          "@typescript-eslint/parser": [".ts"]
         },
         "import/resolver": {
           "node": true,
           "typescript": {
-            "project": [
-              "projects/mat-image-overlay/cypress/tsconfig.json"
-            ]
+            "project": ["projects/mat-image-overlay/cypress/tsconfig.json"]
           }
         }
       }
