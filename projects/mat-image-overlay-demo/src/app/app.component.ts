@@ -30,7 +30,16 @@ enum ElementBackdropClass {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [NgFor, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, NgIf, NumericEnumToArrayPipe, StringEnumToArrayPipe]
+  imports: [
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    NgFor,
+    NgIf,
+    NumericEnumToArrayPipe,
+    ReactiveFormsModule,
+    StringEnumToArrayPipe
+  ]
 })
 export class AppComponent {
   protected elementDisplayStyle = ElementDisplayStyle;
