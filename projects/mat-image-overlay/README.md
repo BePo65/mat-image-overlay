@@ -351,4 +351,9 @@ Harness for interacting with a standard MatImageOverlay in tests.
 | Promise&lt;boolean&gt; | Promise fulfills to a flag that shows, if the backdrop contains the given css class.
 
 # License
-The code is released under the [MIT license](LICENSE)
+
+Copyright © 2024 [Bernhard Pottler](https://github.com/BePo65).
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+This project uses the fonts '[Roboto](https://fonts.google.com/specimen/Roboto/about)' and '[Material Icons](https://github.com/google/material-design-icons)' from the [Google Fonts Library](https://fonts.google.com/) that are licensed under the [Apache License Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.txt).
