@@ -266,7 +266,7 @@
         "*.json"
       ],
       "extends": [
-        "plugin:json/recommended"
+        "plugin:json/recommended-legacy"
       ],
       "rules": {
         "json/*": [
