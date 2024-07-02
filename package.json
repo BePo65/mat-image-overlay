@@ -1,6 +1,6 @@
 {
   "name": "mat-image-overlay-demo",
-  "version": "17.0.2",
+  "version": "17.0.3",
   "description": "A component for Angular using Angular Material that shows images as overlays. The project contains a library component and a demo project.",
   "repository": {
     "type": "git",
