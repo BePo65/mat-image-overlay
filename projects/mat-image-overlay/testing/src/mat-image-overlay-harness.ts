@@ -62,7 +62,9 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
       const buttonShowAlways = await buttonCloseTestElement.hasClass('show-always');
       const buttonShowOnHover = await buttonCloseTestElement.hasClass('show-on-hover');
       result = (buttonShowAlways || (buttonShowOnHover && figureIsHovering));
-    } catch (err) {
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    catch (err) {
       // Promise throws when 'wrapper' element does not exist; use default value
     }
 
@@ -125,7 +127,9 @@ export class MatImageOverlayHarness extends ContentContainerComponentHarness {
       const descriptionShowOnHover = await descriptionTestElement.hasClass('show-on-hover');
 
       result = (descriptionShowAlways || (descriptionShowOnHover && figureIsHovering));
-    } catch (err) {
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    catch (err) {
       // Promise throws when 'figcaption' is hidden by *ngIf -> use default value
     }
 

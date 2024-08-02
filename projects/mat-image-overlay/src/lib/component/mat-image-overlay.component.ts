@@ -374,7 +374,10 @@ export class MatImageOverlayComponent implements AfterContentInit, AfterViewInit
         this.resizedDimensions$.next(newDimensions);
       });
     });
-    this.cdkOverlayWrapper && this.resizeEvent.observe(this.cdkOverlayWrapper);
+
+    if (this.cdkOverlayWrapper) {
+      this.resizeEvent.observe(this.cdkOverlayWrapper);
+    }
 
     this.resizedDimensions$
     .pipe(
