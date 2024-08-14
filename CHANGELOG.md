@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.0.4](https://github.com/BePo65/mat-image-overlay/compare/v17.0.3...v17.0.4) (2024-08-14)
+
+
+### Bug Fixes
+
+* update packages to fix dependabot security warning ([cc11c6a](https://github.com/BePo65/mat-image-overlay/commit/cc11c6a1dfd45279fe31321378ab2423b17b5558))
+
 ## [17.0.3](https://github.com/BePo65/mat-image-overlay/compare/v17.0.2...v17.0.3) (2024-07-02)
 
 ## [17.0.2](https://github.com/BePo65/mat-image-overlay/compare/v17.0.1...v17.0.2) (2024-03-02)
