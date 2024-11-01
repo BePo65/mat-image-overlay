@@ -69,7 +69,7 @@
     "@commitlint/config-angular": "^19.5.0",
     "@cypress/schematic": "^2.5.2",
     "@types/jasmine": "^5.1.4",
-    "@types/node": "^22.7.2",
+    "@types/node": "^22.8.6",
     "@typescript-eslint/eslint-plugin": "^8.8.1",
     "@typescript-eslint/parser": "^8.8.1",
     "commit-and-tag-version": "^12.5.0",
