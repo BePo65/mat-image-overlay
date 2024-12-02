@@ -1,20 +1,20 @@
 version: 2
 updates:
 - package-ecosystem: npm
-  directory: "/"
+  directory: '/'
   schedule:
     interval: monthly
   open-pull-requests-limit: 10
   ignore:
-    - dependency-name: "eslint"
-      versions: ["9.x"]
-    - dependency-name: "eslint-plugin-cypress"
-      versions: ["4.x"]
+    - dependency-name: 'eslint'
+      versions: ['9.x']
+    - dependency-name: 'eslint-plugin-cypress'
+      versions: ['4.x']
     - dependency-name: '@angular/*'
-      versions: ['18.x']
+      versions: ['18.x', '19.x']
     - dependency-name: '@angular-devkit/build-angular'
-      versions: ['18.x']
+      versions: ['18.x', '19.x']
     - dependency-name: '@angular-eslint/*'
-      versions: ['18.x']
+      versions: ['18.x', '19.x']
     - dependency-name: 'ng-packagr'
-      versions: ['18.x']
+      versions: ['18.x', '19.x']
