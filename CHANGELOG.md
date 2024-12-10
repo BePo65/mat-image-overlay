@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.0.6](https://github.com/BePo65/mat-image-overlay/compare/v17.0.5...v17.0.6) (2024-12-10)
+
+
+### Bug Fixes
+
+* move tslib back to dependencies ([25a5c44](https://github.com/BePo65/mat-image-overlay/commit/25a5c443310113a7e7c96dfc8f7f80366cb3083a))
+* update packages to fix github dependabot security warnings ([f694405](https://github.com/BePo65/mat-image-overlay/commit/f694405c23d3a4a1631079cffd77aed66436d1f5))
+* update packages to fix github dependabot security warnings ([bb0dadc](https://github.com/BePo65/mat-image-overlay/commit/bb0dadc82c19db0dad323008424b1b18ec5a078a))
+* update packages to fix github dependabot security warnings ([531705c](https://github.com/BePo65/mat-image-overlay/commit/531705c0f204f1afbb3d436a497cc94a4e907bcf))
+* update packages to fix github dependabot security warnings ([f585304](https://github.com/BePo65/mat-image-overlay/commit/f5853048d3a3facb2d899f77ce3166cf33b4e596))
+
 ## [17.0.5](https://github.com/BePo65/mat-image-overlay/compare/v17.0.4...v17.0.5) (2024-09-26)
 
 
