@@ -18,3 +18,5 @@ updates:
       versions: ['18.x', '19.x']
     - dependency-name: 'ng-packagr'
       versions: ['18.x', '19.x']
+    - dependency-name: 'zone'
+      versions: ['0.15.x']
