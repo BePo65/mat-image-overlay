@@ -72,7 +72,7 @@
     "@types/node": "^22.13.16",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
-    "commit-and-tag-version": "^12.5.0",
+    "commit-and-tag-version": "^12.5.1",
     "cpy-cli": "^5.0.0",
     "cypress": "^14.2.1",
     "cypress-real-events": "^1.14.0",
