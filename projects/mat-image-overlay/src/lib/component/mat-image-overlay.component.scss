@@ -32,7 +32,7 @@
 }
 
 .img-description {
-  background-color: rgba(255 255 255 / 85%);
+  background-color: rgb(255 255 255);
   border-radius: 4px;
   display: none;
   font-size: 0.8rem;
@@ -85,7 +85,7 @@
 }
 
 .overlay-button {
-  background-color: rgba(255 255 255 / 0%);
+  background-color: rgb(255 255 255);
   border: none;
   color: rgb(96 96 96);
   cursor: pointer;
@@ -116,13 +116,13 @@
 }
 
 .overlay-wrapper:hover .overlay-button.show-on-hover {
-  background-color: rgba(255 255 255 / 50%);
+  background-color: rgb(255 255 255);
   color: rgb(64 64 64);
   visibility: initial;
 }
 
 .overlay-button.show-always {
-  background-color: rgba(255 255 255 / 50%);
+  background-color: rgb(255 255 255);
   color: rgb(64 64 64);
   visibility: initial;
 }
