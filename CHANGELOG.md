@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.0.8](https://github.com/BePo65/mat-image-overlay/compare/v17.0.7...v17.0.8) (2025-05-03)
+
+
+### Bug Fixes
+
+* reapply alpha channel in rgba style in scss file ([7af33ee](https://github.com/BePo65/mat-image-overlay/commit/7af33ee8962d0b7e72f7a90fccc4e9b15da26824))
+* update packages to fix github dependabot security warning ([32cb262](https://github.com/BePo65/mat-image-overlay/commit/32cb26218254d7dc45aae8507acb0923c6788d21))
+* update packages to fix github dependabot security warnings ([85f7139](https://github.com/BePo65/mat-image-overlay/commit/85f7139d837a6d6bbc5565ed21a98ea75fcd2f96))
+* update packages to fix github dependabot security warnings ([bbc078f](https://github.com/BePo65/mat-image-overlay/commit/bbc078f29a7d5944f3658a5594a7f895d71e5c34))
+* update packages to fix github dependabot security warnings ([0c4aa4a](https://github.com/BePo65/mat-image-overlay/commit/0c4aa4a4881288ba0afd1bd22351b075f7d7582f))
+
 ## [17.0.7](https://github.com/BePo65/mat-image-overlay/compare/v17.0.6...v17.0.7) (2024-12-10)
 
 ## [17.0.6](https://github.com/BePo65/mat-image-overlay/compare/v17.0.5...v17.0.6) (2024-12-10)

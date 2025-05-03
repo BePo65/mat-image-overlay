@@ -1,7 +1,7 @@
 {
   "name": "mat-image-overlay",
   "description": "A component using Angular Material that shows images as overlays.",
-  "version": "17.0.7",
+  "version": "17.0.8",
   "repository": {
     "type": "git",
     "url": "https://github.com/BePo65/mat-image-overlay.git"
