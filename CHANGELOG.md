@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.0.11](https://github.com/BePo65/mat-image-overlay/compare/v17.0.10...v17.0.11) (2025-07-02)
+
+
+### Bug Fixes
+
+* update packages to fix security warnings ([0c27b9e](https://github.com/BePo65/mat-image-overlay/commit/0c27b9e5665587b93bd032443ecf554d353fa10c))
+
 ## [17.0.10](https://github.com/BePo65/mat-image-overlay/compare/v17.0.9...v17.0.10) (2025-05-03)
 
 ## [17.0.9](https://github.com/BePo65/mat-image-overlay/compare/v17.0.8...v17.0.9) (2025-05-03)

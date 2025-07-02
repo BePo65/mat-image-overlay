@@ -1,5 +1,5 @@
 # Mat-Image-Overlay
-![Version](https://img.shields.io/badge/version-17.0.10-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-17.0.11-blue.svg?cacheSeconds=2592000)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kefranabg/readme-md-generator/blob/master/LICENSE)
 ![Angular version](https://img.shields.io/github/package-json/dependency-version/bepo65/mat-image-overlay/@angular/core?color=red&label=Angular&logo=angular&logoColor=red)
 ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/bepo65/mat-image-overlay/@angular/material?color=red&label=Angular-Material&logo=angular&logoColor=red)
