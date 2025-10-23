@@ -74,7 +74,7 @@
     "@typescript-eslint/parser": "^8.46.2",
     "commit-and-tag-version": "^12.6.0",
     "cpy-cli": "^6.0.0",
-    "cypress": "^14.5.4",
+    "cypress": "^15.5.0",
     "cypress-real-events": "^1.15.0",
     "del-cli": "^7.0.0",
     "eslint": "^8.57.1",
