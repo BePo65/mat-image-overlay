@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.0.12](https://github.com/BePo65/mat-image-overlay/compare/v17.0.11...v17.0.12) (2025-10-23)
+
 ## [17.0.11](https://github.com/BePo65/mat-image-overlay/compare/v17.0.10...v17.0.11) (2025-07-02)
 
 
