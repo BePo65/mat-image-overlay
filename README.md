@@ -1,8 +1,8 @@
 # Mat-Image-Overlay
-[![Version](https://img.shields.io/badge/version-17.0.11-blue.svg?cacheSeconds=2592000)](https://github.com/BePo65/mat-image-overlay/blob/main/CHANGELOG.md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/kefranabg/readme-md-generator/blob/master/LICENSE)
-![Angular version](https://img.shields.io/github/package-json/dependency-version/bepo65/mat-image-overlay/@angular/core?color=red&label=Angular&logo=angular&logoColor=red)
-![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/bepo65/mat-image-overlay/@angular/material?color=red&label=Angular-Material&logo=angular&logoColor=red)
+[![Version](https://img.shields.io/badge/version-17.0.11-blue.svg?cacheSeconds=86400)](https://github.com/BePo65/mat-image-overlay/blob/main/CHANGELOG.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?cacheSeconds=86400)](https://github.com/BePo65/mat-image-overlay/blob/main/LICENSE)
+[![Angular version](https://img.shields.io/github/package-json/dependency-version/bepo65/mat-image-overlay/@angular/core?color=red&label=Angular&logo=angular&logoColor=red)](https://v17.angular.io/docs)
+[![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/bepo65/mat-image-overlay/@angular/material?color=red&label=Angular-Material&logo=angular&logoColor=red)](https://v17.material.angular.dev/components/categories)
 
 An [Angular Material](https://material.angular.io/) based standalone component that shows images in an overlay.
 The component is based on Rafasantos [angular-material-image-overlay](https://github.com/rafasantos/angular-material-image-overlay).
@@ -424,3 +424,7 @@ This project uses the fonts '[Roboto](https://fonts.google.com/specimen/Roboto/a
 As `eslint` V9 is not supported by angular@17 and also requires a fundamental change to the configuration files, the update will be done in a later version.
 
 As a consequence the package `eslint-plugin-cypress` cannot be updated to a version 4.x (as this version has a peerDependency of eslint >= 9).
+
+`cypress` cannot be updated to v15.x as it no longer supports webpack v4.x (angular v18 will switch away from webpack).
+
+`@cypress/schematic` cannot be updated to v4.x, as this requires angular v18.x.
