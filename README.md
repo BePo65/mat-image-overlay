@@ -414,7 +414,7 @@ For details of the commit messages format see [Contributing to Angular](https://
 
 # License
 
-Copyright © 2024 [Bernhard Pottler](https://github.com/BePo65).
+Copyright © 2025 [Bernhard Pottler](https://github.com/BePo65).
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
