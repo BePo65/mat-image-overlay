@@ -42,7 +42,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       descriptionDisplayStyle: ElementDisplayStyle.onHover
-    } as MatImageOverlayConfig;
+    };
 
     const imageOverlayRef = fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -67,7 +67,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
   it('should load image overlay with empty image list', async () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider([])
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -78,7 +78,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
   it('should throw on opening 2nd image overlay instance', async () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     expect(() => fixture.componentInstance.open(config)).not.toThrow();
     const overlayHarnesses = await loader.getAllHarnesses(MatImageOverlayHarness);
@@ -93,7 +93,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       overlayButtonsStyle: ElementDisplayStyle.never
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -108,7 +108,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       overlayButtonsStyle: ElementDisplayStyle.always
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -124,7 +124,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       overlayButtonsStyle: ElementDisplayStyle.onHover,
       startImageIndex: 1
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -145,7 +145,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       overlayButtonsStyle: ElementDisplayStyle.onHover
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -171,7 +171,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
   it('should close image overlay from harness', async () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -185,7 +185,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       overlayButtonsStyle: ElementDisplayStyle.always
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -198,7 +198,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
   it('should close image overlay by clicking the backdrop', async () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -212,7 +212,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       overlayButtonsStyle: ElementDisplayStyle.always
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -228,7 +228,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       overlayButtonsStyle: ElementDisplayStyle.always,
       startImageIndex: 0
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -252,7 +252,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       overlayButtonsStyle: ElementDisplayStyle.always,
       startImageIndex: stringImages.length - 1
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -267,7 +267,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       descriptionDisplayStyle: ElementDisplayStyle.never
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -280,7 +280,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       descriptionDisplayStyle: ElementDisplayStyle.always
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -292,7 +292,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
   it('should navigate with buttons', async () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -316,7 +316,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
   it('should navigate with keys', async () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -358,7 +358,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
   it('should navigate with overlay-ref', async () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     const overlay = fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -397,7 +397,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const imageGotClickedData: Record<string, unknown>[] = [];
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     const imageOverlayRef = fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -427,7 +427,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: imageProvider,
       imageClickedAdditionalData: { additionalData: 42 }
-    } as MatImageOverlayConfig;
+    };
 
     const imageOverlayRef = fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -458,7 +458,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const imageGotClickedData: Record<string, unknown>[] = [];
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     const imageOverlayRef = fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -492,7 +492,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
   it('should send keys', async () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages)
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -512,7 +512,7 @@ describe('MatImageOverlay with Harness and string array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: new StringSourceImageDetailsProvider(stringImages),
       backdropClass: sampleCssClass
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -554,7 +554,7 @@ describe('MatImageOverlay with Harness and object array source', () => {
     imageProvider.baseUrl = 'https://picsum.photos/id/';
     const config: MatImageOverlayConfig = {
       imageDetails: imageProvider
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -568,7 +568,7 @@ describe('MatImageOverlay with Harness and object array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: imageProvider,
       descriptionDisplayStyle: ElementDisplayStyle.onHover
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -591,7 +591,7 @@ describe('MatImageOverlay with Harness and object array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: imageProvider,
       descriptionDisplayStyle: ElementDisplayStyle.always
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);
@@ -611,7 +611,7 @@ describe('MatImageOverlay with Harness and object array source', () => {
     const config: MatImageOverlayConfig = {
       imageDetails: imageProvider,
       descriptionDisplayStyle: ElementDisplayStyle.always
-    } as MatImageOverlayConfig;
+    };
 
     fixture.componentInstance.open(config);
     const overlayHarness = await loader.getHarness(MatImageOverlayHarness);

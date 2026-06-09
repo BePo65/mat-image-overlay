@@ -104,7 +104,7 @@ export class AppComponent {
     let loopIndex = 1;
     const timerId = setInterval(() => {
       loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
-    }, 2000) as unknown as number;
+    }, 2000);
 
     // Kill loop, when overlay is manually closed (e.g. by clicking the backdrop)
     imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId));
@@ -141,7 +141,7 @@ export class AppComponent {
     let loopIndex = 1;
     const timerId = setInterval(() => {
       loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
-    }, 2000) as unknown as number;
+    }, 2000);
 
     // Kill loop, when overlay is manually closed (e.g. by clicking the backdrop)
     imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId));
