@@ -528,7 +528,7 @@ export class MatImageOverlayComponent implements AfterContentInit, AfterViewInit
     this.mainImageMaxDimensionStyle = {
       'max-height.px': Math.max(height - (2 * this.imageMargin), 0),
       'max-width.px': Math.max(width - (2 * this.imageMargin), 0)
-    } as ImageMaxDimensionsStyle;
+    };
   }
 
   /**
@@ -541,7 +541,7 @@ export class MatImageOverlayComponent implements AfterContentInit, AfterViewInit
     this.plainImageMaxDimensionStyle = {
       'max-height.px': Math.max(height - (2 * this.imageMargin), 0),
       'max-width.px': Math.max(width - (2 * this.imageMargin), 0)
-    } as ImageMaxDimensionsStyle;
+    };
   }
 
   /**

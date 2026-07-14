@@ -20,7 +20,7 @@ import {
 
 enum ElementBackdropClass {
   none = '',
-  red ='backdrop-red',
+  red = 'backdrop-red',
   blue = 'backdrop-blue',
   green = 'backdrop-green'
 }
@@ -47,7 +47,7 @@ export class AppComponent {
   protected elementBackdropClass = ElementBackdropClass;
   protected thumbnailHeight = 100;
 
-  protected  optionsForm = this.formBuilder.group({
+  protected optionsForm = this.formBuilder.group({
     buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
     descriptionStyle: [ElementDisplayStyle.never, [Validators.required]],
     descriptionPosition: [ElementDisplayPosition.bottomRight, [Validators.required]],
@@ -68,7 +68,8 @@ export class AppComponent {
     {
       id: '1015',
       width: Math.round(1000 / 4000 * 6000), height: 1000,
-      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.' }
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+    }
   ];
 
   private baseUrlForObjectImages = 'https://picsum.photos/id/';
@@ -104,7 +105,7 @@ export class AppComponent {
     let loopIndex = 1;
     const timerId = setInterval(() => {
       loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
-    }, 2000) as unknown as number;
+    }, 2000);
 
     // Kill loop, when overlay is manually closed (e.g. by clicking the backdrop)
     imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId));
@@ -141,7 +142,7 @@ export class AppComponent {
     let loopIndex = 1;
     const timerId = setInterval(() => {
       loopIndex = this.switchImages(loopIndex, imageOverlayRef, timerId);
-    }, 2000) as unknown as number;
+    }, 2000);
 
     // Kill loop, when overlay is manually closed (e.g. by clicking the backdrop)
     imageOverlayRef.afterClosed().subscribe(() => clearTimeout(timerId));
@@ -212,7 +213,7 @@ export class AppComponent {
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
-      imageClickedAdditionalData: { sampleValue: 'demo parameter for overlay demo'}
+      imageClickedAdditionalData: { sampleValue: 'demo parameter for overlay demo' }
     };
     const backdropClass = this.optionsForm.controls['backdropClass'].value as string;
     if (backdropClass !== '') {
@@ -237,7 +238,7 @@ export class AppComponent {
    * @param timerId - id of the timer used to trigger the commands (used to stop it)
    * @returns loopIndex to be used next time
    */
-  private switchImages(loopIndex: number, imageOverlayRef: MatImageOverlayRef, timerId: number): number {
+  private switchImages(loopIndex: number, imageOverlayRef: MatImageOverlayRef, timerId: ReturnType<typeof setTimeout>): number {
     switch (loopIndex) {
       case 1:
         console.log(`${(new Date()).toLocaleTimeString()} - goto next image (2nd)`);
