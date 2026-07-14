@@ -128,5 +128,11 @@
         "updater": "tools/npm-scripts/readme-updater.js"
       }
     ]
+  },
+  "allowScripts": {
+    "cypress@14.5.4": true,
+    "esbuild@0.20.1": true,
+    "esbuild@0.21.5": true,
+    "unrs-resolver@1.12.2": true
   }
 }
