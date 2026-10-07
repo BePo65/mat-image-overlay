@@ -377,7 +377,12 @@ Run end to end tests for the demo project with cypress once (e.g. for CI scenari
 ```
 npm run e2e
 ```
-The script 'build:ghpages' is used by the github automation to publish the demo to github pages, when the master branch is updated.
+
+The script `build:ghpages` is used by the github automation to publish the demo to github pages, when the master branch is updated.
+
+The script `start` builds and starts the demo application and opens it in the default browser.
+
+The script `start:dev` builds and starts the demo application and rebuilds it, when the source changes. It does not open the application in the default browser. Used for debugging using the IDE.
 
 # Contributing
 ## Changelog
