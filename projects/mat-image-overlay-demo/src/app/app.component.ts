@@ -45,13 +45,15 @@ export class AppComponent {
   protected elementDisplayStyle = ElementDisplayStyle;
   protected elementDisplayPosition = ElementDisplayPosition;
   protected elementBackdropClass = ElementBackdropClass;
+  protected elementImageMargin = 16;
   protected thumbnailHeight = 100;
 
   protected optionsForm = this.formBuilder.group({
     buttonStyle: [ElementDisplayStyle.onHover, [Validators.required]],
     descriptionStyle: [ElementDisplayStyle.never, [Validators.required]],
     descriptionPosition: [ElementDisplayPosition.bottomRight, [Validators.required]],
-    backdropClass: [ElementBackdropClass.none, []]
+    backdropClass: [ElementBackdropClass.none, []],
+    imageMargin: [16, []]
   });
 
   protected stringImages = [
@@ -209,7 +211,7 @@ export class AppComponent {
     const config: MatImageOverlayConfig = {
       imageDetails: imageDetailsProvider,
       startImageIndex: startIndex,
-      margin: 72,
+      margin: this.optionsForm.controls['imageMargin'].value,
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,

@@ -1,5 +1,6 @@
 <h1 class="title">Demo project for mat-image-overlay</h1>
-<p class="description">A component for Angular using Angular Material that shows images as overlays.<br>The project contains a library component and a demo project.</p>
+<p class="description">A component for Angular using Angular Material that shows images as overlays.<br>The project
+  contains a library component and a demo project.</p>
 <p class="source-link">
   <span>Source on github: </span>
   <a href="https://github.com/BePo65/mat-image-overlay">BePo65/mat-image-overlay</a>
@@ -10,7 +11,8 @@
       <h3 class="container-title">Demo 1 - string array as image source</h3>
       <div class="image-selection" data-cy="demo-1">
         <ng-template ngFor let-imageUrl [ngForOf]="stringImages" let-imageIndex="index">
-          <img class="image-link image-preview" height="100" [src]="imageUrl" (click)="openOverlayDemo1Image(imageIndex)">
+          <img class="image-link image-preview" height="100" [src]="imageUrl"
+            (click)="openOverlayDemo1Image(imageIndex)">
         </ng-template>
       </div>
       <p class="actions" data-cy="demo-1-action">
@@ -21,11 +23,11 @@
     <div class="image-preview-container next-container">
       <h3 class="container-title">Demo 2 - object array as image source</h3>
       <div class="image-selection" data-cy="demo-2">
-        <ng-template ngFor let-imageData [ngForOf]="objectImages" let-imageIndex="index" [ngForTrackBy]="trackByImageId">
-          <img class="image-link image-preview" [src]="urlForObjectImagesPreview(imageIndex)"
-               [height]="thumbnailHeight" [width]="thumbnailWidth(imageIndex)"
-               [alt]="imageDescription(imageIndex)" [title]="imageDescription(imageIndex)"
-               (click)="openOverlayDemo2Image(imageIndex)">
+        <ng-template ngFor let-imageData [ngForOf]="objectImages" let-imageIndex="index"
+          [ngForTrackBy]="trackByImageId">
+          <img class="image-link image-preview" [src]="urlForObjectImagesPreview(imageIndex)" [height]="thumbnailHeight"
+            [width]="thumbnailWidth(imageIndex)" [alt]="imageDescription(imageIndex)"
+            [title]="imageDescription(imageIndex)" (click)="openOverlayDemo2Image(imageIndex)">
         </ng-template>
       </div>
       <p class="actions" data-cy="demo-2-action">
@@ -36,7 +38,8 @@
     <div class="image-preview-container next-container">
       <h3 class="container-title">Demo 3 - overlay image with minimal configuration</h3>
       <div class="image-selection">
-        <a href="#" (click)="openMinimalConfigImageOverlay()" title="click to open first image" data-cy="open-min-config">
+        <a href="#" (click)="openMinimalConfigImageOverlay()" title="click to open first image"
+          data-cy="open-min-config">
           <img class="image-link" height="100" src="assets/minimalConfigDemo.jpg">
         </a>
       </div>
@@ -66,7 +69,8 @@
             {{style.key}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="optionsForm.controls['descriptionStyle'].touched && optionsForm.controls['descriptionStyle'].invalid">
+        <mat-error
+          *ngIf="optionsForm.controls['descriptionStyle'].touched && optionsForm.controls['descriptionStyle'].invalid">
           <span *ngIf="optionsForm.controls['descriptionStyle'].errors?.['required']">This field is mandatory.</span>
         </mat-error>
       </mat-form-field>
@@ -77,16 +81,27 @@
             {{position.key}}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="optionsForm.controls['descriptionPosition'].touched && optionsForm.controls['descriptionPosition'].invalid">
+        <mat-error
+          *ngIf="optionsForm.controls['descriptionPosition'].touched && optionsForm.controls['descriptionPosition'].invalid">
           <span *ngIf="optionsForm.controls['descriptionPosition'].errors?.['required']">This field is mandatory.</span>
         </mat-error>
       </mat-form-field>
       <mat-form-field class="form-field" appearance="outline">
         <mat-label>backdropClass of overlay</mat-label>
         <mat-select formControlName="backdropClass">
-          <mat-option *ngFor="let backdropClass of elementBackdropClass | stringEnumToArray" [value]="backdropClass.value">
+          <mat-option *ngFor="let backdropClass of elementBackdropClass | stringEnumToArray"
+            [value]="backdropClass.value">
             {{backdropClass.key}}
           </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>margin around image</mat-label>
+        <mat-select formControlName="imageMargin">
+          <mat-option [value]=0>0px</mat-option>
+          <mat-option [value]=16>16px</mat-option>
+          <mat-option [value]=32>32px</mat-option>
+          <mat-option [value]=72>72px</mat-option>
         </mat-select>
       </mat-form-field>
     </form>
