@@ -211,7 +211,7 @@ export class AppComponent {
     const config: MatImageOverlayConfig = {
       imageDetails: imageDetailsProvider,
       startImageIndex: startIndex,
-      margin: this.optionsForm.controls['imageMargin'].value,
+      margin: Number(this.optionsForm.controls['imageMargin'].value),
       overlayButtonsStyle: this.optionsForm.controls['buttonStyle'].value as ElementDisplayStyle,
       descriptionDisplayStyle: this.optionsForm.controls['descriptionStyle'].value as ElementDisplayStyle,
       descriptionDisplayPosition: this.optionsForm.controls['descriptionPosition'].value as ElementDisplayPosition,
