@@ -7,6 +7,8 @@
 An [Angular Material](https://material.angular.io/) based standalone component that shows images in an overlay.
 The component is based on Rafasantos [angular-material-image-overlay](https://github.com/rafasantos/angular-material-image-overlay).
 
+The images will be resized to match the overlay size (using a configurable margin on all sides).
+
 ## Demo
  Try out the [demo page](https://bepo65.github.io/mat-image-overlay/).
 
