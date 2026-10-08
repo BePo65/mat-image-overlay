@@ -9,6 +9,14 @@ The component is based on Rafasantos [angular-material-image-overlay](https://gi
 
 The images will be resized to match the overlay size (using a configurable margin on all sides).
 
+Sequence for loading an image:
+1. display a gray rectangle with the dimensions of the final image
+2. request the thumbnail for the final image from the server
+3. fade in the thumbnail, when it arrives from the server
+4. request the final image from the server
+5. fade in the final image, when it arrives from the server
+6. hide the thumbnail
+
 ## Demo
  Try out the [demo page](https://bepo65.github.io/mat-image-overlay/).
 
