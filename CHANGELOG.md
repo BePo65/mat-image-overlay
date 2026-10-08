@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [17.1.0](https://github.com/BePo65/mat-image-overlay/compare/v17.0.13...v17.1.0) (2026-10-08)
+
+### Features
+
+* make margin a selectable option in demo page ([3463ecc](https://github.com/BePo65/mat-image-overlay/commit/3463ecccda3455a607220bffa10d0e4543e54642))
+
+### Bug Fixes
+
+* assignement of imageMargin as number ([d7c38ce](https://github.com/BePo65/mat-image-overlay/commit/d7c38ce1ef88db647b3431c27172dd74f152617a))
+* change type of setTimeout-parameter ([e4bbe8a](https://github.com/BePo65/mat-image-overlay/commit/e4bbe8a920d5641296eee9da35a1bb5835f10f82))
+* firefox cannot animate css display attribute ([98ce9e3](https://github.com/BePo65/mat-image-overlay/commit/98ce9e3ef7dc5b1c09f5aa5b58b531f0ca6de041))
+* hide thumbnail after main image is loaded - fixes issue [#544](https://github.com/BePo65/mat-image-overlay/issues/544) ([bd13594](https://github.com/BePo65/mat-image-overlay/commit/bd13594a835b95f66c477b20b8a486fab7c5d11d))
+
 ## [17.0.13](https://github.com/BePo65/mat-image-overlay/compare/v17.0.12...v17.0.13) (2026-04-04)
 
 
