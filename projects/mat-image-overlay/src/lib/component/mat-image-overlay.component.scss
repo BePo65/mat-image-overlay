@@ -35,7 +35,14 @@
 
 @keyframes delayed-hide {
   to {
+    /* Chrome and Safari can animate display attribute */
     display: none;
+
+    /* Firefox cannot animate display attribute,
+       so we just take the thumbnail out of document flow
+     */
+    opacity: 0;
+    position:absolute;
   }
 }
 
@@ -53,7 +60,7 @@ img.thumbnail-image:has(+ img.main-image[data-loaded="true"]) {
 /* Thumbnail is hidden, when main image is loaded, so main image
    must be added to the normal document flow, to set size of
    overlay-wrapper. Otherwise the size will be 0x0.
-*/
+ */
 img.main-image[data-loaded="true"] {
   animation: delayed-position 0s linear 0.2s forwards;
 }
