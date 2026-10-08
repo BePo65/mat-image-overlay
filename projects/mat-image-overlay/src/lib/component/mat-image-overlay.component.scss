@@ -13,22 +13,49 @@
   position: relative;
 }
 
+.thumbnail-image {
+  filter: blur(30px);
+}
+
 .main-image {
   inset: 0;
   position: absolute;
 }
 
-.thumbnail-image {
-  filter: blur(30px);
-}
-
+/* Zoom in of plain image */
 .plain-image {
   transition: max-height 0.3s ease, max-width 0.3s ease;
 }
 
+/* Fade in of images, when using progressive loading */
 .overlay-wrapper img[data-loaded="true"] {
   opacity: 1;
   transition: opacity 0.2s ease;
+}
+
+@keyframes delayed-hide {
+  to {
+    display: none;
+  }
+}
+
+/* Hide thumbnail, when main image is loaded */
+img.thumbnail-image:has(+ img.main-image[data-loaded="true"]) {
+  animation: delayed-hide 0s linear 0.2s forwards;
+}
+
+@keyframes delayed-position {
+  to {
+    position: relative;
+  }
+}
+
+/* Thumbnail is hidden, when main image is loaded, so main image
+   must be added to the normal document flow, to set size of
+   overlay-wrapper. Otherwise the size will be 0x0.
+*/
+img.main-image[data-loaded="true"] {
+  animation: delayed-position 0s linear 0.2s forwards;
 }
 
 .img-description {
