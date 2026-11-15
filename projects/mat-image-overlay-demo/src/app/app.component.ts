@@ -57,24 +57,23 @@ export class AppComponent {
   });
 
   protected stringImages = [
-    'https://picsum.photos/id/30/1024/768',
-    'https://picsum.photos/id/201/800/600',
-    'https://picsum.photos/id/63/1800/1600',
-    'https://picsum.photos/id/525/1440/900'
+    'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-landscape.jpg',
+    'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-panoramic.jpg',
+    'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-portrait.jpg',
+    'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-square.jpg'
   ];
 
   protected objectImages: ImageDetailsObject[] = [
-    { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
-    { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
-    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
+    { id: 'image-landscape', width: 1333, height: 1000, description: 'Munich' },
+    { id: 'image-panoramic', width: 2028, height: 1000, description: 'Grubigstein' },
+    { id: 'image-portrait', width: 750, height: 1000 },
     {
-      id: '1015',
-      width: Math.round(1000 / 4000 * 6000), height: 1000,
+      id: 'image-square', width: 1000, height: 1000,
       description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
     }
   ];
 
-  private baseUrlForObjectImages = 'https://picsum.photos/id/';
+  private baseUrlForObjectImages = 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/';
   private stringSourceImageDetailsProvider = new StringSourceImageDetailsProvider(this.stringImages);
   private objectSourceImageDetailsProvider = new ObjectSourceImageDetailsProvider(this.objectImages, this.baseUrlForObjectImages, this.thumbnailHeight);
 
