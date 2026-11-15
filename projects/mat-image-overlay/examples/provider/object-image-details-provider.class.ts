@@ -11,15 +11,15 @@ export type ImageDetailsObject = {
 // Example of a images list that could be used for  the site 'https://picsum.photos/'.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const objectImages: ImageDetailsObject[] = [
-    { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
-    { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
-    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
-    {
-      id: '1015',
-      width: Math.round(1000 / 4000 * 6000), height: 1000,
-      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
-    }
-  ];
+  { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
+  { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
+  { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
+  {
+    id: '1015',
+    width: Math.round(1000 / 4000 * 6000), height: 1000,
+    description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+  }
+];
 
 /**
  * Example for an image provider that can resize images on the server side.
@@ -28,42 +28,6 @@ const objectImages: ImageDetailsObject[] = [
  * The details of an image are defined in objects of type 'ImageDetailsObject'.
  */
 export class ObjectSourceImageDetailsProvider extends MatImageDetailsProvider implements ThumbnailProvider {
-  // eslint-disable-next-line jsdoc/require-returns
-  /** Base url to be used by method 'urlForImage' */
-  public get baseUrl() : string {
-    return this._baseUrl;
-  }
-  public set baseUrl(value: string) {
-    // The internal representation of the baseUrl must end with a slash!
-    if (value && (typeof value === 'string') && (value.length > 0)) {
-      this._baseUrl = value;
-      if (!value.endsWith('/')) {
-        this._baseUrl += '/';
-      }
-    } else {
-      throw new Error(`The baseUrl must be a non-empty string (given value is '${value}')`);
-    }
-  }
-  private _baseUrl = '';
-
-  public get thumbnailHeight() : number {
-    return this._thumbnailHeight;
-  }
-  public set thumbnailHeight(value : number) {
-    if (value && !Number.isNaN(value) && (value > 0)) {
-      this._thumbnailHeight = value;
-    } else {
-      throw new Error(`The thumbnailHeight must be a number greater than 0 (given value is '${value}')`);
-    }
-  }
-  private _thumbnailHeight = 20;
-
-  private images: ImageDetailsObject[] = [];
-
-  get numberOfImages() {
-    return this.images.length;
-  }
-
   constructor(images: ImageDetailsObject[], baseUrl?: string, thumbnailHeight?: number) {
     super();
     if (images && Array.isArray(images)) {
@@ -79,6 +43,42 @@ export class ObjectSourceImageDetailsProvider extends MatImageDetailsProvider im
     if (thumbnailHeight && !Number.isNaN(+thumbnailHeight) && (+thumbnailHeight > 0)) {
       this.thumbnailHeight = thumbnailHeight;
     }
+  }
+
+  // eslint-disable-next-line jsdoc/require-returns
+  /** Base url to be used by method 'urlForImage' */
+  public get baseUrl(): string {
+    return this._baseUrl;
+  }
+  public set baseUrl(value: string) {
+    // The internal representation of the baseUrl must end with a slash!
+    if (value && (typeof value === 'string') && (value.length > 0)) {
+      this._baseUrl = value;
+      if (!value.endsWith('/')) {
+        this._baseUrl += '/';
+      }
+    } else {
+      throw new Error(`The baseUrl must be a non-empty string (given value is '${value}')`);
+    }
+  }
+  private _baseUrl = '';
+
+  public get thumbnailHeight(): number {
+    return this._thumbnailHeight;
+  }
+  public set thumbnailHeight(value: number) {
+    if (value && !Number.isNaN(value) && (value > 0)) {
+      this._thumbnailHeight = value;
+    } else {
+      throw new Error(`The thumbnailHeight must be a number greater than 0 (given value is '${value}')`);
+    }
+  }
+  private _thumbnailHeight = 20;
+
+  private images: ImageDetailsObject[] = [];
+
+  get numberOfImages() {
+    return this.images.length;
   }
 
   /**
