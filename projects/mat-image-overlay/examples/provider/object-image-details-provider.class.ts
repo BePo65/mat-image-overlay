@@ -9,6 +9,7 @@ export type ImageDetailsObject = {
 }
 
 // Example of a images list that could be used for  the site 'https://picsum.photos/'.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const objectImages: ImageDetailsObject[] = [
     { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
     { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
