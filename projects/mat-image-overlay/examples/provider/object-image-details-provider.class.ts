@@ -8,6 +8,25 @@ export type ImageDetailsObject = {
   [otherOptions: string]: unknown;
 }
 
+// Example of a images list that could be used for  the site 'https://picsum.photos/'.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const objectImages: ImageDetailsObject[] = [
+    { id: '1000', width: Math.round(1000 / 3635 * 5626), height: 1000, description: 'picture 1' },
+    { id: '1014', width: 1000, height: 1000, description: 'picture 2' },
+    { id: '102', width: Math.round(1000 / 3240 * 4320), height: 1000 },
+    {
+      id: '1015',
+      width: Math.round(1000 / 4000 * 6000), height: 1000,
+      description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+    }
+  ];
+
+/**
+ * Example for an image provider that can resize images on the server side.
+ * The url configuration looks like "baseurl/<imageId>/<width>/<height>" and
+ * the baseUrl is 'https://picsum.photos/id/' (as used by https://picsum.photos/).
+ * The details of an image are defined in objects of type 'ImageDetailsObject'.
+ */
 export class ObjectSourceImageDetailsProvider extends MatImageDetailsProvider implements ThumbnailProvider {
   // eslint-disable-next-line jsdoc/require-returns
   /** Base url to be used by method 'urlForImage' */
@@ -75,7 +94,7 @@ export class ObjectSourceImageDetailsProvider extends MatImageDetailsProvider im
   /**
    * Get the url for an image from the array of images.
    * This examples uses url for the site 'lorem picsum':
-   * 'baseurl/id/imageId/width/height'
+   * 'baseurl/imageId/width/height'
    * @param imageIndex - index of the image to get the url for (0-based)
    * @returns the url of the image
    */
@@ -91,7 +110,7 @@ export class ObjectSourceImageDetailsProvider extends MatImageDetailsProvider im
   /**
    * Get the url for a thumbnail image from the array of images.
    * This examples uses url for the site 'lorem picsum':
-   * 'baseurl/id/imageId/width/height'
+   * 'baseurl/imageId/width/height'
    * @param imageIndex - index of the thumbnail to get the url for (0-based)
    * @returns the url of the thumbnail image
    */
