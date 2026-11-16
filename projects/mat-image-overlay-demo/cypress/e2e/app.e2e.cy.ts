@@ -30,20 +30,27 @@ describe('Demo page - base page', () => {
       .should('be.visible')
       .contains('Open first image in overlay');
 
-    cy.get('.form-field').should('have.length', 4);
+    cy.get('.form-field').should('have.length', 5);
   });
 
   it('shows image with specific source as first image for demo 1', () => {
     cy.get('div[data-cy=demo-1] img')
       .first()
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/30/1024/768');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-landscape.jpg');
   });
 
   it('shows image with specific source as second image for demo 2', () => {
     cy.get('div[data-cy=demo-2] img:nth-child(2)')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/1014/100/100');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-panoramic_thumb.jpg');
+  });
+
+  it('shows image with specific source as second image for demo 3', () => {
+    cy.get('div[data-cy=demo-3] img')
+      .first()
+      .should('have.attr', 'src')
+      .should('include', 'assets/minimalConfigDemo.jpg');
   });
 });
 
@@ -60,7 +67,7 @@ describe('Demo page - demo 1', () => {
 
     cy.get('img.plain-image[data-loaded="true"]')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/30/1024/768');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-landscape.jpg');
   });
 
   it('shows overlay clicking on third image', () => {
@@ -70,7 +77,7 @@ describe('Demo page - demo 1', () => {
 
     cy.get('img.plain-image[data-loaded="true"]')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/63/1800/1600');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-portrait.jpg');
   });
 
   it('shows overlay clicking on link below the images', () => {
@@ -80,7 +87,7 @@ describe('Demo page - demo 1', () => {
 
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/30/1024/768');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-landscape.jpg');
   });
 
   it('switches to 3rd image in overlay with arrow keys', () => {
@@ -92,13 +99,13 @@ describe('Demo page - demo 1', () => {
     cy.get('body').type('{rightarrow}');
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/201/800/600');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-panoramic.jpg');
 
     // show next image
     cy.get('body').type('{rightarrow}');
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/63/1800/1600');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-portrait.jpg');
   });
 
   it('switches to 3rd image in overlay with buttons', () => {
@@ -118,7 +125,7 @@ describe('Demo page - demo 1', () => {
     // Correct image should be visible
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/63/1800/1600');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-portrait.jpg');
   });
 
   it('closes overlay with close button', () => {
@@ -146,7 +153,7 @@ describe('Demo page - demo 1', () => {
     cy.get('body').type('{rightarrow}');
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/201/800/600');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-panoramic.jpg');
 
     // Type esc character
     cy.get('body').type('{esc}');
@@ -166,12 +173,12 @@ describe('Demo page - demo 2', () => {
     // Show thumbnail
     cy.get('img.thumbnail-image[data-loaded="true"]')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/1000/155/100');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-landscape_thumb.jpg');
 
     // Show main image
     cy.get('img.main-image[data-loaded="true"]')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/1000/1548/1000');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-landscape.jpg');
   });
 
   it('shows external navigation in overlay clicking on link below the images', () => {
@@ -189,7 +196,7 @@ describe('Demo page - demo 2', () => {
     cy.get('.cdk-overlay-container').should('be.visible');
 
     // Wait for overlay to close
-    cy.get('.cdk-overlay-container', {timeout: 20000}).should('not.be.visible');
+    cy.get('.cdk-overlay-container', { timeout: 20000 }).should('not.be.visible');
 
     // Check console output
     cy.then(() => {
@@ -221,7 +228,7 @@ describe('Demo page - demo 3', () => {
     cy.get('.cdk-overlay-container').should('be.visible');
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/30/1024/768');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-landscape.jpg');
   });
 
   it('shows overlay clicking on link below demo 3 image', () => {
@@ -231,7 +238,7 @@ describe('Demo page - demo 3', () => {
     cy.get('.cdk-overlay-container').should('be.visible');
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/30/1024/768');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-landscape.jpg');
   });
 
   it('switches to 3rd image in overlay', () => {
@@ -242,7 +249,7 @@ describe('Demo page - demo 3', () => {
     cy.get('body').type('{rightarrow}');
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/201/800/600');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-panoramic.jpg');
 
     // Hover to image to show buttons
     cy.get('img.overlay-image.plain-image')
@@ -255,7 +262,7 @@ describe('Demo page - demo 3', () => {
     // Correct image should be visible
     cy.get('img.overlay-image.plain-image')
       .should('have.attr', 'src')
-      .should('include', 'https://picsum.photos/id/63/1800/1600');
+      .should('include', 'https://bepo65.github.io/mat-image-overlay/assets/demo-images/image-portrait.jpg');
   });
 
   it('closes overlay with esc key', () => {
