@@ -67,7 +67,7 @@
     "@angular/cli": "^17.3.17",
     "@angular/compiler-cli": "^17.3.12",
     "@commitlint/cli": "^21.2.3",
-    "@commitlint/config-angular": "^21.2.3",
+    "@commitlint/config-angular": "^21.2.4",
     "@cypress/schematic": "^3.0.0",
     "@types/jasmine": "^7.0.0",
     "@types/node": "^24.13.3",
